@@ -10,17 +10,22 @@ public abstract class Account {
     
     public void addOperation(Operation operation) {
         this.operations.add(operation);
-        this.updateAccountBalance(operation.getAmount());
-    }
-    public void removeOperation(Operation operation){
-        this.operations.remove(operation);
-        this.updateAccountBalance(-operation.getAmount());
+        this.updateAccountBalance(operation.getRealAmount());
     }
     
+    public void removeOperation(Operation operation){
+        this.operations.remove(operation);
+        this.updateAccountBalance(operation.getRealAmount());
+    }
     
     public void updateAccountBalance(double amount) {
         this.accountBalance += amount;
     }
+    
+    /**
+     * FIXME que hace esto? deberia usar los montos parciales que tengo de 
+     * las operaciones y sumarlos al total. 
+     */
     public void consolidate() {
         this.updateAccountBalance(0);
     }

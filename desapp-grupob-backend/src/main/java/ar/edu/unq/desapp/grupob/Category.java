@@ -9,7 +9,7 @@ public class Category {
      */
     private String name;
     private List<SubCategory> subcategories;
-   
+
     /**
      * Constructor
      */
@@ -17,7 +17,7 @@ public class Category {
         this.name = name;
         this.subcategories = subcategories;
     }
-    
+
     /**
      * Gets & Sets
      */

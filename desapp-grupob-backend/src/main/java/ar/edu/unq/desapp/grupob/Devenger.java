@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupob;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.joda.*;
 
 public class Devenger {
 
@@ -25,7 +26,7 @@ public class Devenger {
     public double consolidateOperations() {
         double unConsolidatedTotalAmount = 0;
         for(Operation operation : this.unConsolidatedOperations) {
-            if(operation.reachedConsolidationDate(consolidationPeriod)) {
+            if(operation.reachedConsolidationDate(operation.getDate().plusDays(consolidationPeriod))) {
                 account.getOperations().add(operation);
                 unConsolidatedTotalAmount += operation.getAmount();
             }

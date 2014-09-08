@@ -1,7 +1,10 @@
 package ar.edu.unq.desapp.grupob;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
+/**
+ * @author damian, marcelo
+ */
 public class Operation {
     /*
      * PROPERTIES
@@ -9,96 +12,110 @@ public class Operation {
     private OperationType type;
     private Shift shift;
 
-    private Date date;
+    private DateTime date;
     private double amount;
-
+    private String concept;
+    
     private Invoice invoice;
 
     private Category category;
-    private SubCategory subcategory;
-    private String concept;
+
 
     private Account account;
+
     /*
      * CONSTRUCTORS
-     * 
      */
-    public Operation(OperationType type, Shift shift, Date date, double amount, 
-            Invoice invoice, Category category, SubCategory subcategory, 
-            String concept, Account account) {
+    public Operation(OperationType type, Shift shift, DateTime date,
+            double amount, Invoice invoice, Category category,
+            SubCategory subcategory, String concept, Account account) {
         this.type = type;
         this.shift = shift;
         this.date = date;
         this.amount = amount;
         this.invoice = invoice;
         this.category = category;
-        this.subcategory = subcategory;
         this.concept = concept;
         this.account = account;
     }
 
-    
-    public boolean reachedConsolidationDate(int consolidationPeriod) {
+    public boolean reachedConsolidationDate(DateTime limit) {
         // TODO comparar que fechaActual vs fechaOperacion = consolidationPeriod
         return false;
     }
-    
-    
+
+    /**
+     * Depending the OperationType of this (a.k.a Incomming/Outcomming),
+     * translate amount value to negative or positive.
+     */
+    public double getRealAmount() {
+        return this.getType().getValue(this.amount);
+    }
+
     /*
      * ACCESORS
      */
     public OperationType getType() {
         return type;
     }
+
     public void setType(OperationType type) {
         this.type = type;
     }
+
     public Shift getShift() {
         return shift;
     }
+
     public void setShift(Shift shift) {
         this.shift = shift;
     }
-    public Date getDate() {
+
+    public DateTime getDate() {
         return date;
     }
-    public void setDate(Date date) {
+
+    public void setDate(DateTime date) {
         this.date = date;
     }
-    public double getAmount() {
-        return amount;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+
     public Invoice getInvoice() {
         return invoice;
     }
+
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
+
     public Category getCategory() {
         return category;
     }
+
     public void setCategory(Category category) {
         this.category = category;
     }
-    public SubCategory getSubcategory() {
-        return subcategory;
-    }
-    public void setSubcategory(SubCategory subcategory) {
-        this.subcategory = subcategory;
-    }
+
     public String getConcept() {
         return concept;
     }
+
     public void setConcept(String concept) {
         this.concept = concept;
     }
+
     public Account getAccount() {
         return account;
     }
+
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }
