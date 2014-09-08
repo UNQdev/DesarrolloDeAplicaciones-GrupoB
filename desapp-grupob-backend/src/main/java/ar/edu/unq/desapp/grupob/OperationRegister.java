@@ -10,10 +10,11 @@ public class OperationRegister {
     public OperationRegister() {
         this.accounts = new ArrayList<Account>();
         this.accounts.add(new Cash());
-        this.accounts.add(new Bank());
+        this.accounts.add(new Bank(7));
         this.accounts.add(new CurrentAccount());
     }
 
+    
     public void registerOperation(Operation op) {
         op.getAccount().addOperation(op);
     }
@@ -25,10 +26,11 @@ public class OperationRegister {
         opModificada.getAccount().addOperation(opModificada);
     }
     
+    
     public void accountConsolidation() {
         for (Account account : accounts) {
-            account.updateAccountBalance();
-        }        
+            account.consolidate();
+        }
     }
 
 
@@ -41,7 +43,4 @@ public class OperationRegister {
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
-    
-    
-
 }
