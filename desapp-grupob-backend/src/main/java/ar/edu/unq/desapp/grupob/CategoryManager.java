@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupob;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,9 @@ public class CategoryManager {
 
     //Constructor.
 
-    public CategoryManager() { }
+    public CategoryManager() { 
+        this.categories = new ArrayList<Category>();
+    }
 
 
     //Gets & Sets.

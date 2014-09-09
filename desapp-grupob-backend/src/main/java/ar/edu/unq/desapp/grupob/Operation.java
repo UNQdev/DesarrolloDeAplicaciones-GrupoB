@@ -38,7 +38,6 @@ public class Operation {
     public boolean reachedConsolidationDate(DateTime limitDateOperation,
             DateTime currentDateTime) {
         return true;
-                //limitDateOperation.dayOfMonth().equals(currentDateTime.dayOfMonth());
     }
 
     /**

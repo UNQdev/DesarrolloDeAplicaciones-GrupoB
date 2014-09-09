@@ -1,7 +1,5 @@
 package ar.edu.unq.desapp.grupob.builders;
 
-import java.util.Date;
-
 import org.joda.time.DateTime;
 
 import ar.edu.unq.desapp.grupob.Invoice;

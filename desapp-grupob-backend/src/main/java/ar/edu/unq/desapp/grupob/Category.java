@@ -24,14 +24,9 @@ public class Category {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+
     public List<SubCategory> getSubcategories() {
         return subcategories;
-    }
-    public void setSubcategories(List<SubCategory> subcategories) {
-        this.subcategories = subcategories;
     }
     
     /**

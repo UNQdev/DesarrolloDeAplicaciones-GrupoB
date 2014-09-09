@@ -21,7 +21,7 @@ public class Bank extends Account {
 
     @Override
     public void removeOperation(Operation operation) {
-        if (this.operationIsConsolidated(operation)) {
+        if (!this.operationIsConsolidated(operation)) {
             super.getOperations().remove(operation);
             this.updateAccountBalance(operation.getRealAmount());
         } else {
@@ -30,7 +30,7 @@ public class Bank extends Account {
     }
 
     @Override
-    public void consolidate() {
+    public void consolidate(){
         double consolidatedAmount = this.devenger.consolidateOperations();
         this.updateAvailableAndAccrued(consolidatedAmount);
         this.updateAccountBalance(consolidatedAmount);

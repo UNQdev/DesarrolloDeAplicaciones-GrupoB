@@ -14,12 +14,12 @@ public abstract class Account {
         this.updateAccountBalance(operation.getRealAmount());
     }
 
-    public void removeOperation(Operation operation) {
+    public void removeOperation(Operation operation)  {
         this.operations.remove(operation);
         this.updateAccountBalance(operation.getRealAmount());
     }
 
-    public void updateAccountBalance(double amount) {
+    public void updateAccountBalance(double amount){
         this.accountBalance += amount;
     }
 

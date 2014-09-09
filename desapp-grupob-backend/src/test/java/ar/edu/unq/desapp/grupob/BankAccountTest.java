@@ -33,7 +33,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void TestBankAccountWithRemoveOperationConsolidated(){
+    public void TestBankAccountWithRemoveOperationConsolidated() {
         BankAccountBuilder builder = BankAccountBuilder.aBankAccountBuilder();
         Bank bank = builder.withConsolidationPeriod(6).build();
         Operation operation = mock(Operation.class);
@@ -41,7 +41,7 @@ public class BankAccountTest {
         when(operation.getDate()).thenReturn(DateTime.parse("2014-09-01T01:00"));
         
         bank.addOperation(operation);
-        bank.getDevenger().setCurrentDate(DateTime.parse("2014-09-07T01:00"));
+        bank.getDevenger().setCurrentDate(DateTime.parse("2014-09-06T01:00"));
         bank.consolidate();
         bank.removeOperation(operation);
         
