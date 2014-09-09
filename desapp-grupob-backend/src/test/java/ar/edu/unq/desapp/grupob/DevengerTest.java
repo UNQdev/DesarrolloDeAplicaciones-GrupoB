@@ -71,8 +71,8 @@ public class DevengerTest {
 
 	@Test
 	public void testConsolidationDateReached() {
-		DateTime operationDate = DateTime.parse("2014-09-09T01:00");
-		DateTime date = DateTime.parse("2014-09-14T01:00");
+		DateTime operationDate = DateTime.parse("2014-09-08T01:00");
+		DateTime date = DateTime.parse("2014-09-15T01:00");
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
 
@@ -87,7 +87,7 @@ public class DevengerTest {
 	
 	@Test
 	public void testConsolidationDateNOTReached() {
-		DateTime operationDate = DateTime.parse("2014-09-01T01:00");
+		DateTime operationDate = DateTime.parse("2014-09-05T01:00");
 		DateTime date = DateTime.parse("2014-09-04T01:00");
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
