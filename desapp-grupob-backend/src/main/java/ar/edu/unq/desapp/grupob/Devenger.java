@@ -65,8 +65,8 @@ public class Devenger {
      */
     public boolean reachedConsolidationDate(Operation operation) {
     	this.systemDate = DateTime.now();
-        return (this.getAccrualDate(operation).isBefore(this.systemDate)||
-        		this.getAccrualDate(operation).isEqual(this.systemDate));
+        return this.getAccrualDate(operation).getDayOfMonth()
+        		<= this.systemDate.getDayOfMonth();
     }
     /**
      *

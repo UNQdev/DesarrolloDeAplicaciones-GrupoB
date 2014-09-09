@@ -30,7 +30,29 @@ public class BankAccountTest {
         assertEquals(bank.getAvailable(), bank.getAccountBalance(), 0);
         assertEquals(bank.getAccrued(), 0, 0);
     }
+    /**
+     *
+     */
+    @Test
+    public void testAddOperation() {
+    	Operation operation = mock(Operation.class);
+        when(operation.getAmount()).thenReturn((double) 100);
 
+        List<Operation> unConsolidatedOperations = mock(List.class);
+        Devenger devenger = mock(Devenger.class);
+        /*
+         * TODO: Proper mock for addOperation stubbing
+         */
+//      when(devenger.addOperation(operation))
+        BankAccountBuilder builder = BankAccountBuilder.aBankAccountBuilder();
+        Bank bank = builder.build();
+        bank.addOperation(operation);
+        verify(unConsolidatedOperations, times(1)).add(operation);
+        assertEquals(bank.getAccrued(), operation.getAmount(), 0);
+    }
+    /**
+     *
+     */
     @Test
     public void testRemoveConsolidatedOperation() {
     	DateTime date = DateTime.parse("2014-09-01T01:00");
