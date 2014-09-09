@@ -35,11 +35,6 @@ public class Operation {
         this.account = account;
     }
 
-    public boolean reachedConsolidationDate(DateTime limitDateOperation,
-            DateTime currentDateTime) {
-        return limitDateOperation.getDayOfMonth() <= currentDateTime.getDayOfMonth();
-    }
-
     /**
      * Depending the OperationType of this (a.k.a Incomming/Outcomming),
      * translate amount value to negative or positive.

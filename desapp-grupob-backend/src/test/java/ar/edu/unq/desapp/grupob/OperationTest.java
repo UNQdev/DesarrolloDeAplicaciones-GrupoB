@@ -55,14 +55,4 @@ public class OperationTest {
 
         assertEquals(operation.getRealAmount(), -amount, 0);
     }
-    
-    @Test
-    public void testReachedConsolidationDate() {
-        OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.build();
-
-        DateTime limitDateOperation = DateTime.parse("2014-09-10T01:00");
-        DateTime currentDateTime =  DateTime.parse("2014-09-10T01:00");
-        assertTrue(operation.reachedConsolidationDate(limitDateOperation, currentDateTime));
-    }
 }
