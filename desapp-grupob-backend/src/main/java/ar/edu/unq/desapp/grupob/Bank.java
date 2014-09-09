@@ -6,6 +6,7 @@ public class Bank extends Account {
     private double available;
     private double accrued;
 
+    public Bank() {}
     public Bank(int days) {
         super();
         this.devenger = new Devenger(this, days);

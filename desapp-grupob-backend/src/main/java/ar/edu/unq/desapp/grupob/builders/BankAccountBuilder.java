@@ -5,7 +5,7 @@ import ar.edu.unq.desapp.grupob.Bank;
 public class BankAccountBuilder {
     
     // Access
-    public static BankAccountBuilder aBankAccountBuilder () {
+    public static BankAccountBuilder aBankAccountBuilder() {
         return new BankAccountBuilder();
     }
 

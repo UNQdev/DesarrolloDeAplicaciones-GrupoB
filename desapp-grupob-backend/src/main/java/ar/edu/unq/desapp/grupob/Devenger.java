@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupob;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.*;
 import org.joda.time.DateTime;
 
 public class Devenger {
@@ -11,32 +10,72 @@ public class Devenger {
     private Account account;
     private int consolidationPeriod;
     private List<Operation> unConsolidatedOperations;
-    private DateTime currentDate;
+	private DateTime systemDate;
 
+	/**
+	 *
+	 * @param account
+	 * @param days
+	 */
     public Devenger(Account account, int days) {
         this.account = account;
         this.consolidationPeriod = days;
         this.unConsolidatedOperations = new ArrayList<Operation>();
-        this.currentDate = DateTime.now();
     }
-
+    /**
+     *
+     * @param account
+     * @param days
+     * @param date
+     */
+    public Devenger(Account account, int days, DateTime date) {
+        this.account = account;
+        this.consolidationPeriod = days;
+        this.systemDate = date;
+        this.unConsolidatedOperations = new ArrayList<Operation>();
+    }
+    /**
+     *
+     * @param operation
+     */
     public void addOperation(Operation operation) {
         this.unConsolidatedOperations.add(operation);
     }
-
+    /**
+     *
+     * @param operation
+     */
     public void removeOperation(Operation operation) {
-        this.unConsolidatedOperations.remove(operation);
+    	if (this.unConsolidatedOperations.contains(operation)) {
+    		this.unConsolidatedOperations.remove(operation);
+    	}
     }
-
-    public DateTime getDeadlineToAccrueFromTheOperation(Operation op) {
-        return op.getDate().plusDays(consolidationPeriod);
+    /**
+     * 
+     * @param operation
+     * @return
+     */
+    public DateTime getAccrualDate(Operation operation) {
+        return operation.getDate().plusDays(consolidationPeriod);
     }
-
-    // FIXME testear si alcanzo la fecha -plusDays
+    /**
+     *
+     * @param operation
+     * @return
+     */
+    public boolean reachedConsolidationDate(Operation operation) {
+    	this.systemDate = DateTime.now();
+        return this.getAccrualDate(operation).getDayOfMonth()
+        		<= this.systemDate.getDayOfMonth();
+    }
+    /**
+     *
+     * @return
+     */
     public double consolidateOperations() {
         double unConsolidatedTotalAmount = 0;
-        for (Operation operation : this.unConsolidatedOperations) {
-            if (reachedConsolidationDate(operation)) {
+        for (Operation operation : unConsolidatedOperations) {
+            if (this.reachedConsolidationDate(operation)) {
                 account.getOperations().add(operation);
                 this.removeOperation(operation);
                 unConsolidatedTotalAmount += operation.getAmount();
@@ -45,35 +84,38 @@ public class Devenger {
         return unConsolidatedTotalAmount;
     }
 
-    private boolean reachedConsolidationDate(Operation operation) {
-        return operation.reachedConsolidationDate(
-                this.getDeadlineToAccrueFromTheOperation(operation),
-                this.getCurrentDate());
-    }
-
+    /*
+     * GETTERS & SETTERS
+     *
+     *
+     */
+    /**
+     *
+     * @return
+     */
     public int getConsolidationPeriod() {
         return consolidationPeriod;
     }
-
-    public void setConsolidationPeriod(int consolidationPeriod) {
-        this.consolidationPeriod = consolidationPeriod;
+    /**
+     *
+     * @param period
+     */
+    public void setConsolidationPeriod(int period) {
+        this.consolidationPeriod = period;
     }
-
+    /**
+     *
+     * @return
+     */
     public List<Operation> getUnConsolidatedOperations() {
         return unConsolidatedOperations;
     }
-
+    /**
+     *
+     * @param unConsolidatedOperations
+     */
     public void setUnConsolidatedOperations(
             List<Operation> unConsolidatedOperations) {
         this.unConsolidatedOperations = unConsolidatedOperations;
     }
-
-    public DateTime getCurrentDate() {
-        return currentDate;
-    }
-
-    public void setCurrentDate(DateTime currentDate) {
-        this.currentDate = currentDate;
-    }
-
 }
