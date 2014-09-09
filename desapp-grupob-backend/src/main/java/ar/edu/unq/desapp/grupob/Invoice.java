@@ -2,10 +2,12 @@ package ar.edu.unq.desapp.grupob;
 
 import java.util.Date;
 
+import org.joda.time.DateTime;
+
 public class Invoice {
     
     private String number;
-    private Date date;
+    private DateTime date;
     private Vendor vendor;
     private InvoiceType invoiceType; 
     private int taxCode;
@@ -13,11 +15,11 @@ public class Invoice {
     private double subtotal;
     private double total;    
     
-    public Invoice(String number, Date date, Vendor entity, InvoiceType invoiceType, 
+    public Invoice(String number, DateTime date, Vendor entity, InvoiceType invoiceType, 
             int taxCode, String description, double subtotal, double total) {
         this.number = number;
         this.date = date;
-        this.vendor = vendor;
+        this.vendor = entity;
         this.invoiceType = invoiceType;
         this.taxCode = taxCode;
         this.description = description;
@@ -36,10 +38,10 @@ public class Invoice {
     public void setNumber(String number) {
         this.number = number;
     }
-    public Date getDate() {
+    public DateTime getDate() {
         return date;
     }
-    public void setDate(Date date) {
+    public void setDate(DateTime date) {
         this.date = date;
     }
     public Vendor getVendor() {

@@ -8,24 +8,28 @@ import ar.edu.unq.desapp.grupob.SubCategory;
 
 public class CategoryBuilder {
 
-    public static CategoryBuilder aCategoryBuilder (){
+    // Access
+    public static CategoryBuilder aCategoryBuilder() {
         return new CategoryBuilder();
     }
 
+    // Instances
     private String name = "no name";
     private List<SubCategory> subcategories = new ArrayList<SubCategory>();
-    
-    public Category build (){
-        Category category = new Category (name, subcategories);
+
+    // Constructor method
+    public Category build() {
+        Category category = new Category(name, subcategories);
         return category;
     }
-    
-    public CategoryBuilder withName (final String name){
+
+    // Methods
+    public CategoryBuilder withName(final String name) {
         this.name = name;
         return this;
     }
-    
-    public CategoryBuilder withSubCategoryName (final String name) {
+
+    public CategoryBuilder withSubCategoryName(final String name) {
         this.subcategories.add(new SubCategory(name));
         return this;
     }

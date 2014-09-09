@@ -25,16 +25,12 @@ public class OperationRegister {
         opOriginal.getAccount().removeOperation(opOriginal);
         opModificada.getAccount().addOperation(opModificada);
     }
-    
-    
+  
     public void accountConsolidation() {
         for (Account account : accounts) {
             account.consolidate();
         }
     }
-
-
-
 
     public List<Account> getAccounts() {
         return accounts;

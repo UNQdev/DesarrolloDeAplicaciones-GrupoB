@@ -22,12 +22,13 @@ public class Devenger {
     public void removeOperation(Operation operation) {
         this.unConsolidatedOperations.remove(operation);
     }
-    
+    // FIXME testear si alcanzo la fecha -plusDays
     public double consolidateOperations() {
         double unConsolidatedTotalAmount = 0;
         for(Operation operation : this.unConsolidatedOperations) {
             if(operation.reachedConsolidationDate(operation.getDate().plusDays(consolidationPeriod))) {
                 account.getOperations().add(operation);
+                this.removeOperation(operation);
                 unConsolidatedTotalAmount += operation.getAmount();
             }
         }

@@ -1,18 +1,20 @@
 package ar.edu.unq.desapp.grupob;
 
+/**
+ * @author damian
+ */
 public enum Shift {
 
     Beforenoon {
-        public boolean isBeforenoon() {
-            return true;
+        public String getTimeOfDay() {
+            return "Mañana";
         }
     },
     Afternoon {
-        public boolean isBeforenoon() {
-            return false;
+        public String getTimeOfDay() {
+            return "Noche";
         }
     };
 
-    public abstract boolean isBeforenoon();
-
+    public abstract String getTimeOfDay();
 }

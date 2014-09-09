@@ -2,9 +2,6 @@ package ar.edu.unq.desapp.grupob;
 
 import org.joda.time.DateTime;
 
-/**
- * @author damian, marcelo
- */
 public class Operation {
     /*
      * PROPERTIES
@@ -15,11 +12,10 @@ public class Operation {
     private DateTime date;
     private double amount;
     private String concept;
-    
+
     private Invoice invoice;
 
     private Category category;
-
 
     private Account account;
 
@@ -27,8 +23,8 @@ public class Operation {
      * CONSTRUCTORS
      */
     public Operation(OperationType type, Shift shift, DateTime date,
-            double amount, Invoice invoice, Category category,
-            SubCategory subcategory, String concept, Account account) {
+            double amount, Invoice invoice, Category category, String concept,
+            Account account) {
         this.type = type;
         this.shift = shift;
         this.date = date;
@@ -40,7 +36,8 @@ public class Operation {
     }
 
     public boolean reachedConsolidationDate(DateTime limit) {
-        // TODO comparar que fechaActual vs fechaOperacion = consolidationPeriod
+        // FIXME comparar que fechaActual vs fechaOperacion =
+        // consolidationPeriod
         return false;
     }
 
