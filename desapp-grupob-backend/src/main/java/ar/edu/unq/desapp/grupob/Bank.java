@@ -13,10 +13,6 @@ public class Bank extends Account {
         this.setAccrued(0);
     }
 
-    private boolean operationIsConsolidated(Operation operation) {
-        return this.getOperations().contains(operation);
-    }
-
     @Override
     public void addOperation(Operation operation) {
         this.devenger.addOperation(operation);
@@ -45,6 +41,10 @@ public class Bank extends Account {
         this.accrued -= consolidatedAmount;
     }
 
+    private boolean operationIsConsolidated(Operation operation) {
+        return super.getOperations().contains(operation);
+    }
+    
     /*
      * GETTERS & SETTERS
      */
@@ -62,6 +62,10 @@ public class Bank extends Account {
 
     public void setAccrued(double accrued) {
         this.accrued = accrued;
+    }
+    
+    public Devenger getDevenger() {
+        return devenger;
     }
 
 }

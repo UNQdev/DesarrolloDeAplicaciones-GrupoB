@@ -35,10 +35,10 @@ public class Operation {
         this.account = account;
     }
 
-    public boolean reachedConsolidationDate(DateTime limit) {
-        // FIXME comparar que fechaActual vs fechaOperacion =
-        // consolidationPeriod
-        return false;
+    public boolean reachedConsolidationDate(DateTime limitDateOperation,
+            DateTime currentDateTime) {
+        return true;
+                //limitDateOperation.dayOfMonth().equals(currentDateTime.dayOfMonth());
     }
 
     /**

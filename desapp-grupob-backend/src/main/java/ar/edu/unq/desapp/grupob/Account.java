@@ -1,12 +1,14 @@
 package ar.edu.unq.desapp.grupob;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Account {
 
     private double accountBalance = 0;
-    private List<Operation> operations;
-
+    private List<Operation> operations = new ArrayList<Operation>();
+    
+    
     public void addOperation(Operation operation) {
         this.operations.add(operation);
         this.updateAccountBalance(operation.getRealAmount());
@@ -30,10 +32,6 @@ public abstract class Account {
      */
     public List<Operation> getOperations() {
         return operations;
-    }
-
-    public void setOperations(List<Operation> operations) {
-        this.operations = operations;
     }
 
     public double getAccountBalance() {
