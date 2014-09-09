@@ -6,6 +6,7 @@ public class InvoiceLoader {
     
     private HashMap<String, Invoice> fullyLoadedInvoices;
     
+
     public InvoiceLoader() {
         this.fullyLoadedInvoices = new HashMap<String, Invoice>();
     }
@@ -16,7 +17,11 @@ public class InvoiceLoader {
     public void unLoadInvoice(String invoiceNumber) {
         this.fullyLoadedInvoices.remove(invoiceNumber);
     }
-    public Invoice getFullyLoadedInvoice(int invoiceNumber) {
+    public Invoice getFullyLoadedInvoice(String invoiceNumber) {
         return this.fullyLoadedInvoices.get(invoiceNumber);
+    }
+    
+    public HashMap<String, Invoice> getFullyLoadedInvoices() {
+        return fullyLoadedInvoices;
     }
 }

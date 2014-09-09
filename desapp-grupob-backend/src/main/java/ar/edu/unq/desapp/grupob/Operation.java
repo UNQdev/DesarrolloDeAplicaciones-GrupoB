@@ -37,7 +37,7 @@ public class Operation {
 
     public boolean reachedConsolidationDate(DateTime limitDateOperation,
             DateTime currentDateTime) {
-        return true;
+        return limitDateOperation.getDayOfMonth() <= currentDateTime.getDayOfMonth();
     }
 
     /**
@@ -54,64 +54,25 @@ public class Operation {
     public OperationType getType() {
         return type;
     }
-
-    public void setType(OperationType type) {
-        this.type = type;
-    }
-
     public Shift getShift() {
         return shift;
     }
-
-    public void setShift(Shift shift) {
-        this.shift = shift;
-    }
-
     public DateTime getDate() {
         return date;
     }
-
-    public void setDate(DateTime date) {
-        this.date = date;
-    }
-
     public Invoice getInvoice() {
         return invoice;
     }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
-
     public Category getCategory() {
         return category;
     }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public String getConcept() {
         return concept;
     }
-
-    public void setConcept(String concept) {
-        this.concept = concept;
-    }
-
     public Account getAccount() {
         return account;
     }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public double getAmount() {
         return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 }
