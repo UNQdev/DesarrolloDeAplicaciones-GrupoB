@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import ar.edu.unq.desapp.grupob.Bank;
+import ar.edu.unq.desapp.grupob.BankAccount;
 import ar.edu.unq.desapp.grupob.Devenger;
 import ar.edu.unq.desapp.grupob.Operation;
 
@@ -15,7 +15,7 @@ public class DevengerBuilder {
 		return new DevengerBuilder();
 	}
 	// Intances
-	private Bank account;
+	private BankAccount account;
 	private int consolidationPeriod = 15;
 	private List<Operation> unConsolidatedOperations = new ArrayList<Operation>();
 	private DateTime systemDate;
@@ -26,7 +26,7 @@ public class DevengerBuilder {
         return devenger;
     }
 	// Methods
-	public DevengerBuilder withAccount(final Bank account) {
+	public DevengerBuilder withAccount(final BankAccount account) {
 		this.account = account;
 		return this;
 	}

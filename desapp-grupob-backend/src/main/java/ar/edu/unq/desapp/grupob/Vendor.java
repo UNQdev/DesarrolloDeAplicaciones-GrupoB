@@ -1,31 +1,38 @@
 package ar.edu.unq.desapp.grupob;
 
+/**
+ * 
+ * @author bananee
+ *
+ */
 public class Vendor {
 
-    public Vendor() {
-        
+	/**
+	 *
+	 */
+	private String name;
+	private int taxCode;
+
+	/**
+	 *
+	 * @param taxCode
+	 * @param name
+	 */
+    public Vendor(int taxCode, String name) {
+    	this.taxCode = taxCode;
+    	this.name = name;
     }
-    
-    /*
-     * COMPORTAMIENTO PARA CALCULAR LOS PORCENTAJES DE IVA
-     * QUE CORRESPONDEN A PARTIR DE LA CONDICION DEL PROVEEDOR
-     * Y LA DEL NEGOCIO DEL USUARIO
-     *  
-     */
-    public int getTaxFromA() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    public int getTaxFromB() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    public int getTaxFromC() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    public int getTaxFromX() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getTaxCode() {
+		return taxCode;
+	}
+	public void setTaxCode(int taxCode) {
+		this.taxCode = taxCode;
+	}
 }

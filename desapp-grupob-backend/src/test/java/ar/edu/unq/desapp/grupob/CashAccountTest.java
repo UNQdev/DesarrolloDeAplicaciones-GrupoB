@@ -7,7 +7,7 @@ import ar.edu.unq.desapp.grupob.builders.OperationBuilder;
 public class CashAccountTest {
     @Test
     public void testCashAccountConstructor() {
-        Cash cash = new Cash();
+        CashAccount cash = new CashAccount();
 
         assertEquals(cash.getAccountBalance(), 0, 0);
         assertEquals(cash.getOperations().size(), 0);
@@ -15,7 +15,7 @@ public class CashAccountTest {
 
     @Test
     public void testCashAccountAddOperationTypeIncoming() {
-        Cash cash = new Cash();
+        CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
         Operation operation = builder.withAccount(cash).withAmount(100)
@@ -30,7 +30,7 @@ public class CashAccountTest {
 
     @Test
     public void testCashAccountAddOperationTypeOutcoming() {
-        Cash cash = new Cash();
+        CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
         Operation operation = builder.withAccount(cash).withAmount(100)
@@ -45,7 +45,7 @@ public class CashAccountTest {
     
     @Test
     public void testCashAccountRemoveOperationTypeIncoming() {
-        Cash cash = new Cash();
+        CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
         Operation operation = builder.withAccount(cash).withAmount(100)
@@ -61,7 +61,7 @@ public class CashAccountTest {
     
     @Test
     public void testCashAccountRemoveOperationTypeOutcoming() {
-        Cash cash = new Cash();
+        CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
         Operation operation = builder.withAccount(cash).withAmount(100)
@@ -76,7 +76,7 @@ public class CashAccountTest {
     
     @Test
     public void testCashAccountBalance () {
-        Cash cash = new Cash();
+        CashAccount cash = new CashAccount();
         cash.consolidate();
         
         assertEquals(cash.getAccountBalance(), 0,0 );

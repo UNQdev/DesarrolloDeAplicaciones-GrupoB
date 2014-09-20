@@ -34,7 +34,7 @@ public class Devenger {
         this.systemDate = date;
         this.unConsolidatedOperations = new ArrayList<Operation>();
     }
-    /**
+	/**
      *
      * @param operation
      */
@@ -64,9 +64,12 @@ public class Devenger {
      * @return
      */
     public boolean reachedConsolidationDate(Operation operation) {
-    	this.systemDate = DateTime.now();
-        return this.getAccrualDate(operation).getDayOfMonth()
-        		<= this.systemDate.getDayOfMonth();
+    	boolean reached = false;
+        if (this.getAccrualDate(operation).isEqual(this.systemDate) ||
+        		this.getAccrualDate(operation).isBefore(this.systemDate)) {
+        	reached = true;
+        }
+        return reached;
     }
     /**
      *
@@ -76,7 +79,7 @@ public class Devenger {
         double unConsolidatedTotalAmount = 0;
         for (Operation operation : unConsolidatedOperations) {
             if (this.reachedConsolidationDate(operation)) {
-                account.getOperations().add(operation);
+                this.consolidateOperation(operation);
                 this.removeOperation(operation);
                 unConsolidatedTotalAmount += operation.getAmount();
             }
@@ -84,7 +87,10 @@ public class Devenger {
         return unConsolidatedTotalAmount;
     }
 
-    /*
+    private void consolidateOperation(Operation operation) {
+    	this.account.getOperations().add(operation);	
+	}
+	/*
      * GETTERS & SETTERS
      *
      *

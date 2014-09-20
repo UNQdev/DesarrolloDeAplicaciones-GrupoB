@@ -26,7 +26,6 @@ public class InvoiceLoaderTest {
         assertEquals(invoiceLoader.getFullyLoadedInvoices().get(invoiceNumber),
                 invoice);
     }
-    
     @Test
     public void testInvoiceLoaderUnLoadInvoice() {
         Invoice invoice = mock(Invoice.class);
@@ -44,4 +43,6 @@ public class InvoiceLoaderTest {
         
         assertNull(invoiceLoader.getFullyLoadedInvoice(invoiceNumber));
     }
+    
+    //TODO: agregar test de modifyInvoice(oldInvoice, newInvoice)
 }

@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupob.builders;
 
-import ar.edu.unq.desapp.grupob.Bank;
+import ar.edu.unq.desapp.grupob.BankAccount;
 
 public class BankAccountBuilder {
     
@@ -13,8 +13,8 @@ public class BankAccountBuilder {
     private int consolidationPeriod = 15;
 
     // Constructor method
-    public Bank build() {
-        Bank bank = new Bank(consolidationPeriod);
+    public BankAccount build() {
+        BankAccount bank = new BankAccount(consolidationPeriod);
         return bank;
     }
 

@@ -1,13 +1,13 @@
 package ar.edu.unq.desapp.grupob;
 
-public class Bank extends Account {
+public class BankAccount extends Account {
 
     private Devenger devenger;
     private double available;
     private double accrued;
 
-    public Bank() {}
-    public Bank(int days) {
+    public BankAccount() {}
+    public BankAccount(int days) {
         super();
         this.devenger = new Devenger(this, days);
         this.setAvailable(super.getAccountBalance());

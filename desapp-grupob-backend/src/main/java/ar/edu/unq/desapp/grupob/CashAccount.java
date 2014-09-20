@@ -1,8 +1,8 @@
 package ar.edu.unq.desapp.grupob;
 
-public class Cash extends Account {
+public class CashAccount extends Account {
 
-    public Cash() {
+    public CashAccount() {
         super();
     }
 

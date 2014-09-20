@@ -24,7 +24,7 @@ public class BankAccountTest {
     @Test
     public void testBankAccountConstructor() {
         BankAccountBuilder builder = BankAccountBuilder.aBankAccountBuilder();
-        Bank bank = builder.withConsolidationPeriod(15).build();
+        BankAccount bank = builder.withConsolidationPeriod(15).build();
         assertEquals(bank.getAccountBalance(), 0, 0);
         assertEquals(bank.getOperations().size(), 0);
         assertEquals(bank.getAvailable(), bank.getAccountBalance(), 0);
@@ -45,7 +45,7 @@ public class BankAccountTest {
          */
 //      when(devenger.addOperation(operation))
         BankAccountBuilder builder = BankAccountBuilder.aBankAccountBuilder();
-        Bank bank = builder.build();
+        BankAccount bank = builder.build();
         bank.addOperation(operation);
         verify(unConsolidatedOperations, times(1)).add(operation);
         assertEquals(bank.getAccrued(), operation.getAmount(), 0);
@@ -60,7 +60,7 @@ public class BankAccountTest {
         when(operation.getAmount()).thenReturn((double) 100);
         when(operation.getDate()).thenReturn(date);
         BankAccountBuilder builder = BankAccountBuilder.aBankAccountBuilder();
-        Bank bank = builder.withConsolidationPeriod(6)
+        BankAccount bank = builder.withConsolidationPeriod(6)
         		.build();
         bank.removeOperation(operation);
         assertFalse(bank.getOperations().contains(operation));

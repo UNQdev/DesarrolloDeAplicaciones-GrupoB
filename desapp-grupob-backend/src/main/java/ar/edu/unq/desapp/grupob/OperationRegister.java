@@ -9,8 +9,8 @@ public class OperationRegister {
 
     public OperationRegister() {
         this.accounts = new ArrayList<Account>();
-        this.accounts.add(new Cash());
-        this.accounts.add(new Bank(7));
+        this.accounts.add(new CashAccount());
+        this.accounts.add(new BankAccount(7));
         this.accounts.add(new CurrentAccount());
     }
 

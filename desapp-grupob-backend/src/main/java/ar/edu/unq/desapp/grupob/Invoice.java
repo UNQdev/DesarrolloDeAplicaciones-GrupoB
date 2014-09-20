@@ -3,16 +3,21 @@ package ar.edu.unq.desapp.grupob;
 import org.joda.time.DateTime;
 
 public class Invoice {
-    
+
     private String number;
     private DateTime date;
     private Vendor vendor;
-    private InvoiceType invoiceType; 
+    private InvoiceType invoiceType;
     private int taxCode;
     private String description;
+    /*
+     * TODO: Evaluar la posibilidad de un objeto TAX en el cual delegar todas las persepciones de la factura
+     * 
+     * private Tax taxes;
+     */
     private double subtotal;
-    private double total;    
-    
+    private double total;
+
     public Invoice(String number, DateTime date, Vendor entity, InvoiceType invoiceType, 
             int taxCode, String description, double subtotal, double total) {
         this.number = number;
@@ -24,11 +29,10 @@ public class Invoice {
         this.subtotal = subtotal;
         this.total = total;
     }
-    
-    
+
     /*
      * GETTERS & SETTERS
-     * 
+     *
      */
     public String getNumber() {
         return number;
@@ -53,5 +57,5 @@ public class Invoice {
     }
     public double getTotal() {
         return total;
-    }  
+    }
 }

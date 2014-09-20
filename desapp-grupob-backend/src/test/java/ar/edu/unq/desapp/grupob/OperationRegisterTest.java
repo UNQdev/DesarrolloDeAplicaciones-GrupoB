@@ -20,7 +20,7 @@ public class OperationRegisterTest {
     public void testRegisterOperation () {
         OperationRegister operationRegister = new OperationRegister();
         Operation operation = mock(Operation.class);
-        Account cash = new Cash();
+        Account cash = new CashAccount();
         when(operation.getAccount()).thenReturn(cash);
         
         operationRegister.registerOperation(operation);
@@ -32,7 +32,7 @@ public class OperationRegisterTest {
     public void testDeleteOperation () {
         OperationRegister operationRegister = new OperationRegister();
         Operation operation = mock(Operation.class);
-        Account cash = new Cash();
+        Account cash = new CashAccount();
         when(operation.getAccount()).thenReturn(cash);
         
         operationRegister.deleteOperation(operation);
@@ -45,7 +45,7 @@ public class OperationRegisterTest {
         OperationRegister operationRegister = new OperationRegister();
         Operation originalOperation = mock(Operation.class);
         Operation mofifiedOperation = mock(Operation.class);
-        Account cash = new Cash();
+        Account cash = new CashAccount();
         when(originalOperation.getAccount()).thenReturn(cash);
         when(mofifiedOperation.getAccount()).thenReturn(cash);
         
@@ -59,7 +59,7 @@ public class OperationRegisterTest {
     public void testAccountConsolidation () {
         OperationRegister operationRegister = new OperationRegister();
         ArrayList<Account> accounts = new ArrayList<Account>();
-        Account cash = new Cash();
+        Account cash = new CashAccount();
         accounts.add(cash);
          
         operationRegister.setAccounts(accounts);
