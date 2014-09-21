@@ -9,7 +9,10 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import ar.edu.unq.desapp.grupob.builders.DevengerBuilder;
+import ar.edu.unq.desapp.grupob.model.BankAccount;
+import ar.edu.unq.desapp.grupob.model.Devenger;
+import ar.edu.unq.desapp.grupob.model.Operation;
+import ar.edu.unq.desapp.grupob.model.builders.DevengerBuilder;
 
 /**
  * @author bananee
@@ -118,15 +121,13 @@ public class DevengerTest {
 	@Test
 	public void testOperationConsolidated() {
 		DateTime systemDate = DateTime.parse("2014-09-12T01:00");
-
 		DateTime operation1Date = DateTime.parse("2014-09-01T01:00");
 		double operation1Amount = 100;
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operation1Date);
 		when(operation.getAmount()).thenReturn(operation1Amount);
 
-		List<Operation> consolidatedOperations = mock(ArrayList.class);
-		when(consolidatedOperations.add(operation)).thenReturn(true);
+		List<Operation> consolidatedOperations = new ArrayList<Operation>();
 
 		BankAccount bankAccount = mock(BankAccount.class);
 		when(bankAccount.getOperations()).thenReturn(consolidatedOperations);
@@ -137,10 +138,9 @@ public class DevengerTest {
 				.withSystemDate(systemDate)
 				.build();
 
+		devenger.consolidateOperations();
+
 		assertFalse(devenger.getUnConsolidatedOperations().contains(operation));
-		verify(bankAccount, times(1)).addOperation(operation);
-		 
-		assertEquals(devenger.consolidateOperations(), 100,0);
 	}
 	/**
 	 *

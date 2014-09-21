@@ -1,8 +1,11 @@
 package ar.edu.unq.desapp.grupob;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
-import ar.edu.unq.desapp.grupob.builders.SubCategoryBuilder;
+
+import ar.edu.unq.desapp.grupob.model.SubCategory;
+import ar.edu.unq.desapp.grupob.model.builders.SubCategoryBuilder;
 
 public class SubcategoryTest {
     @Test

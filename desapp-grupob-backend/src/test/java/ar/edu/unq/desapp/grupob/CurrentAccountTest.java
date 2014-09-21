@@ -4,7 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ar.edu.unq.desapp.grupob.builders.OperationBuilder;
+import ar.edu.unq.desapp.grupob.model.CurrentAccount;
+import ar.edu.unq.desapp.grupob.model.Operation;
+import ar.edu.unq.desapp.grupob.model.OperationType;
+import ar.edu.unq.desapp.grupob.model.builders.OperationBuilder;
 
 public class CurrentAccountTest {
     

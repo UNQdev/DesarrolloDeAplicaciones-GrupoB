@@ -9,7 +9,10 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import ar.edu.unq.desapp.grupob.builders.BankAccountBuilder;
+import ar.edu.unq.desapp.grupob.model.BankAccount;
+import ar.edu.unq.desapp.grupob.model.Devenger;
+import ar.edu.unq.desapp.grupob.model.Operation;
+import ar.edu.unq.desapp.grupob.model.builders.BankAccountBuilder;
 
 /**
  *
@@ -44,9 +47,12 @@ public class BankAccountTest {
          * TODO: Proper mock for addOperation stubbing
          */
 //      when(devenger.addOperation(operation))
+
         BankAccountBuilder builder = BankAccountBuilder.aBankAccountBuilder();
         BankAccount bank = builder.build();
+
         bank.addOperation(operation);
+
         verify(unConsolidatedOperations, times(1)).add(operation);
         assertEquals(bank.getAccrued(), operation.getAmount(), 0);
     }

@@ -6,7 +6,10 @@ import static org.mockito.Mockito.*;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import ar.edu.unq.desapp.grupob.builders.InvoiceBuilder;
+import ar.edu.unq.desapp.grupob.model.Invoice;
+import ar.edu.unq.desapp.grupob.model.InvoiceType;
+import ar.edu.unq.desapp.grupob.model.Vendor;
+import ar.edu.unq.desapp.grupob.model.builders.InvoiceBuilder;
 
 public class InvoiceTest {
 
@@ -18,7 +21,7 @@ public class InvoiceTest {
         assertNotNull(invoice.getDate());
         assertNotNull(invoice.getNumber());
         assertNotNull(invoice.getDescription());
-        
+
         assertNull(invoice.getInvoiceType());
         assertEquals(invoice.getTaxCode(),0);
         assertEquals(invoice.getSubtotal(),0,0);
@@ -47,7 +50,7 @@ public class InvoiceTest {
         assertEquals(invoice.getSubtotal(), subtotal, 0);
         assertEquals(invoice.getTotal(), total, 0);
         assertEquals(invoice.getVendor(), vendor);
-        
+
         assertNotNull(invoice.getDate());
         assertNotNull(invoice.getNumber());
         assertNotNull(invoice.getDescription());

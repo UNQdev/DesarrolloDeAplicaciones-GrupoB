@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import ar.edu.unq.desapp.grupob.model.Account;
+import ar.edu.unq.desapp.grupob.model.CashAccount;
+import ar.edu.unq.desapp.grupob.model.Operation;
+import ar.edu.unq.desapp.grupob.model.OperationRegister;
+
 public class OperationRegisterTest {
 
     @Test

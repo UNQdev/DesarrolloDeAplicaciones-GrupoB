@@ -2,7 +2,11 @@ package ar.edu.unq.desapp.grupob;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
 import org.junit.Test;
+
+import ar.edu.unq.desapp.grupob.model.Invoice;
+import ar.edu.unq.desapp.grupob.model.InvoiceLoader;
 
 public class InvoiceLoaderTest {
 

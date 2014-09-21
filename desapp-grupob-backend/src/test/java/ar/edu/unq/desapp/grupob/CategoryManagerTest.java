@@ -2,7 +2,11 @@ package ar.edu.unq.desapp.grupob;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
 import org.junit.Test;
+
+import ar.edu.unq.desapp.grupob.model.Category;
+import ar.edu.unq.desapp.grupob.model.CategoryManager;
 
 public class CategoryManagerTest {
 
