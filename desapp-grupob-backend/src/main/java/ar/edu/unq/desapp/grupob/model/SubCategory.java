@@ -14,7 +14,7 @@ public class SubCategory {
      * Constructor
      */
     public SubCategory (String name) {
-        this.name = name;
+        this.setName(name);
     }
     
     /**
@@ -22,5 +22,9 @@ public class SubCategory {
      */
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

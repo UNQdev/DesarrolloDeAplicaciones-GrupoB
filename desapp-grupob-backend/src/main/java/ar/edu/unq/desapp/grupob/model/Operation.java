@@ -25,14 +25,14 @@ public class Operation {
     public Operation(OperationType type, Shift shift, DateTime date,
             double amount, Invoice invoice, Category category, String concept,
             Account account) {
-        this.type = type;
-        this.shift = shift;
-        this.date = date;
-        this.amount = amount;
-        this.invoice = invoice;
-        this.category = category;
-        this.concept = concept;
-        this.account = account;
+        this.setType(type);
+        this.setShift(shift);
+        this.setDate(date);
+        this.setAmount(amount);
+        this.setInvoice(invoice);
+        this.setCategory(category);
+        this.setConcept(concept);
+        this.setAccount(account);
     }
 
     /**
@@ -69,5 +69,37 @@ public class Operation {
     }
     public double getAmount() {
         return amount;
+    }
+
+    public void setType(OperationType type) {
+        this.type = type;
+    }
+
+    public void setShift(Shift shift) {
+        this.shift = shift;
+    }
+
+    public void setDate(DateTime date) {
+        this.date = date;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setConcept(String concept) {
+        this.concept = concept;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

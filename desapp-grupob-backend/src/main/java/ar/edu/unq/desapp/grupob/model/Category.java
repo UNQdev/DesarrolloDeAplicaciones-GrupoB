@@ -10,12 +10,13 @@ public class Category {
     private String name;
     private List<SubCategory> subcategories;
 
+
     /**
      * Constructor
      */
     public Category (String name, List<SubCategory> subcategories) {
-        this.name = name;
-        this.subcategories = subcategories;
+        this.setName(name);
+        this.setSubcategories(subcategories);
     }
 
     /**
@@ -29,20 +30,28 @@ public class Category {
         return subcategories;
     }
     
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSubcategories(List<SubCategory> subcategories) {
+        this.subcategories = subcategories;
+    }
+    
     /**
      * Methods
      */
     public void createSubCategory (SubCategory sub) {
-        this.subcategories.add(sub);
+        this.getSubcategories().add(sub);
     }
     
     public void modifySubcategory (SubCategory subOrigin, SubCategory subMod) {
-        this.subcategories.remove(subOrigin);
-        this.subcategories.add(subMod);
+        this.getSubcategories().remove(subOrigin);
+        this.getSubcategories().add(subMod);
     }
     
     public void deleteSubcategory (SubCategory sub){
-        this.subcategories.remove(sub);
+        this.getSubcategories().remove(sub);
     }
     
     

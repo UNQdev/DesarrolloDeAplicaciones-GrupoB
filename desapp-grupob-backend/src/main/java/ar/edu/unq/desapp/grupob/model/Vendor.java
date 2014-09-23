@@ -19,8 +19,8 @@ public class Vendor {
 	 * @param name
 	 */
     public Vendor(int taxCode, String name) {
-    	this.taxCode = taxCode;
-    	this.name = name;
+    	this.setTaxCode(taxCode);
+    	this.setName(name);
     }
 
 	public String getName() {

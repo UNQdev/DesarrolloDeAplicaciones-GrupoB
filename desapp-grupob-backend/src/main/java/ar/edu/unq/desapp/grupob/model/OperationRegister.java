@@ -8,10 +8,10 @@ public class OperationRegister {
     private List<Account> accounts;
 
     public OperationRegister() {
-        this.accounts = new ArrayList<Account>();
-        this.accounts.add(new CashAccount());
-        this.accounts.add(new BankAccount(7));
-        this.accounts.add(new CurrentAccount());
+        this.setAccounts(new ArrayList<Account>());
+        this.getAccounts().add(new CashAccount());
+        this.getAccounts().add(new BankAccount(7));
+        this.getAccounts().add(new CurrentAccount());
     }
 
     

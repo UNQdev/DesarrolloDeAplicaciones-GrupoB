@@ -14,7 +14,7 @@ public class InvoiceLoaderTest {
     public void testInvoiceLoaderConstructorWithOutInvoices() {
         InvoiceLoader invoiceLoader = new InvoiceLoader();
 
-        assertNull(invoiceLoader.getFullyLoadedInvoice("0"));
+        assertTrue(invoiceLoader.getFullyLoadedInvoices().isEmpty());
     }
 
     @Test
@@ -30,6 +30,7 @@ public class InvoiceLoaderTest {
         assertEquals(invoiceLoader.getFullyLoadedInvoices().get(invoiceNumber),
                 invoice);
     }
+
     @Test
     public void testInvoiceLoaderUnLoadInvoice() {
         Invoice invoice = mock(Invoice.class);
@@ -38,15 +39,38 @@ public class InvoiceLoaderTest {
 
         InvoiceLoader invoiceLoader = new InvoiceLoader();
 
+        assertNull(invoiceLoader.getFullyLoadedInvoices().get(invoiceNumber));
+        
         invoiceLoader.loadInvoice(invoice);
 
         assertEquals(invoiceLoader.getFullyLoadedInvoices().get(invoiceNumber),
                 invoice);
-        
+
         invoiceLoader.unLoadInvoice(invoiceNumber);
-        
-        assertNull(invoiceLoader.getFullyLoadedInvoice(invoiceNumber));
+
+        assertNull(invoiceLoader.getFullyLoadedInvoices().get(invoiceNumber));
     }
-    
-    //TODO: agregar test de modifyInvoice(oldInvoice, newInvoice)
+
+    @Test
+    public void testInvoiceModifyInvoice() {
+        Invoice oldInvoice = mock(Invoice.class);
+        String oldInvoiceNumber = "011";
+        when(oldInvoice.getNumber()).thenReturn(oldInvoiceNumber);
+
+        Invoice newInvoice = mock(Invoice.class);
+        String newInvoiceNumber = oldInvoiceNumber;
+        when(newInvoice.getNumber()).thenReturn(newInvoiceNumber);
+        
+        InvoiceLoader invoiceLoader = new InvoiceLoader();
+
+        invoiceLoader.loadInvoice(oldInvoice);
+
+        assertEquals(invoiceLoader.getFullyLoadedInvoices().get(oldInvoiceNumber),
+                oldInvoice);
+
+        invoiceLoader.modifyInvoice(oldInvoice, newInvoice);
+
+        assertNotEquals(invoiceLoader.getFullyLoadedInvoices().get(oldInvoiceNumber), oldInvoice);
+        assertEquals(invoiceLoader.getFullyLoadedInvoices().get(newInvoiceNumber), newInvoice);
+    }
 }

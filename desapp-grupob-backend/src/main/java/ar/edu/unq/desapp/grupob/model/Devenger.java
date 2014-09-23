@@ -10,18 +10,19 @@ public class Devenger {
     private Account account;
     private int consolidationPeriod;
     private List<Operation> unConsolidatedOperations;
-	private DateTime systemDate;
+    private DateTime systemDate;
 
-	/**
-	 *
-	 * @param account
-	 * @param days
-	 */
+    /**
+     *
+     * @param account
+     * @param days
+     */
     public Devenger(Account account, int days) {
-        this.account = account;
-        this.consolidationPeriod = days;
-        this.unConsolidatedOperations = new ArrayList<Operation>();
+        this.setAccount(account);
+        this.setConsolidationPeriod(days);
+        this.setUnConsolidatedOperations(new ArrayList<Operation>());
     }
+
     /**
      *
      * @param account
@@ -29,27 +30,30 @@ public class Devenger {
      * @param date
      */
     public Devenger(Account account, int days, DateTime date) {
-        this.account = account;
-        this.consolidationPeriod = days;
-        this.systemDate = date;
-        this.unConsolidatedOperations = new ArrayList<Operation>();
+        this.setAccount(account);
+        this.setConsolidationPeriod(days);
+        this.setSystemDate(date);
+        this.setUnConsolidatedOperations(new ArrayList<Operation>());
     }
-	/**
+
+    /**
      *
      * @param operation
      */
     public void addOperation(Operation operation) {
-        this.unConsolidatedOperations.add(operation);
+        this.getUnConsolidatedOperations().add(operation);
     }
+
     /**
      *
      * @param operation
      */
     public void removeOperation(Operation operation) {
-    	if (this.unConsolidatedOperations.contains(operation)) {
-    		this.unConsolidatedOperations.remove(operation);
-    	}
+        if (this.getUnConsolidatedOperations().contains(operation)) {
+            this.getUnConsolidatedOperations().remove(operation);
+        }
     }
+
     /**
      * 
      * @param operation
@@ -58,19 +62,17 @@ public class Devenger {
     public DateTime getAccrualDate(Operation operation) {
         return operation.getDate().plusDays(consolidationPeriod);
     }
+
     /**
      *
      * @param operation
      * @return
      */
     public boolean reachedConsolidationDate(Operation operation) {
-    	boolean reached = false;
-        if (this.getAccrualDate(operation).isEqual(this.systemDate) ||
-        		this.getAccrualDate(operation).isBefore(this.systemDate)) {
-        	reached = true;
-        }
-        return reached;
+        return (this.getAccrualDate(operation).isEqual(this.systemDate)
+                || this.getAccrualDate(operation).isBefore(this.systemDate));
     }
+
     /**
      *
      * @return
@@ -79,7 +81,7 @@ public class Devenger {
         double unConsolidatedTotalAmount = 0;
         for (Operation operation : unConsolidatedOperations) {
             if (this.reachedConsolidationDate(operation)) {
-            	this.consolidateOperation(operation);
+                this.consolidateOperation(operation);
                 unConsolidatedTotalAmount += operation.getAmount();
             }
         }
@@ -87,13 +89,12 @@ public class Devenger {
     }
 
     private void consolidateOperation(Operation operation) {
-    	this.account.getOperations().add(operation);
-    	this.removeOperation(operation);
-	}
-	/*
+        this.getAccount().getOperations().add(operation);
+        this.removeOperation(operation);
+    }
+
+    /*
      * GETTERS & SETTERS
-     *
-     *
      */
     /**
      *
@@ -102,6 +103,7 @@ public class Devenger {
     public int getConsolidationPeriod() {
         return consolidationPeriod;
     }
+
     /**
      *
      * @param period
@@ -109,6 +111,7 @@ public class Devenger {
     public void setConsolidationPeriod(int period) {
         this.consolidationPeriod = period;
     }
+
     /**
      *
      * @return
@@ -116,6 +119,7 @@ public class Devenger {
     public List<Operation> getUnConsolidatedOperations() {
         return unConsolidatedOperations;
     }
+
     /**
      *
      * @param unConsolidatedOperations
@@ -123,5 +127,21 @@ public class Devenger {
     public void setUnConsolidatedOperations(
             List<Operation> unConsolidatedOperations) {
         this.unConsolidatedOperations = unConsolidatedOperations;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public DateTime getSystemDate() {
+        return systemDate;
+    }
+
+    public void setSystemDate(DateTime systemDate) {
+        this.systemDate = systemDate;
     }
 }
