@@ -3,9 +3,6 @@ package ar.edu.unq.desapp.grupob;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.DateTime;
 import org.junit.Test;
 

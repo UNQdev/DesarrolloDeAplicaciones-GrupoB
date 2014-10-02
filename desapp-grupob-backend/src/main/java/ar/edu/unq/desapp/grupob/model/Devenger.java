@@ -26,7 +26,7 @@ public class Devenger {
         this.setUnConsolidatedOperations(new ArrayList<Operation>());
         this.setUnConsolidatedAmount(0);
     }
-	/**
+    /**
      *
      * @param operation
      */
@@ -44,6 +44,7 @@ public class Devenger {
     		this.updateUnConsolidatedAmount(-operation.getRealAmount());
     	}
     }
+
     /**
      *
      * @param amount
@@ -60,6 +61,7 @@ public class Devenger {
     	return (this.getAccrualDate(operation).isEqual(this.getSystemDate()) 
     			|| this.getAccrualDate(operation).isBefore(this.getSystemDate()));
     }
+
     /**
      *
      * @param operation
@@ -84,7 +86,7 @@ public class Devenger {
         this.setUnConsolidatedOperations(unConsolidatedOperationsCLONE);
         return consolidatedOperations;
     }
-	/*
+    /* 
      * GETTERS & SETTERS
      */
     /**
@@ -156,5 +158,5 @@ public class Devenger {
 		this.setSystemDate(date);
 		this.setUnConsolidatedOperations(operations);
 		this.setUnConsolidatedAmount(0);
-		}
+	}
 }

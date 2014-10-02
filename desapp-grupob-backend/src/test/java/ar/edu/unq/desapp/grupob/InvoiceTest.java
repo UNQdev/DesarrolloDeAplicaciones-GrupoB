@@ -32,7 +32,7 @@ public class InvoiceTest {
     @Test
     public void testInvoiceConstructorFullyLoaded() {
         InvoiceBuilder builder = InvoiceBuilder.anInvoiceBuilder();
-        InvoiceType invoiceType = mock(InvoiceType.class);
+        InvoiceType invoiceType = InvoiceType.A;
         Vendor vendor = mock(Vendor.class);
         int taxCode = 201234567;
         int subtotal = 20;

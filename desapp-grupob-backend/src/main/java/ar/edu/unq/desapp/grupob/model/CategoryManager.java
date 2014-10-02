@@ -15,7 +15,7 @@ public class CategoryManager {
     //Constructor.
 
     public CategoryManager() { 
-        this.categories = new ArrayList<Category>();
+        this.setCategories(new ArrayList<Category>());
     }
 
 
@@ -27,6 +27,10 @@ public class CategoryManager {
     public final List<Category> getCategories() {
         return categories;
     }
+    
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 
 
     //Methods.
@@ -35,7 +39,7 @@ public class CategoryManager {
      * @param cat
      */
     public final void createCategory(Category cat) {
-        this.categories.add(cat);
+        this.getCategories().add(cat);
     }
 
     /**
@@ -43,14 +47,14 @@ public class CategoryManager {
      * @param catModified
      */
     public final void modifyCategory (Category catOriginal,Category catModified){
-        this.categories.remove(catOriginal);
-        this.categories.add(catModified);
+        this.getCategories().remove(catOriginal);
+        this.getCategories().add(catModified);
     }
 
     /**
      * @param cat
      */
     public void deleteCategory(Category cat){
-        this.categories.remove(cat);
+        this.getCategories().remove(cat);
     }
 }

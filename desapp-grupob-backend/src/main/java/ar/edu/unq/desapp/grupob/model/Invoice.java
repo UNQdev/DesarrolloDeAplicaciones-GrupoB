@@ -20,14 +20,14 @@ public class Invoice {
 
     public Invoice(String number, DateTime date, Vendor entity, InvoiceType invoiceType, 
             int taxCode, String description, double subtotal, double total) {
-        this.number = number;
-        this.date = date;
-        this.vendor = entity;
-        this.invoiceType = invoiceType;
-        this.taxCode = taxCode;
-        this.description = description;
-        this.subtotal = subtotal;
-        this.total = total;
+        this.setNumber(number);
+        this.setDate(date);
+        this.setVendor(entity);
+        this.setInvoiceType(invoiceType);
+        this.setTaxCode(taxCode);
+        this.setDescription(description);
+        this.setSubtotal(subtotal);
+        this.setTotal(total);
     }
 
     /*
@@ -57,5 +57,37 @@ public class Invoice {
     }
     public double getTotal() {
         return total;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setDate(DateTime date) {
+        this.date = date;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public void setInvoiceType(InvoiceType invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public void setTaxCode(int taxCode) {
+        this.taxCode = taxCode;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }
