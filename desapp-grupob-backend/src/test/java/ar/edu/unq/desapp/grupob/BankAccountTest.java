@@ -69,4 +69,20 @@ public class BankAccountTest {
     public void testOperationConsolidation() {
     	
     }
+    @Test
+    public void testUpdatePOSITIVEAvailableAmount() {
+    	
+    }
+    @Test
+    public void testUpdateNEGATIVEAvailableAmount() {
+    	
+    }
+    @Test
+    public void testOperationIsConsolidated() {
+    	
+    }
+    @Test
+    public void testGetAccountBalance() {
+    	
+    }
 }

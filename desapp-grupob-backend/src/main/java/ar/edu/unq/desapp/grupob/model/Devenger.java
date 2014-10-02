@@ -76,17 +76,25 @@ public class Devenger {
      */
     public List<Operation> consolidateOperations() {
     	List<Operation> consolidatedOperations = new ArrayList<Operation>();
-    	List<Operation> unConsolidatedOperationsCLONE = new ArrayList<Operation>(this.getUnConsolidatedOperations());
-        for (Operation operation : unConsolidatedOperationsCLONE) {
+        for (Operation operation : this.getUnConsolidatedOperations()) {
             if (this.reachedConsolidationDate(operation)) {
             	consolidatedOperations.add(operation);
-            	this.removeOperation(operation);
             }
         }
-        this.setUnConsolidatedOperations(unConsolidatedOperationsCLONE);
+        this.removeConsolidatedOperations(consolidatedOperations);
         return consolidatedOperations;
     }
-    /* 
+    /**
+     *
+     * @param consolidatedOperations
+     */
+    private void removeConsolidatedOperations(
+			List<Operation> consolidatedOperations) {
+		for(Operation operation : consolidatedOperations) {
+			this.removeOperation(operation);
+		}
+	}
+	/* 
      * GETTERS & SETTERS
      */
     /**
@@ -152,11 +160,11 @@ public class Devenger {
 	 * @param days
 	 * @param date
 	 */
-	public Devenger(List<Operation> operations,
+	public Devenger(double amount, List<Operation> operations,
 			int days, DateTime date) {
 		this.setConsolidationPeriod(days);
 		this.setSystemDate(date);
 		this.setUnConsolidatedOperations(operations);
-		this.setUnConsolidatedAmount(0);
+		this.setUnConsolidatedAmount(amount);
 	}
 }

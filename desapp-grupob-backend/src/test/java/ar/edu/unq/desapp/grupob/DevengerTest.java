@@ -132,6 +132,7 @@ public class DevengerTest {
 		Devenger devenger = builder.withConsolidationPeriod(5)
 				.withSystemDate(systemDate)
 				.withSpecificOperation(operation)
+				.withUnConsolidatedAmount(operationAmount)
 				.build();
 
 		devenger.consolidateOperations();
@@ -156,6 +157,7 @@ public class DevengerTest {
 		Devenger devenger = builder.withConsolidationPeriod(5)
 				.withSystemDate(systemDate)
 				.withSpecificOperation(operation)
+				.withUnConsolidatedAmount(operationAmount)
 				.build();
 
 		devenger.consolidateOperations();

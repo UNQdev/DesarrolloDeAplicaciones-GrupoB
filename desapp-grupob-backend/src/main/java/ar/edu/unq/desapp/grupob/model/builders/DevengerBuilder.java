@@ -16,17 +16,22 @@ public class DevengerBuilder {
 	}
 	// Instances
 	private int consolidationPeriod = 15;
+	private double unConsolidatedAmount = 0.0;
 	private List<Operation> unConsolidatedOperations = new ArrayList<Operation>();
 	private DateTime systemDate;
 
 	// Constructor Method
 	public Devenger build() {
-		Devenger devenger = new Devenger(unConsolidatedOperations, consolidationPeriod, systemDate);
+		Devenger devenger = new Devenger(unConsolidatedAmount, unConsolidatedOperations, consolidationPeriod, systemDate);
         return devenger;
     }
 	// Methods
 	public DevengerBuilder withConsolidationPeriod(final int days) {
 		this.consolidationPeriod = days;
+		return this;
+	}
+	public DevengerBuilder withUnConsolidatedAmount(final double amount) {
+		this.unConsolidatedAmount = amount;
 		return this;
 	}
 	public DevengerBuilder withSpecificOperation(final Operation operation) {
