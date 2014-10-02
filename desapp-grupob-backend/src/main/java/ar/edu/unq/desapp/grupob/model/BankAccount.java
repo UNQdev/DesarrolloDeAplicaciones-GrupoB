@@ -1,72 +1,125 @@
 package ar.edu.unq.desapp.grupob.model;
 
+import java.util.List;
+
 public class BankAccount extends Account {
 
     private Devenger devenger;
     private double available;
-    private double accrued;
 
-    public BankAccount() {}
-    public BankAccount(int days) {
+    public BankAccount(int consolidationPeriod) {
         super();
-        this.devenger = new Devenger(this, days);
+        this.setDevenger(new Devenger(consolidationPeriod));
         this.setAvailable(super.getAccountBalance());
-        this.setAccrued(0);
     }
-
-    @Override
+    /**
+     *
+     */
+	@Override
     public void addOperation(Operation operation) {
-        this.devenger.addOperation(operation);
-        this.setAccrued(operation.getAmount());
+        this.getDevenger().addOperation(operation);
     }
-
+	/**
+	 *
+	 */
     @Override
     public void removeOperation(Operation operation) {
-        if (!this.operationIsConsolidated(operation)) {
+        if (this.operationIsConsolidated(operation)) {
             super.getOperations().remove(operation);
             this.updateAccountBalance(operation.getRealAmount());
         } else {
-            this.devenger.removeOperation(operation);
+            this.getDevenger().removeOperation(operation);
         }
     }
-
+    /**
+     *
+     */
     @Override
-    public void consolidate(){
-        double consolidatedAmount = this.devenger.consolidateOperations();
-        this.updateAvailableAndAccrued(consolidatedAmount);
-        this.updateAccountBalance(consolidatedAmount);
+    public void consolidate() {
+        List<Operation> consolidatedOperations = this.getDevenger().consolidateOperations();
+        this.getOperations().addAll(consolidatedOperations);
+        double consolidatedAmount = this.getConsolidationAmount(consolidatedOperations);
+        this.updateAvailableAmount(consolidatedAmount);
     }
-
-    private void updateAvailableAndAccrued(double consolidatedAmount) {
-        this.available = super.getAccountBalance() - consolidatedAmount;
-        this.accrued -= consolidatedAmount;
+	/**
+     *
+     * @param consolidatedOperations
+     * @return
+     */
+    private double getConsolidationAmount(List<Operation> operations) {
+    	double amount = 0.0;
+    	for(Operation operation : operations) {
+			amount += operation.getRealAmount();
+		}
+    	return amount;
+	}
+    /**
+     *
+     * @param amount
+     */
+    private void updateAvailableAmount(double amount) {
+    	this.available += amount;
     }
-
-    private boolean operationIsConsolidated(Operation operation) {
+    /**
+     *
+     * @param operation
+     * @return
+     */
+	private boolean operationIsConsolidated(Operation operation) {
         return super.getOperations().contains(operation);
     }
-    
+	/**
+	 *
+	 * @return
+	 */
+    public double getUnConsolidatedAmount() {
+    	return this.getDevenger().getUnConsolidatedAmount();
+    }
+    /**
+     *
+     */
+    @Override
+    public double getAccountBalance() {
+    	return (this.getAvailable() + this.getUnConsolidatedAmount()); 
+    }
     /*
      * GETTERS & SETTERS
+     */
+    /**
+     *
+     * @return
      */
     public double getAvailable() {
         return available;
     }
-
+    /**
+     *
+     * @param available
+     */
     public void setAvailable(double available) {
         this.available = available;
     }
-
-    public double getAccrued() {
-        return accrued;
-    }
-
-    public void setAccrued(double accrued) {
-        this.accrued = accrued;
-    }
-    
+    /**
+     *
+     * @return
+     */
     public Devenger getDevenger() {
         return devenger;
     }
-
+    /**
+     *
+     * @param devenger
+     */
+    private void setDevenger(Devenger devenger) {
+    	this.devenger = devenger;
+	}
+    /**
+     * FOR TEST PURPOSE ONLY
+     * @param devenger
+     */
+    public BankAccount(Devenger devenger) {
+    	super();
+        this.setDevenger(devenger);
+        this.setAvailable(super.getAccountBalance());
+    }
 }

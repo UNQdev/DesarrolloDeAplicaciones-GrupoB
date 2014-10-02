@@ -31,7 +31,6 @@ public class BankAccountTest {
         assertEquals(bank.getAccountBalance(), 0, 0);
         assertEquals(bank.getOperations().size(), 0);
         assertEquals(bank.getAvailable(), bank.getAccountBalance(), 0);
-        assertEquals(bank.getAccrued(), 0, 0);
     }
     /**
      *
@@ -41,20 +40,16 @@ public class BankAccountTest {
     	Operation operation = mock(Operation.class);
         when(operation.getAmount()).thenReturn((double) 100);
 
-        List<Operation> unConsolidatedOperations = mock(List.class);
         Devenger devenger = mock(Devenger.class);
-        /*
-         * TODO: Proper mock for addOperation stubbing
-         */
-//      when(devenger.addOperation(operation))
 
         BankAccountBuilder builder = BankAccountBuilder.aBankAccountBuilder();
-        BankAccount bank = builder.build();
+        BankAccount bank = builder.withDevenger(devenger)
+        		.buildBankWithJUSTADevenger();
 
         bank.addOperation(operation);
 
-        verify(unConsolidatedOperations, times(1)).add(operation);
-        assertEquals(bank.getAccrued(), operation.getAmount(), 0);
+        verify(devenger, times(1)).addOperation(operation);
+        assertFalse(bank.getOperations().contains(operation));
     }
     /**
      *
@@ -71,5 +66,10 @@ public class BankAccountTest {
         bank.removeOperation(operation);
         assertFalse(bank.getOperations().contains(operation));
         assertEquals(bank.getAccountBalance(), 0,0);
+    }
+    
+    @Test
+    public void testOperationConsolidation() {
+    	
     }
 }

@@ -28,7 +28,7 @@ public class DevengerTest {
 		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
 		Devenger devenger = builder.withConsolidationPeriod(5)
 				.build();
-		
+
 		assertEquals(devenger.getConsolidationPeriod(), 5);
 		assertEquals(devenger.getUnConsolidatedOperations().size(), 0);
 	}
@@ -38,10 +38,9 @@ public class DevengerTest {
 	@Test
 	public void testAddOperation() {
 		Operation operation = mock(Operation.class);
-		List<Operation> operations = new ArrayList<Operation>();
+
 		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
-		Devenger devenger = builder.withUnConsolidatedOperations(operations)
-				.build();
+		Devenger devenger = builder.build();
 
 		devenger.addOperation(operation);
 
@@ -65,7 +64,7 @@ public class DevengerTest {
 	 *
 	 */
 	@Test
-	public void testAcrrualDateCalculation() {
+	public void testAccrualDateCalculation() {
 		DateTime operationDate = DateTime.parse("2014-09-01T01:00");
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
@@ -96,6 +95,7 @@ public class DevengerTest {
 				.build();
 
 		assertTrue(devenger.reachedConsolidationDate(operation));
+		verify(operation, times(2)).getDate();
 	}
 	/**
 	 *
@@ -113,7 +113,8 @@ public class DevengerTest {
 				.withSystemDate(systemDate)
 				.build();
 
-		assertFalse(devenger.reachedConsolidationDate(operation));
+		assertFalse(devenger.reachedConsolidationDate(operation));		
+		verify(operation, times(2)).getDate();
 	}
 	/**
 	 *
@@ -121,25 +122,22 @@ public class DevengerTest {
 	@Test
 	public void testOperationConsolidated() {
 		DateTime systemDate = DateTime.parse("2014-09-12T01:00");
-		DateTime operation1Date = DateTime.parse("2014-09-01T01:00");
-		double operation1Amount = 100;
+		DateTime operationDate = DateTime.parse("2014-09-01T01:00");
+		double operationAmount = 100;
 		Operation operation = mock(Operation.class);
-		when(operation.getDate()).thenReturn(operation1Date);
-		when(operation.getAmount()).thenReturn(operation1Amount);
-
-		List<Operation> consolidatedOperations = new ArrayList<Operation>();
-
-		BankAccount bankAccount = mock(BankAccount.class);
-		when(bankAccount.getOperations()).thenReturn(consolidatedOperations);
+		when(operation.getDate()).thenReturn(operationDate);
+		when(operation.getAmount()).thenReturn(operationAmount);
 
 		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
 		Devenger devenger = builder.withConsolidationPeriod(5)
-				.withAccount(bankAccount)
 				.withSystemDate(systemDate)
+				.withSpecificOperation(operation)
 				.build();
 
 		devenger.consolidateOperations();
 
+		verify(operation, times(2)).getDate();
+		verify(operation, times(1)).getRealAmount();
 		assertFalse(devenger.getUnConsolidatedOperations().contains(operation));
 	}
 	/**
@@ -147,6 +145,43 @@ public class DevengerTest {
 	 */
 	@Test
 	public void testOperationNOTConsolidated() {
-		
+		DateTime systemDate = DateTime.parse("2014-09-12T01:00");
+		DateTime operationDate = DateTime.parse("2014-09-08T01:00");
+		double operationAmount = 100;
+		Operation operation = mock(Operation.class);
+		when(operation.getDate()).thenReturn(operationDate);
+		when(operation.getAmount()).thenReturn(operationAmount);
+
+		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
+		Devenger devenger = builder.withConsolidationPeriod(5)
+				.withSystemDate(systemDate)
+				.withSpecificOperation(operation)
+				.build();
+
+		devenger.consolidateOperations();
+
+		verify(operation, times(2)).getDate();
+		verify(operation, times(0)).getRealAmount();
+		assertTrue(devenger.getUnConsolidatedOperations().contains(operation));
+	}
+	@Test
+	public void testUnConsolidatedAmountPOSITIVEUpdate() {
+		double amount = 100.0;
+		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
+		Devenger devenger = builder.build();
+
+		devenger.updateUnConsolidatedAmount(amount);
+
+		assertEquals(devenger.getUnConsolidatedAmount(), amount,0);
+	}
+	@Test
+	public void testUnConsolidatedAmountNEGATIVEUpdate() {
+		double amount = -100.0;
+		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
+		Devenger devenger = builder.build();
+
+		devenger.updateUnConsolidatedAmount(amount);
+
+		assertEquals(devenger.getUnConsolidatedAmount(), amount,0);
 	}
 }

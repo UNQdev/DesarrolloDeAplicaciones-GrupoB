@@ -5,95 +5,87 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+/**
+ * 
+ * @author Marcelo Rubini
+ *
+ */
 public class Devenger {
 
-    private Account account;
     private int consolidationPeriod;
     private List<Operation> unConsolidatedOperations;
-	private DateTime systemDate;
+    private DateTime systemDate;
+    private double unConsolidatedAmount;
 
-	/**
-	 *
-	 * @param account
-	 * @param days
-	 */
-    public Devenger(Account account, int days) {
-        this.account = account;
-        this.consolidationPeriod = days;
-        this.unConsolidatedOperations = new ArrayList<Operation>();
-    }
     /**
      *
-     * @param account
      * @param days
-     * @param date
      */
-    public Devenger(Account account, int days, DateTime date) {
-        this.account = account;
-        this.consolidationPeriod = days;
-        this.systemDate = date;
-        this.unConsolidatedOperations = new ArrayList<Operation>();
+    public Devenger(int days) {
+        this.setConsolidationPeriod(days);
+        this.setUnConsolidatedOperations(new ArrayList<Operation>());
+        this.setUnConsolidatedAmount(0);
     }
 	/**
      *
      * @param operation
      */
     public void addOperation(Operation operation) {
-        this.unConsolidatedOperations.add(operation);
+        this.getUnConsolidatedOperations().add(operation);
+        this.updateUnConsolidatedAmount(+operation.getRealAmount());
     }
     /**
      *
      * @param operation
      */
     public void removeOperation(Operation operation) {
-    	if (this.unConsolidatedOperations.contains(operation)) {
-    		this.unConsolidatedOperations.remove(operation);
+    	if (this.getUnConsolidatedOperations().contains(operation)) {
+    		this.getUnConsolidatedOperations().remove(operation);
+    		this.updateUnConsolidatedAmount(-operation.getRealAmount());
     	}
     }
     /**
-     * 
-     * @param operation
-     * @return
+     *
+     * @param amount
      */
-    public DateTime getAccrualDate(Operation operation) {
-        return operation.getDate().plusDays(consolidationPeriod);
-    }
+    public void updateUnConsolidatedAmount(double amount) {
+    	this.unConsolidatedAmount += amount;
+	}
     /**
      *
      * @param operation
      * @return
      */
     public boolean reachedConsolidationDate(Operation operation) {
-    	boolean reached = false;
-        if (this.getAccrualDate(operation).isEqual(this.systemDate) ||
-        		this.getAccrualDate(operation).isBefore(this.systemDate)) {
-        	reached = true;
-        }
-        return reached;
+    	return (this.getAccrualDate(operation).isEqual(this.getSystemDate()) 
+    			|| this.getAccrualDate(operation).isBefore(this.getSystemDate()));
+    }
+    /**
+     *
+     * @param operation
+     * @return
+     */
+    public DateTime getAccrualDate(Operation operation) {
+        return operation.getDate().plusDays(this.getConsolidationPeriod());
     }
     /**
      *
      * @return
      */
-    public double consolidateOperations() {
-        double unConsolidatedTotalAmount = 0;
-        for (Operation operation : unConsolidatedOperations) {
+    public List<Operation> consolidateOperations() {
+    	List<Operation> consolidatedOperations = new ArrayList<Operation>();
+    	List<Operation> unConsolidatedOperationsCLONE = new ArrayList<Operation>(this.getUnConsolidatedOperations());
+        for (Operation operation : unConsolidatedOperationsCLONE) {
             if (this.reachedConsolidationDate(operation)) {
-            	this.consolidateOperation(operation);
-                unConsolidatedTotalAmount += operation.getAmount();
+            	consolidatedOperations.add(operation);
+            	this.removeOperation(operation);
             }
         }
-        return unConsolidatedTotalAmount;
+        this.setUnConsolidatedOperations(unConsolidatedOperationsCLONE);
+        return consolidatedOperations;
     }
-
-    private void consolidateOperation(Operation operation) {
-    	this.account.getOperations().add(operation);
-    	this.removeOperation(operation);
-	}
 	/*
      * GETTERS & SETTERS
-     *
-     *
      */
     /**
      *
@@ -121,7 +113,48 @@ public class Devenger {
      * @param unConsolidatedOperations
      */
     public void setUnConsolidatedOperations(
-            List<Operation> unConsolidatedOperations) {
-        this.unConsolidatedOperations = unConsolidatedOperations;
+            List<Operation> operations) {
+        this.unConsolidatedOperations = operations;
     }
+    /**
+     *
+     * @return
+     */
+    public DateTime getSystemDate() {
+		return systemDate;
+	}
+    /**
+     *
+     * @param systemDate
+     */
+	public void setSystemDate(DateTime date) {
+		this.systemDate = date;
+	}
+	/**
+	 *
+	 * @return
+	 */
+	public double getUnConsolidatedAmount() {
+		return unConsolidatedAmount;
+	}
+	/**
+	 *
+	 * @param unConsolidatedAmount
+	 */
+	public void setUnConsolidatedAmount(double amount) {
+		this.unConsolidatedAmount = amount;
+	}
+	/**
+	 * FOR TEST PURPOSE ONLY
+	 * @param operations
+	 * @param days
+	 * @param date
+	 */
+	public Devenger(List<Operation> operations,
+			int days, DateTime date) {
+		this.setConsolidationPeriod(days);
+		this.setSystemDate(date);
+		this.setUnConsolidatedOperations(operations);
+		this.setUnConsolidatedAmount(0);
+		}
 }

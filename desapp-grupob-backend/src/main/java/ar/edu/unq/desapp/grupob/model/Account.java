@@ -7,8 +7,8 @@ public abstract class Account {
 
     private double accountBalance = 0;
     private List<Operation> operations = new ArrayList<Operation>();
-    
-    
+
+
     public void addOperation(Operation operation) {
         this.operations.add(operation);
         this.updateAccountBalance(operation.getRealAmount());
