@@ -7,6 +7,7 @@ public class Category {
     /**
      * Instances
      */
+    private Integer id;
     private String name;
     private List<SubCategory> subcategories;
 
@@ -14,6 +15,8 @@ public class Category {
     /**
      * Constructor
      */
+    public Category(){}
+    
     public Category (String name, List<SubCategory> subcategories) {
         this.setName(name);
         this.setSubcategories(subcategories);
@@ -38,6 +41,14 @@ public class Category {
         this.subcategories = subcategories;
     }
     
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     /**
      * Methods
      */

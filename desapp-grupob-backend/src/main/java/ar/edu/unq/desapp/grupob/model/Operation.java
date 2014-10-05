@@ -6,6 +6,7 @@ public class Operation {
     /*
      * PROPERTIES
      */
+    private Integer id;
     private OperationType type;
     private Shift shift;
 
@@ -22,6 +23,8 @@ public class Operation {
     /*
      * CONSTRUCTORS
      */
+    public Operation () {};
+    
     public Operation(OperationType type, Shift shift, DateTime date,
             double amount, Invoice invoice, Category category, String concept,
             Account account) {
@@ -92,4 +95,10 @@ public class Operation {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
