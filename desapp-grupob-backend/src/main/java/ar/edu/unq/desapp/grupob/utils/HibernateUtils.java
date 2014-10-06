@@ -8,6 +8,7 @@ public class HibernateUtils {
 
     private static SessionFactory sessionFactory;
 
+    @SuppressWarnings("deprecation")
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {

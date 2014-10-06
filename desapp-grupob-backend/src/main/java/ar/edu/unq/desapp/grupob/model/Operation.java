@@ -2,11 +2,11 @@ package ar.edu.unq.desapp.grupob.model;
 
 import org.joda.time.DateTime;
 
-public class Operation {
+public class Operation extends Entity {
+    private static final long serialVersionUID = 4150568739587426311L;
     /*
      * PROPERTIES
      */
-    private Integer id;
     private OperationType type;
     private Shift shift;
 
@@ -95,10 +95,4 @@ public class Operation {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }
