@@ -104,7 +104,7 @@
 	<!-- ________________________________________ -->
 	<!-- ________________________________________ -->
 	
-	<bean id="persistence.categorydao" class="ar.edu.unq.desapp.grupoc.dao.CategoryDAO" >
+	<bean id="persistence.categorydao" class="ar.edu.unq.desapp.grupob.dao.CategoryDAO" >
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
