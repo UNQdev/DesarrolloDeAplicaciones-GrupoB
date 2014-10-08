@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupob.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccount extends Account {
@@ -9,8 +10,8 @@ public class BankAccount extends Account {
 
     public BankAccount(int consolidationPeriod) {
         super();
+        this.setAvailable(0);
         this.setDevenger(new Devenger(consolidationPeriod));
-        this.setAvailable(super.getAccountBalance());
     }
     /**
      *
@@ -49,7 +50,7 @@ public class BankAccount extends Account {
     private double getConsolidationAmount(List<Operation> operations) {
     	double amount = 0.0;
     	for(Operation operation : operations) {
-			amount += operation.getRealAmount();
+			amount += operation.getAmount();
 		}
     	return amount;
 	}
@@ -57,7 +58,7 @@ public class BankAccount extends Account {
      *
      * @param amount
      */
-    private void updateAvailableAmount(double amount) {
+    public void updateAvailableAmount(double amount) {
     	this.available += amount;
     }
     /**
@@ -70,17 +71,9 @@ public class BankAccount extends Account {
     }
 	/**
 	 *
-	 * @return
 	 */
-    public double getUnConsolidatedAmount() {
-    	return this.getDevenger().getUnConsolidatedAmount();
-    }
-    /**
-     *
-     */
-    @Override
-    public double getAccountBalance() {
-    	return (this.getAvailable() + this.getUnConsolidatedAmount()); 
+	public void updateAccountBalance(double amount){
+        this.setAccountBalance(this.getAvailable() + amount);
     }
     /*
      * GETTERS & SETTERS
@@ -114,12 +107,30 @@ public class BankAccount extends Account {
     	this.devenger = devenger;
 	}
     /**
+	 *
+	 * @return
+	 */
+   public double getUnConsolidatedAmount() {
+   	return this.getDevenger().getUnConsolidatedAmount();
+   }
+   /**
+    *
+    */
+   @Override
+   public double getAccountBalance() {
+   	return (this.getAvailable() + this.getUnConsolidatedAmount()); 
+   }
+    /**
      * FOR TEST PURPOSE ONLY
+     * @param amount
+     * @param operations
      * @param devenger
+     * @param period
      */
-    public BankAccount(Devenger devenger) {
+    public BankAccount(double amount, List<Operation> operations, Devenger devenger, int period) {
     	super();
+    	this.setAvailable(amount);
+    	this.setOperations(operations);
         this.setDevenger(devenger);
-        this.setAvailable(super.getAccountBalance());
     }
 }

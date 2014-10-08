@@ -15,7 +15,7 @@ import ar.edu.unq.desapp.grupob.model.Operation;
 import ar.edu.unq.desapp.grupob.model.builders.DevengerBuilder;
 
 /**
- * @author bananee
+ * @author Marcelo Rubini
  *
  */
 public class DevengerTest {
@@ -166,6 +166,9 @@ public class DevengerTest {
 		verify(operation, times(0)).getRealAmount();
 		assertTrue(devenger.getUnConsolidatedOperations().contains(operation));
 	}
+	/**
+	 *
+	 */
 	@Test
 	public void testUnConsolidatedAmountPOSITIVEUpdate() {
 		double amount = 100.0;
@@ -176,6 +179,9 @@ public class DevengerTest {
 
 		assertEquals(devenger.getUnConsolidatedAmount(), amount,0);
 	}
+	/**
+	 *
+	 */
 	@Test
 	public void testUnConsolidatedAmountNEGATIVEUpdate() {
 		double amount = -100.0;

@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupob.model.builders;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unq.desapp.grupob.model.BankAccount;
@@ -14,28 +15,34 @@ public class BankAccountBuilder {
     }
 
     // Instances
-    private int consolidationPeriod = 15;
+    private double available = 0;
+    private int consolidationPeriod = 5;
     private Devenger devenger;
-    private List<Operation> consolidatedOperations;
+    private List<Operation> consolidatedOperations = new ArrayList<Operation>();
+    
 
     // Constructor method
     public BankAccount build() {
-    	BankAccount bank = new BankAccount(consolidationPeriod);
+    	BankAccount bank = new BankAccount(available, consolidatedOperations, devenger, consolidationPeriod);
         return bank;
     }
-    public BankAccount buildBankWithJUSTADevenger() {
-        BankAccount bank = new BankAccount(devenger);
-        return bank;
-    }
-
+    
     // Methods
     public BankAccountBuilder withConsolidationPeriod(final int countdown) {
         this.consolidationPeriod = countdown;
         return this;
     }
+    public BankAccountBuilder withAvailableAmount(final double amount) {
+        this.available = amount;
+        return this;
+    }    
     public BankAccountBuilder withDevenger(final Devenger devenger) {
         this.devenger = devenger;
         return this;
+    }
+    public BankAccountBuilder withOperation(final Operation operation) {
+    	this.consolidatedOperations.add(operation);
+    	return this;
     }
 
 }
