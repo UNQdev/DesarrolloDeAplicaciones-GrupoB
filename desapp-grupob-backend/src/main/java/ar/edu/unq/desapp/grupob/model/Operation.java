@@ -2,7 +2,8 @@ package ar.edu.unq.desapp.grupob.model;
 
 import org.joda.time.DateTime;
 
-public class Operation {
+public class Operation extends Entity {
+    private static final long serialVersionUID = 4150568739587426311L;
     /*
      * PROPERTIES
      */
@@ -22,6 +23,8 @@ public class Operation {
     /*
      * CONSTRUCTORS
      */
+    public Operation () {};
+    
     public Operation(OperationType type, Shift shift, DateTime date,
             double amount, Invoice invoice, Category category, String concept,
             Account account) {

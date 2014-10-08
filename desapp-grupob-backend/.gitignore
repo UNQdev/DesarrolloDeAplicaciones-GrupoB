@@ -1,4 +1,15 @@
+*.class
+/target
 /target/
+.classpath
+.eclipse-pmd
+.settings/
+.directory
+hsql:sifeag.log
+hsql:sifeag.properties
+hsql:sifeag.script
+hsql:sifeag.tmp
+hsql:sifeag.lck
 
 *.pydevproject
 .project
@@ -11,7 +22,6 @@ tmp/**/*
 *.swp
 *~.nib
 local.properties
-.classpath
 .settings/
 .loadpath
 

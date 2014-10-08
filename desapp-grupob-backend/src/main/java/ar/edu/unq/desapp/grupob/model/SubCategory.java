@@ -3,8 +3,9 @@ package ar.edu.unq.desapp.grupob.model;
 /**
  * @author damian
  */
-public class SubCategory {
+public class SubCategory extends Entity{
     
+    private static final long serialVersionUID = -2075537441356061681L;
     /**
      * Instances
      */

@@ -2,8 +2,9 @@ package ar.edu.unq.desapp.grupob.model;
 
 import java.util.List;
 
-public class Category {
+public class Category extends Entity{
     
+    private static final long serialVersionUID = 2413240818403136684L;
     /**
      * Instances
      */
@@ -14,6 +15,8 @@ public class Category {
     /**
      * Constructor
      */
+    public Category(){}
+    
     public Category (String name, List<SubCategory> subcategories) {
         this.setName(name);
         this.setSubcategories(subcategories);
@@ -37,7 +40,7 @@ public class Category {
     public void setSubcategories(List<SubCategory> subcategories) {
         this.subcategories = subcategories;
     }
-    
+
     /**
      * Methods
      */
