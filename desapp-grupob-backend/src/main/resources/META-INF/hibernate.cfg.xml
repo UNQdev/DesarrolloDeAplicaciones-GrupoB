@@ -49,10 +49,11 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">create-drop</property>
 
         <mapping resource="ar/edu/unq/desapp/grupob/mappings/Category.hbm.xml"/>
-
+		<mapping resource="ar/edu/unq/desapp/grupob/mappings/SubCategory.hbm.xml"/>
+    
     </session-factory>
 
 </hibernate-configuration>

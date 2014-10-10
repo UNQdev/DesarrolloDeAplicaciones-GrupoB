@@ -3,16 +3,18 @@ package ar.edu.unq.desapp.grupob.web.rest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
+
 import ar.edu.unq.desapp.grupob.model.Category;
+import ar.edu.unq.desapp.grupob.model.SubCategory;
 import ar.edu.unq.desapp.grupob.services.CategoryService;
-import ar.edu.unq.desapp.grupob.utils.HibernateUtils;
 import ar.edu.unq.desapp.grupob.utils.JSONObject;
 
 @Service
@@ -34,18 +36,31 @@ public class CategoryRest {
     @GET
     @Path("/all")
     @Produces("application/json")
-    public String getAllCategories() throws JsonGenerationException,
+    public List<Category> getAllCategories() throws JsonGenerationException,
             JsonMappingException, IOException {
+
+        SubCategory peliculas = new SubCategory("Peliculas");
+        SubCategory insumos = new SubCategory("Insumos");
         
         Category ventas = new Category();
         ventas.setName("Ventas");
+        ventas.createSubCategory(peliculas);
         categoryService.save(ventas);
+        
         Category proveedores = new Category();
         proveedores.setName("Proveedores");
+        proveedores.createSubCategory(insumos);
         categoryService.save(proveedores);
-        
+
         List<Category> categorias = getCategoryService().retriveAll();
-        return JSONObject.getInstance().ObjectToJSON(categorias);
+        for (Category category : categorias) {
+            System.out.println(category.getName());
+            for (SubCategory subcategory : category.getSubcategories()){
+                System.out.println(subcategory.getName());
+            }
+            
+        }
+        return categorias;
     }
 
     public CategoryService getCategoryService() {
