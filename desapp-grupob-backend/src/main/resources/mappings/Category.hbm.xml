@@ -10,11 +10,10 @@ default-cascade="save-update">
 	    </id>
 		<property name="name"></property>
 		
-		<list name="subcategories" lazy="false">
-			<key column="subCategoryID" />
-			<list-index column="id" />
+		<bag name="subcategories" cascade="all" lazy="false">
+			<key column="id" />
 			<one-to-many class="ar.edu.unq.desapp.grupob.model.SubCategory" />
-		</list>
+		</bag>
 	
 	</class>
 	

@@ -14,6 +14,8 @@ public class SubCategory extends Entity{
     /**
      * Constructor
      */
+    public SubCategory () {};
+    
     public SubCategory (String name) {
         this.setName(name);
     }

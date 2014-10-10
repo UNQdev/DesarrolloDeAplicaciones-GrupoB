@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupob.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Category extends Entity{
@@ -16,6 +17,11 @@ public class Category extends Entity{
      * Constructor
      */
     public Category(){}
+    
+    public Category (String name) {
+        this.setName(name);
+        this.setSubcategories(new ArrayList<SubCategory>());
+    }
     
     public Category (String name, List<SubCategory> subcategories) {
         this.setName(name);

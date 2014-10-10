@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupob.web.rest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -15,23 +14,11 @@ import org.springframework.stereotype.Service;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.SubCategory;
 import ar.edu.unq.desapp.grupob.services.CategoryService;
-import ar.edu.unq.desapp.grupob.utils.JSONObject;
 
 @Service
 @Path("/categories")
 public class CategoryRest {
     private CategoryService categoryService;
-
-    @GET
-    @Path("/")
-    @Produces("application/json")
-    public String getCategoryById() throws JsonGenerationException,
-            JsonMappingException, IOException {
-        List<Category> categorias = new ArrayList<Category>();
-        categorias.add(new Category("Proveedores", null));
-        categorias.add(new Category("Ventas", null));
-        return JSONObject.getInstance().ObjectToJSON(categorias);
-    }
 
     @GET
     @Path("/all")
@@ -42,24 +29,15 @@ public class CategoryRest {
         SubCategory peliculas = new SubCategory("Peliculas");
         SubCategory insumos = new SubCategory("Insumos");
         
-        Category ventas = new Category();
-        ventas.setName("Ventas");
+        Category ventas = new Category("Ventas");
         ventas.createSubCategory(peliculas);
         categoryService.save(ventas);
         
-        Category proveedores = new Category();
-        proveedores.setName("Proveedores");
+        Category proveedores = new Category("Proveedores");
         proveedores.createSubCategory(insumos);
         categoryService.save(proveedores);
 
         List<Category> categorias = getCategoryService().retriveAll();
-        for (Category category : categorias) {
-            System.out.println(category.getName());
-            for (SubCategory subcategory : category.getSubcategories()){
-                System.out.println(subcategory.getName());
-            }
-            
-        }
         return categorias;
     }
 

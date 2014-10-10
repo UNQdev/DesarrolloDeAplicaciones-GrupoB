@@ -52,7 +52,7 @@
         <property name="hbm2ddl.auto">create-drop</property>
 
         <mapping resource="ar/edu/unq/desapp/grupob/mappings/Category.hbm.xml"/>
-		<mapping resource="ar/edu/unq/desapp/grupob/mappings/SubCategory.hbm.xml"/>
+		<mapping resource="ar/edu/unq/desapp/grupob/mappings/SubCategory.hbm.xml"/> 
     
     </session-factory>
 
