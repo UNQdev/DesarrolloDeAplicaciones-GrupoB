@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -25,38 +26,14 @@ public class CategoryRest {
     @Produces("application/json")
     public List<Category> getAllCategories() throws JsonGenerationException,
             JsonMappingException, IOException {
+        return getCategoryService().retriveAll();
+    }
 
-        SubCategory peliculas = new SubCategory("Peliculas");
-        SubCategory insumos = new SubCategory("Insumos");
-        SubCategory insumos2 = new SubCategory("Insumos2");
-
-        Category ventas = new Category("Ventas");
-        ventas.createSubCategory(peliculas);
-        ventas.createSubCategory(insumos2);
-        categoryService.save(ventas);
-
-        Category proveedores = new Category("Proveedores");
-        proveedores.createSubCategory(insumos);
-        proveedores.createSubCategory(peliculas);
-        proveedores.createSubCategory(insumos2);
-        categoryService.save(proveedores);
-
-        Category sueldos = new Category("Sueldos");
-        sueldos.createSubCategory(peliculas);
-        sueldos.createSubCategory(new SubCategory("premios"));
-        categoryService.save(sueldos);
-        
-        List<Category> categorias = getCategoryService().retriveAll();
-        
-        for (Category category : categorias) {
-            System.out.println("\n"+category.getName());
-            for (SubCategory subcategory : category.getSubcategories()) {
-                System.out.println("-- "+subcategory.getName());
-            }
-
-        }
-
-        return categorias;
+    @GET
+    @Path("/filterByName/{name}")
+    @Produces("application/json")
+    public List<Category> filterByName(@PathParam("name") final String name) {
+        return getCategoryService().filterByName(name);
     }
 
     public CategoryService getCategoryService() {

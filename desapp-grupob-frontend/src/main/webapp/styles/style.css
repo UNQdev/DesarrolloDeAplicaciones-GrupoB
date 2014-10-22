@@ -1,0 +1,67 @@
+body { padding-top: 70px; } 
+
+.table th {
+   text-align: center;   
+}
+
+.table tr {
+   text-align: center;   
+}
+
+.statistics a {
+    font-size: 20px;
+    color: red !important;
+}
+
+.delete {
+	color: red !important;
+}
+
+.statistics a:hover {
+    font-size: 20px;
+    color: white !important;
+}
+
+.sis {
+    font-weight: bold;
+    color: white !important;
+    font-size:20px;
+}
+
+.load{
+   text-align: center;   
+}
+
+.actions{
+   text-align: center;   
+}
+
+.egress{
+    color: red !important;
+}
+
+.amount-detail{
+   text-align: center;   
+}
+
+.messageDelete{
+	text-align: center;
+	width: 40%;
+	position: absolute;
+	left: 30%;
+	right: 30%;
+	heigth: 30%;
+	top: 40%;
+	bottom: 40%;
+}
+
+.messageNew{
+	text-align: center;
+	width: 40%;
+	position: absolute;
+	left: 30%;
+	right: 30%;
+	heigth: 30%;
+	top: 40%;
+	bottom: 40%;
+}

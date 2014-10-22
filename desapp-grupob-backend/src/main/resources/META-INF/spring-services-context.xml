@@ -11,5 +11,9 @@
 		<property name="dao" ref="persistence.categorydao" />
 	</bean>
 
+	<bean id="services.subcategories" class="ar.edu.unq.desapp.grupob.services.SubCategoryService">
+		<property name="dao" ref="persistence.subcategorydao" />
+	</bean>
+
 
 </beans>

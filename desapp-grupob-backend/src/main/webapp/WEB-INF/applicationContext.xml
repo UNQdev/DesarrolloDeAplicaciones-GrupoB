@@ -27,6 +27,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	<jaxrs:server id="category" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="categoryRest" />
+			<ref bean="subcategoryRest" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -43,6 +44,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
 		<property name="categoryService" ref="services.categories" />
+	</bean>
+
+	<bean id="subcategoryRest" class="ar.edu.unq.desapp.grupob.web.rest.SubCategoryRest">
+		<property name="subCategoryService" ref="services.subcategories" />
 	</bean>
 
 </beans>
