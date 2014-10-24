@@ -42,11 +42,12 @@ public class CategoryRest {
     @GET
     @Path("/save/{name}")
     @Produces("application/json")
-    public void saveCategory(@PathParam("name") final String name) {
+    public Category saveCategory(@PathParam("name") final String name) {
         Category category = new Category(name);
         getCategoryService().save(category);
+        return category;
     }
-
+    
     @GET
     @Path("/update/{id}/{name}")
     @Produces("application/json")
@@ -54,6 +55,15 @@ public class CategoryRest {
             @PathParam("name") final String name) {
         Category category = getCategoryService().getById(id);
         getCategoryService().update(category);
+        return category;
+    }
+
+    @GET
+    @Path("/delete/{id}")
+    @Produces("application/json")
+    public Category deleteCategory(@PathParam("id") final int id) {
+        Category category = this.getCategory(id);
+        getCategoryService().delete(category);
         return category;
     }
 
