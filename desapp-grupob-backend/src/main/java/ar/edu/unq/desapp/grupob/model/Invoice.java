@@ -30,7 +30,11 @@ public class Invoice {
         this.setTotal(total);
     }
 
-    /*
+    public Invoice() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/*
      * GETTERS & SETTERS
      *
      */

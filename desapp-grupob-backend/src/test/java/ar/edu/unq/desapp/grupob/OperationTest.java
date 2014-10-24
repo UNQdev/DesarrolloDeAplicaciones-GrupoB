@@ -12,6 +12,7 @@ import ar.edu.unq.desapp.grupob.model.Invoice;
 import ar.edu.unq.desapp.grupob.model.Operation;
 import ar.edu.unq.desapp.grupob.model.OperationType;
 import ar.edu.unq.desapp.grupob.model.Shift;
+import ar.edu.unq.desapp.grupob.model.SubCategory;
 import ar.edu.unq.desapp.grupob.model.builders.OperationBuilder;
 
 public class OperationTest {
@@ -24,17 +25,19 @@ public class OperationTest {
         DateTime date = DateTime.parse("2014-09-01T01:00");
         Invoice invoice = mock(Invoice.class);
         Category category = mock(Category.class);
+        SubCategory subcategory = mock(SubCategory.class);
         Account account = mock(Account.class);
         double amount = 0;
         String concept = "";
 
         Operation operation = builder.withAccount(account).withAmount(amount)
-                .withCategory(category).withConcept(concept).withDate(date)
+                .withCategory(category).withSubCategory(subcategory).withConcept(concept).withDate(date)
                 .withInvoice(invoice).withShift(shift).withType(operationType)
                 .build();
         assertEquals(operation.getAccount(), account);
         assertEquals(operation.getAmount(), amount, 0);
         assertEquals(operation.getCategory(), category);
+        assertEquals(operation.getSubcategory(), subcategory);
         assertEquals(operation.getConcept(), concept);
         assertEquals(operation.getDate(), date);
         assertEquals(operation.getInvoice(), invoice);

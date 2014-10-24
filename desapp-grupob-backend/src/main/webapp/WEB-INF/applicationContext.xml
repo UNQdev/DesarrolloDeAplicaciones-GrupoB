@@ -21,13 +21,14 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 
 	<!-- =========================== -->
-	<!-- =========Servicios ========= -->
+	<!-- ======== Servicios ======== -->
 	<!-- =========================== -->
 
 	<jaxrs:server id="category" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="categoryRest" />
 			<ref bean="subcategoryRest" />
+			<ref bean="dbInitializeRest" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -42,10 +43,20 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		</jaxrs:features>
 	</jaxrs:server>
 
+	<bean id="dbInitializeRest" class="ar.edu.unq.desapp.grupob.web.rest.DBInitializeRest">
+		<!-- Accounts -->
+		<property name="bankAccountService" ref="services.bankaccountservice" />
+		<property name="cashAccountService" ref="services.cashAccountService" />
+		<property name="currentAccountService" ref="services.currentAccountService" />
+		<!-- Categories & SubCategories -->
+		<property name="subcategoryService" ref="services.subcategoryService" />
+		<!-- Operations -->
+		<property name="operationService" ref="services.operationservice" />
+	</bean>
+	
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
 		<property name="categoryService" ref="services.categories" />
 	</bean>
-
 	<bean id="subcategoryRest" class="ar.edu.unq.desapp.grupob.web.rest.SubCategoryRest">
 		<property name="subCategoryService" ref="services.subcategories" />
 	</bean>

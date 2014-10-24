@@ -17,6 +17,7 @@ public class Operation extends Entity {
     private Invoice invoice;
 
     private Category category;
+    private SubCategory subcategory;
 
     private Account account;
 
@@ -26,14 +27,15 @@ public class Operation extends Entity {
     public Operation () {};
     
     public Operation(OperationType type, Shift shift, DateTime date,
-            double amount, Invoice invoice, Category category, String concept,
-            Account account) {
+            double amount, Invoice invoice, Category category, SubCategory subcategory, 
+            String concept, Account account) {
         this.setType(type);
         this.setShift(shift);
         this.setDate(date);
         this.setAmount(amount);
         this.setInvoice(invoice);
         this.setCategory(category);
+        this.setSubcategory(subcategory);
         this.setConcept(concept);
         this.setAccount(account);
     }
@@ -88,6 +90,12 @@ public class Operation extends Entity {
 	}
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	public SubCategory getSubcategory() {
+		return subcategory;
+	}
+	public void setSubcategory(SubCategory subcategory) {
+		this.subcategory = subcategory;
 	}
 	public Account getAccount() {
 		return account;

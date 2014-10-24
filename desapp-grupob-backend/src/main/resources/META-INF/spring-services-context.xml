@@ -7,7 +7,15 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	<!-- beans de spring -->
-	<bean id="services.categories" class="ar.edu.unq.desapp.grupob.services.CategoryService">
+	<bean id="services.bankaccount" class="ar.edu.unq.desapp.grupob.services.BankAccountService">
+		<property name="dao" ref="persistence.subcategorydao" />
+	</bean>
+	
+	<bean id="services.cashaccount" class="ar.edu.unq.desapp.grupob.services.CashAccountService">
+		<property name="dao" ref="persistence.categorydao" />
+	</bean>
+	
+	<bean id="services.currentaccount" class="ar.edu.unq.desapp.grupob.services.CurrentAccountService">
 		<property name="dao" ref="persistence.categorydao" />
 	</bean>
 
@@ -15,5 +23,10 @@
 		<property name="dao" ref="persistence.subcategorydao" />
 	</bean>
 
+	<bean id="services.operations" class="ar.edu.unq.desapp.grupob.services.SubCategoryService">
+		<property name="dao" ref="persistence.subcategorydao" />
+	</bean>
+	
+	
 
 </beans>
