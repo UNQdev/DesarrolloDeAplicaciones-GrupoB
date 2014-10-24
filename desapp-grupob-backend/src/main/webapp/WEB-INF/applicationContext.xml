@@ -28,6 +28,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<jaxrs:serviceBeans>
 			<ref bean="categoryRest" />
 			<ref bean="subcategoryRest" />
+			<ref bean="fakeDataRest" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -50,4 +51,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="subCategoryService" ref="services.subcategories" />
 	</bean>
 
+	<bean id="fakeDataRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
+		<property name="categoryService" ref="services.categories" />
+	</bean>
+	
 </beans>
