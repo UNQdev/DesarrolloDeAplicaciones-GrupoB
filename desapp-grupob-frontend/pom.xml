@@ -4,37 +4,24 @@
 	<groupId>ar.edu.unq.desapp.grupob</groupId>
 	<artifactId>desapp-grupob-frontend</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>desapp-grupob-frontend Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<wtpversion>2.0</wtpversion>
-					<downloadSources>true</downloadSources>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<compilerArgument></compilerArgument>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<finalName>desapp-grupob-frontend</finalName>
 	</build>
 
@@ -47,5 +34,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 </project>
