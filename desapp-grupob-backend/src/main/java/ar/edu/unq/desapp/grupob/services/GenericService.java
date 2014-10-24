@@ -21,7 +21,7 @@ public class GenericService<T> implements Serializable {
         this.dao = dao;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void delete(final T object) {
         this.getDao().delete(object);
     }
@@ -47,4 +47,8 @@ public class GenericService<T> implements Serializable {
         return list;
     }
 
+    public T getById(int id) {
+        T object = this.dao.findById(id);
+        return object;
+    }
 }

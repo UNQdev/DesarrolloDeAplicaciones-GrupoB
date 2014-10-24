@@ -12,35 +12,36 @@ var app = angular.module(
 		[ 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize',
 				'ngTouch', 'ngGrid' ]).config(function($routeProvider) {
 	$routeProvider
-	
-	/*** CATEGORIES ***/
+
+	//CATEGORIES
 	.when('/categories', {
 		templateUrl : 'views/categories.html',
 		controller : 'CategoryControllerList'
-	
-	.otherwise({
+	}).when('/editCategory/:categoryId', {
+		templateUrl : 'views/editCategory.html'
+		// controller : 'CategoryControllerEdit'
+	}).when('/deleteCategory/:categoryId', {
+		controller : 'DeleteCategoryController'
+	}).otherwise({
 		redirectTo : '/'
 	});
 });
 
-app.factory(
-		"alert",
-		function( $window, $q ) {
-		 
-		// Define promise-based alert() method.
-		function alert( message ) {
-		 
+app.factory("alert", function($window, $q) {
+
+	// Define promise-based alert() method.
+	function alert(message) {
+
 		var defer = $q.defer();
-		 
-		$window.alert( message );
-		 
+
+		$window.alert(message);
+
 		defer.resolve();
-		 
-		return( defer.promise );
-		 
-		}
-		 
-		return( alert );
-		 
-		}
-		);
+
+		return (defer.promise);
+
+	}
+
+	return (alert);
+
+});

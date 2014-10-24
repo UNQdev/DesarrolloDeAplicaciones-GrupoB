@@ -14,13 +14,13 @@ import ar.edu.unq.desapp.grupob.model.SubCategory;
 import ar.edu.unq.desapp.grupob.services.SubCategoryService;
 
 @Service
-@Path("/subcategories")
+@Path("/subcategoryService")
 public class SubCategoryRest {
 
     private SubCategoryService subCategoryService;
 
     @GET
-    @Path("/all")
+    @Path("/subcategories")
     @Produces("application/json")
     public List<SubCategory> getCategories() {
         return getSubCategoryService().retriveAll();
