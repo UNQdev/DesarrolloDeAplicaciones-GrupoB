@@ -11,6 +11,8 @@ hsql:sifeag.script
 hsql:sifeag.tmp
 hsql:sifeag.lck
 
+/src/main/resources/deploy-script.sh
+
 *.pydevproject
 .project
 .metadata
