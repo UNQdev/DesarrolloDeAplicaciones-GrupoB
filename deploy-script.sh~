@@ -1,7 +1,7 @@
 #!/bin/bash
 #You must define the global variables $TOPCAT_PATH and $BACKEND_ROOT_PATH
 TOMCAT_PATH=/opt/apache-tomcat-7.0.56/
-BACKEND_ROOT_PATH=/home/damian/Documentos/Repos/DesarrolloDeAplicaciones-GrupoB/desapp-grupob-backend/
+BACKEND_ROOT_PATH=/home/bananee/Documents/UNQ/2014s2/DESAPP/Entorno/desapp.workspace/DesarrolloDeAplicaciones-GrupoB/desapp-grupob-backend/
 
 
 # stop tomcat
