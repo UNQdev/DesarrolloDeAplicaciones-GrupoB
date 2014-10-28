@@ -15,6 +15,7 @@ import ar.edu.unq.desapp.grupob.services.CategoryService;
 @Service
 @Path("/categoryService")
 public class CategoryRest {
+	
     private CategoryService categoryService;
 
     @GET

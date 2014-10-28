@@ -18,10 +18,10 @@ public class SubCategoryDAO extends HibernateGenericDAO<SubCategory> implements
 
     @SuppressWarnings("unchecked")
     public List<SubCategory> filterByName(String name) {
-        List<SubCategory> c = this.getSession()
+        List<SubCategory> subcategories = this.getSession()
                 .createCriteria(SubCategory.class)
                 .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
                 .list();
-        return c;
+        return subcategories;
     }
 }

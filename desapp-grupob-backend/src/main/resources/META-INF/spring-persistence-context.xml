@@ -88,17 +88,24 @@
 	</bean>
 
 
-	<!-- ________________________________________ -->
-	<!-- ________________________________________ -->
-	<!-- ___________ Beans de negocio___________ -->
-	<!-- ________________________________________ -->
-	<!-- ________________________________________ -->
+	<!-- ============================== -->
+	<!-- ======== Persistencia ======== -->
+	<!-- ============================== -->
 
-	<bean id="persistence.categorydao" class="ar.edu.unq.desapp.grupob.dao.CategoryDAO">
+
+	<bean id="operationDao" class="ar.edu.unq.desapp.grupob.dao.OperationDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-	<bean id="persistence.subcategorydao" class="ar.edu.unq.desapp.grupob.dao.SubCategoryDAO">
+	<bean id="categoryDao" class="ar.edu.unq.desapp.grupob.dao.CategoryDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+	<bean id="subcategoryDao" class="ar.edu.unq.desapp.grupob.dao.SubCategoryDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+	<bean id="invoiceDao" class="ar.edu.unq.desapp.grupob.dao.InvoiceDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 

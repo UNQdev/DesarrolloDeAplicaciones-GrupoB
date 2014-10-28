@@ -13,16 +13,68 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd
 ">
 
+	<!-- =========================== -->
+	<!-- =========   CXF   ========= -->
+	<!-- =========================== -->
+
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<bean id="categoryrestclass" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
+	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
+	<bean id='jacksonProvider' class='org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider' />
+
+	<!-- =========================== -->
+	<!-- ======== Servicios ======== -->
+	<!-- =========================== -->
+
+	<!-- include services -->
+	<jaxrs:server id="feag" address="/"> 
+		<jaxrs:serviceBeans>
+			<ref bean="operationRest" />
+			<ref bean="categoryRest" />
+			<ref bean="invoiceRest" />
+			<ref bean="dbInitializationRest" />
+		</jaxrs:serviceBeans>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+		</jaxrs:extensionMappings>
+		<jaxrs:providers>
+			<ref bean="jaxbProvider" />
+			<ref bean="jacksonProvider" />
+			<ref bean="cors-filter" />
+		</jaxrs:providers>
+		<jaxrs:features>
+			<!-- <cxf:logging /> -->
+		</jaxrs:features>
+	</jaxrs:server>
+	
+	<!-- define services -->
+	<bean id="operationRest" class="ar.edu.unq.desapp.grupob.web.rest.OperationRest">
+		<property name="operationService" ref="services.operations" />
+	</bean>
+
+	<bean id="categoryRest" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
 		<property name="categoryService" ref="services.categories" />
 	</bean>
-	<jaxrs:server id="categoryRest" address="/">
-		<jaxrs:serviceBeans>
-			<ref bean="categoryrestclass" />
-		</jaxrs:serviceBeans>
-	</jaxrs:server>
 
+	<bean id="invoiceRest" class="ar.edu.unq.desapp.grupob.web.rest.InvoiceRest">
+		<property name="invoiceService" ref="services.invoices" />
+	</bean>
+
+	<bean id="dbInitializationRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
+		<!-- Accounts -->
+		<property name="bankAccountService" ref="services.bankaccountservice" />
+		<property name="cashAccountService" ref="services.cashAccountService" />
+		<property name="currentAccountService" ref="services.currentAccountService" />
+		<!-- Categories & SubCategories -->
+		<property name="categoryService" ref="services.categoryService" />
+		<property name="subcategoryService" ref="services.subcategoryService" />
+		<!-- Operations -->
+		<property name="operationService" ref="services.operationservice" />
+		<!-- Invoices -->
+		<property name="invoiceService" ref="services.invoiceservice" />
+	</bean>
+	
 </beans>
