@@ -18,18 +18,18 @@ public class CategoryRest {
     private CategoryService categoryService;
 
     @GET
+    @Path("/categories")
+    @Produces("application/json")
+    public List<Category> getCategories() {
+        return getCategoryService().retriveAll();
+    }
+
+    @GET
     @Path("/category/{id}")
     @Produces("application/json")
     public Category getCategory(@PathParam("id") final int id) {
         Category category = getCategoryService().getById(id);
         return category;
-    }
-
-    @GET
-    @Path("/categories")
-    @Produces("application/json")
-    public List<Category> getCategories() {
-        return getCategoryService().retriveAll();
     }
 
     @GET

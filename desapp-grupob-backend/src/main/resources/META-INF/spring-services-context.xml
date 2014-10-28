@@ -26,7 +26,5 @@
 	<bean id="services.operations" class="ar.edu.unq.desapp.grupob.services.SubCategoryService">
 		<property name="dao" ref="persistence.subcategorydao" />
 	</bean>
-	
-	
 
 </beans>
