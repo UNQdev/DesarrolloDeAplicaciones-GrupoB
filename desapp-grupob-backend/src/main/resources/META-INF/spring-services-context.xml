@@ -15,5 +15,20 @@
 		<property name="dao" ref="persistence.subcategorydao" />
 	</bean>
 
+	<bean id="services.bankaccounts" class="ar.edu.unq.desapp.grupob.services.BankAccountService">
+		<property name="dao" ref="persistence.bankaccountdao" />
+	</bean>
+
+	<bean id="services.cashaccounts" class="ar.edu.unq.desapp.grupob.services.CashAccountService">
+		<property name="dao" ref="persistence.cashaccountdao" />
+	</bean>
+
+	<bean id="services.currentaccounts" class="ar.edu.unq.desapp.grupob.services.CurrentAccountService">
+		<property name="dao" ref="persistence.currentaccountdao" />
+	</bean>
+
+	<bean id="services.operations" class="ar.edu.unq.desapp.grupob.services.OperationService">
+		<property name="dao" ref="persistence.operationdao" />
+	</bean>
 
 </beans>

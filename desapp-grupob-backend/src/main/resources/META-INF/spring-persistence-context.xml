@@ -102,4 +102,22 @@
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
+	<bean id="persistence.bankaccountdao" class="ar.edu.unq.desapp.grupob.dao.BankAccountDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+	<bean id="persistence.cashaccountdao" class="ar.edu.unq.desapp.grupob.dao.CashAccountDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+	<bean id="persistence.currentaccountdao" class="ar.edu.unq.desapp.grupob.dao.CurrentAccountDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+	<bean id="persistence.operationdao" class="ar.edu.unq.desapp.grupob.dao.OperationDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+
+
 </beans>

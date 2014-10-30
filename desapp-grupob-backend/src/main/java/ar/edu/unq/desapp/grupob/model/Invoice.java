@@ -29,6 +29,10 @@ public class Invoice {
         this.setSubtotal(subtotal);
         this.setTotal(total);
     }
+    
+    public Invoice () {
+        
+    }
 
     /*
      * GETTERS & SETTERS
