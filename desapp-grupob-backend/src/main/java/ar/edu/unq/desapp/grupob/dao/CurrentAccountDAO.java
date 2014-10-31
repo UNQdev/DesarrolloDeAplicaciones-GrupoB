@@ -15,10 +15,10 @@ public class CurrentAccountDAO extends HibernateGenericDAO<CurrentAccount>
     @Override
     public List<CurrentAccount> filterByName(String name) {
         @SuppressWarnings("unchecked")
-        List<CurrentAccount> c = this.getSession().createCriteria(CurrentAccount.class)
+        List<CurrentAccount> currentAccounts = this.getSession().createCriteria(CurrentAccount.class)
                 .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
                 .list();
-        return c;
+        return currentAccounts;
     }
 
     @Override

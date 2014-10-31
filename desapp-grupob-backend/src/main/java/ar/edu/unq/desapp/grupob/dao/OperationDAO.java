@@ -15,10 +15,10 @@ public class OperationDAO extends HibernateGenericDAO<Operation> implements
     @Override
     public List<Operation> filterByName(String name) {
         @SuppressWarnings("unchecked")
-        List<Operation> o = this.getSession().createCriteria(Operation.class)
+        List<Operation> operations = this.getSession().createCriteria(Operation.class)
                 .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
                 .list();
-        return o;
+        return operations;
     }
 
     @Override

@@ -1,10 +1,11 @@
 package ar.edu.unq.desapp.grupob.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccount extends Account {
 
+    private static final long serialVersionUID = -3529073389645955219L;
+    
     private Devenger devenger;
     private double available;
 

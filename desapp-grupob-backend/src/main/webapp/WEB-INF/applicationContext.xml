@@ -19,17 +19,20 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<bean id='jacksonProvider' class='org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider' />
 
-	<bean id="cors-filter" class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter"/>
+	<bean id="cors-filter"
+		class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter" />
 
 	<!-- =========================== -->
 	<!-- =========Servicios ========= -->
 	<!-- =========================== -->
 
-	<jaxrs:server id="category" address="/">
+	<jaxrs:server id="feag" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="categoryRest" />
 			<ref bean="subcategoryRest" />
-			<ref bean="fakeDataRest" />
+			<ref bean="operationRest" />
+			<ref bean="invoiceRest" />
+			<ref bean="dbInitializationRest" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -45,6 +48,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		</jaxrs:features>
 	</jaxrs:server>
 
+	<!-- define rest services -->
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
 		<property name="categoryService" ref="services.categories" />
 	</bean>
@@ -53,8 +57,25 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="subCategoryService" ref="services.subcategories" />
 	</bean>
 
-	<bean id="fakeDataRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
+	<bean id="dbInitializationRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
+		<!-- Accounts -->
+		<property name="bankAccountService" ref="services.bankaccounts" />
+		<property name="cashAccountService" ref="services.cashaccounts" />
+		<property name="currentAccountService" ref="services.currentaccounts" />
+		<!-- Categories -->
 		<property name="categoryService" ref="services.categories" />
+		<!-- Operations -->
+		<property name="operationService" ref="services.operations" />
+		<!-- Invoices -->
+		<property name="invoiceService" ref="services.invoices" />
 	</bean>
-	
+
+	<bean id="operationRest" class="ar.edu.unq.desapp.grupob.web.rest.OperationRest">
+		<property name="operationService" ref="services.operations" />
+	</bean>
+
+	<bean id="invoiceRest" class="ar.edu.unq.desapp.grupob.web.rest.InvoiceRest">
+		<property name="invoiceService" ref="services.invoices" />
+	</bean>
+
 </beans>

@@ -94,30 +94,36 @@
 	<!-- ________________________________________ -->
 	<!-- ________________________________________ -->
 
-	<bean id="persistence.categorydao" class="ar.edu.unq.desapp.grupob.dao.CategoryDAO">
+	<!-- Categories DAO -->
+	<bean id="persistence.categories" class="ar.edu.unq.desapp.grupob.dao.CategoryDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-	<bean id="persistence.subcategorydao" class="ar.edu.unq.desapp.grupob.dao.SubCategoryDAO">
+	<bean id="persistence.subcategories" class="ar.edu.unq.desapp.grupob.dao.SubCategoryDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-	<bean id="persistence.bankaccountdao" class="ar.edu.unq.desapp.grupob.dao.BankAccountDAO">
+	<!-- Accounts DAO -->
+	<bean id="persistence.bankaccounts" class="ar.edu.unq.desapp.grupob.dao.BankAccountDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-	<bean id="persistence.cashaccountdao" class="ar.edu.unq.desapp.grupob.dao.CashAccountDAO">
+	<bean id="persistence.cashaccounts" class="ar.edu.unq.desapp.grupob.dao.CashAccountDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-	<bean id="persistence.currentaccountdao" class="ar.edu.unq.desapp.grupob.dao.CurrentAccountDAO">
+	<bean id="persistence.currentaccounts" class="ar.edu.unq.desapp.grupob.dao.CurrentAccountDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-	<bean id="persistence.operationdao" class="ar.edu.unq.desapp.grupob.dao.OperationDAO">
+	<!-- Operations DAO -->
+	<bean id="persistence.operations" class="ar.edu.unq.desapp.grupob.dao.OperationDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-
+	<!-- Invoices DAO -->
+	<bean id="persistence.invoices" class="ar.edu.unq.desapp.grupob.dao.InvoiceDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
 
 </beans>

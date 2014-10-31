@@ -15,10 +15,10 @@ public class BankAccountDAO extends HibernateGenericDAO<BankAccount> implements
     @Override
     public List<BankAccount> filterByName(String name) {
         @SuppressWarnings("unchecked")
-        List<BankAccount> b = this.getSession().createCriteria(BankAccount.class)
+        List<BankAccount> bankAccounts = this.getSession().createCriteria(BankAccount.class)
                 .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
                 .list();
-        return b;
+        return bankAccounts;
     }
 
     @Override

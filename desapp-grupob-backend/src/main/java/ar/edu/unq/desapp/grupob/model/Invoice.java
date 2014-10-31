@@ -2,8 +2,10 @@ package ar.edu.unq.desapp.grupob.model;
 
 import org.joda.time.DateTime;
 
-public class Invoice {
+public class Invoice extends Entity{
 
+    private static final long serialVersionUID = 8526907700926481970L;
+    
     private String number;
     private DateTime date;
     private Vendor vendor;

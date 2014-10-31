@@ -3,8 +3,10 @@ package ar.edu.unq.desapp.grupob.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Account {
+public abstract class Account extends Entity{
 
+    private static final long serialVersionUID = -6329867468802681632L;
+    
     private double accountBalance = 0;
     private List<Operation> operations = new ArrayList<Operation>();
 
