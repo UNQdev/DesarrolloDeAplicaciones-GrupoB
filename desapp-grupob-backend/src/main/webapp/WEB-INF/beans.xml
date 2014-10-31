@@ -24,14 +24,16 @@ http://www.springframework.org/schema/context/spring-context.xsd
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
 	<bean id='jacksonProvider' class='org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider' />
 
+
 	<!-- =========================== -->
 	<!-- ======== Servicios ======== -->
 	<!-- =========================== -->
 
-	<!-- include services -->
-	<jaxrs:server id="feag" address="/"> 
+	
+	<jaxrs:server id="feag" address="/">
+		<!-- include rest services -->
 		<jaxrs:serviceBeans>
-			<ref bean="operationRest" />
+			<!--  <ref bean="operationRest" /> -->
 			<ref bean="categoryRest" />
 			<ref bean="invoiceRest" />
 			<ref bean="dbInitializationRest" />
@@ -50,7 +52,7 @@ http://www.springframework.org/schema/context/spring-context.xsd
 		</jaxrs:features>
 	</jaxrs:server>
 	
-	<!-- define services -->
+	<!-- define rest services -->
 	<bean id="operationRest" class="ar.edu.unq.desapp.grupob.web.rest.OperationRest">
 		<property name="operationService" ref="services.operations" />
 	</bean>
@@ -65,16 +67,16 @@ http://www.springframework.org/schema/context/spring-context.xsd
 
 	<bean id="dbInitializationRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
 		<!-- Accounts -->
-		<property name="bankAccountService" ref="services.bankaccountservice" />
-		<property name="cashAccountService" ref="services.cashAccountService" />
-		<property name="currentAccountService" ref="services.currentAccountService" />
+		<property name="bankAccountService" ref="services.bankaccount" />
+		<property name="cashAccountService" ref="services.cashaccount" />
+		<property name="currentAccountService" ref="services.currentaccount" />
 		<!-- Categories & SubCategories -->
-		<property name="categoryService" ref="services.categoryService" />
-		<property name="subcategoryService" ref="services.subcategoryService" />
+		<property name="categoryService" ref="services.categories" />
+		<property name="subcategoryService" ref="services.subcategories" />
 		<!-- Operations -->
-		<property name="operationService" ref="services.operationservice" />
+		<property name="operationService" ref="services.operations" />
 		<!-- Invoices -->
-		<property name="invoiceService" ref="services.invoiceservice" />
+		<property name="invoiceService" ref="services.invoices" />
 	</bean>
 	
 </beans>
