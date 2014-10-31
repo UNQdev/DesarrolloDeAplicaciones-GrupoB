@@ -6,3 +6,5 @@ function InvoiceControllerList($scope, $http) {
 				console.log("error");
 			});
 }
+
+

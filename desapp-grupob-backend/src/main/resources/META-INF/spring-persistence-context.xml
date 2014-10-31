@@ -93,27 +93,10 @@
 		</constructor-arg>
 	</bean>
 
+	<!-- ===================================================================== -->
+	<!-- ======================== PERSISTENCE ================================ -->
+	<!-- ===================================================================== -->
 
-
-	<!-- ============================== -->
-	<!-- ======== Persistencia ======== -->
-	<!-- ============================== -->
-
-	
-	<!-- Accounts DAO -->
-	<bean id="persistence.bankaccount" class="ar.edu.unq.desapp.grupob.dao.BankAccountDAO">
-		<property name="sessionFactory" ref="persistence.sessionFactory" />
-	</bean>
-	
-	<bean id="persistence.cashaccount" class="ar.edu.unq.desapp.grupob.dao.CashAccountDAO">
-		<property name="sessionFactory" ref="persistence.sessionFactory" />
-	</bean>
-	
-	<bean id="persistence.currentaccount" class="ar.edu.unq.desapp.grupob.dao.CurrentAccountDAO">
-		<property name="sessionFactory" ref="persistence.sessionFactory" />
-	</bean>
-	
-	
 	<!-- Categories DAO -->
 	<bean id="persistence.categories" class="ar.edu.unq.desapp.grupob.dao.CategoryDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
@@ -123,12 +106,23 @@
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
+	<!-- Accounts DAO -->
+	<bean id="persistence.bankaccounts" class="ar.edu.unq.desapp.grupob.dao.BankAccountDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+	<bean id="persistence.cashaccounts" class="ar.edu.unq.desapp.grupob.dao.CashAccountDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
+
+	<bean id="persistence.currentaccounts" class="ar.edu.unq.desapp.grupob.dao.CurrentAccountDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
 
 	<!-- Operations DAO -->
 	<bean id="persistence.operations" class="ar.edu.unq.desapp.grupob.dao.OperationDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
-
 
 	<!-- Invoices DAO -->
 	<bean id="persistence.invoices" class="ar.edu.unq.desapp.grupob.dao.InvoiceDAO">

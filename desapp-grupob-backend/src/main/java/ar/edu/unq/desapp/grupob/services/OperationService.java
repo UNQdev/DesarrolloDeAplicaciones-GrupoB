@@ -4,6 +4,6 @@ import ar.edu.unq.desapp.grupob.model.Operation;
 
 public class OperationService extends GenericService<Operation> {
 
-    private static final long serialVersionUID = 8028635714243199268L;
-
+    private static final long serialVersionUID = -4657650741365493072L;
+    
 }

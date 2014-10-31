@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:cxf="http://cxf.apache.org/core"
 	xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
-http://cxf.apache.org/jaxrs
-http://cxf.apache.org/schemas/jaxrs.xsd
-http://cxf.apache.org/jaxws
-http://cxf.apache.org/schemas/jaxws.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context.xsd
-">
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<!-- =========================== -->
-	<!-- =========   CXF   ========= -->
+	<!-- ========= CXF ========= -->
 	<!-- =========================== -->
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
@@ -22,19 +16,21 @@ http://www.springframework.org/schema/context/spring-context.xsd
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
+
 	<bean id='jacksonProvider' class='org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider' />
 
+	<bean id="cors-filter"
+		class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter" />
 
 	<!-- =========================== -->
-	<!-- ======== Servicios ======== -->
+	<!-- =========Servicios ========= -->
 	<!-- =========================== -->
 
-	
 	<jaxrs:server id="feag" address="/">
-		<!-- include rest services -->
 		<jaxrs:serviceBeans>
-			<!--  <ref bean="operationRest" /> -->
 			<ref bean="categoryRest" />
+			<ref bean="subcategoryRest" />
+			<ref bean="operationRest" />
 			<ref bean="invoiceRest" />
 			<ref bean="dbInitializationRest" />
 		</jaxrs:serviceBeans>
@@ -48,35 +44,38 @@ http://www.springframework.org/schema/context/spring-context.xsd
 			<ref bean="cors-filter" />
 		</jaxrs:providers>
 		<jaxrs:features>
-			<!-- <cxf:logging /> -->
+			<cxf:logging />
 		</jaxrs:features>
 	</jaxrs:server>
-	
-	<!-- define rest services -->
-	<bean id="operationRest" class="ar.edu.unq.desapp.grupob.web.rest.OperationRest">
-		<property name="operationService" ref="services.operations" />
-	</bean>
 
+	<!-- define rest services -->
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
 		<property name="categoryService" ref="services.categories" />
+	</bean>
+
+	<bean id="subcategoryRest" class="ar.edu.unq.desapp.grupob.web.rest.SubCategoryRest">
+		<property name="subCategoryService" ref="services.subcategories" />
+	</bean>
+
+	<bean id="dbInitializationRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
+		<!-- Accounts -->
+		<property name="bankAccountService" ref="services.bankaccounts" />
+		<property name="cashAccountService" ref="services.cashaccounts" />
+		<property name="currentAccountService" ref="services.currentaccounts" />
+		<!-- Categories -->
+		<property name="categoryService" ref="services.categories" />
+		<!-- Operations -->
+		<property name="operationService" ref="services.operations" />
+		<!-- Invoices -->
+		<property name="invoiceService" ref="services.invoices" />
+	</bean>
+
+	<bean id="operationRest" class="ar.edu.unq.desapp.grupob.web.rest.OperationRest">
+		<property name="operationService" ref="services.operations" />
 	</bean>
 
 	<bean id="invoiceRest" class="ar.edu.unq.desapp.grupob.web.rest.InvoiceRest">
 		<property name="invoiceService" ref="services.invoices" />
 	</bean>
 
-	<bean id="dbInitializationRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
-		<!-- Accounts -->
-		<property name="bankAccountService" ref="services.bankaccount" />
-		<property name="cashAccountService" ref="services.cashaccount" />
-		<property name="currentAccountService" ref="services.currentaccount" />
-		<!-- Categories & SubCategories -->
-		<property name="categoryService" ref="services.categories" />
-		<property name="subcategoryService" ref="services.subcategories" />
-		<!-- Operations -->
-		<property name="operationService" ref="services.operations" />
-		<!-- Invoices -->
-		<property name="invoiceService" ref="services.invoices" />
-	</bean>
-	
 </beans>

@@ -5,8 +5,11 @@
 .eclipse-pmd
 .settings/
 .directory
-
-/src/main/resources/deploy-script.sh
+hsql:sifeag.log
+hsql:sifeag.properties
+hsql:sifeag.script
+hsql:sifeag.tmp
+hsql:sifeag.lck
 
 *.pydevproject
 .project

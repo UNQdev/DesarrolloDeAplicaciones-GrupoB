@@ -5,9 +5,10 @@ package ar.edu.unq.desapp.grupob.model;
  * @author bananee
  *
  */
-public class Vendor {
+public class Vendor extends Entity{
 
-	/**
+	private static final long serialVersionUID = 2975676284158433554L;
+    /**
 	 *
 	 */
 	private String name;
