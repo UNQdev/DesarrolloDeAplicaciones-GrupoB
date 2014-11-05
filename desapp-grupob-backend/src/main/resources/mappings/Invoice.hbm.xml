@@ -12,8 +12,6 @@
 		<property name="date" type="org.joda.time.DateTime"></property>
 
 		<property name="number"></property>
-		
-		<property name="date"></property>
 
 		<property name="vendor"></property>
 		
