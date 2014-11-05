@@ -8,6 +8,7 @@
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
+		
 		<property name="name"></property>
 		
 	</class>

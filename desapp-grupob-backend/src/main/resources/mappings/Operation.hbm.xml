@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	default-access="field" default-cascade="save-update">
+	<class name="ar.edu.unq.desapp.grupob.model.Operation" table="operations">
+
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+
+		<property name="type">
+  		  	<type name="org.hibernate.type.EnumType">
+      			<param name="enumClass">ar.edu.unq.desapp.grupob.model.OperationType</param>
+    		</type>       
+  		</property>
+
+		<property name="shift">
+  		  	<type name="org.hibernate.type.EnumType">
+      			<param name="enumClass">ar.edu.unq.desapp.grupob.model.Shift</param>
+    		</type>       
+  		</property>
+
+		<property name="date" type="org.joda.time.DateTime"></property>
+
+		<property name="amount"></property>
+		
+		<property name="concept"></property>
+
+		<property name="invoice"></property>
+		
+		<property name="category"></property>
+		
+		<property name="subcategory"></property>
+		
+		<property name="account"></property>
+
+	</class>
+
+</hibernate-mapping>
