@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="app">
+<html ng-app="feag">
 <head>
 <meta charset="utf-8">
 <title></title>
@@ -7,23 +7,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sistema de flujo de efectivo y análisis de gastos</title>
+
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
 <!-- build:css(.) styles/vendor.css -->
 <!-- bower:css -->
-<link rel="stylesheet"
-	href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
 <!-- endbower -->
 <!-- endbuild -->
+
 <!-- build:css(.tmp) styles/main.css -->
 <link rel="stylesheet" href="styles/main.css">
 <!-- endbuild -->
+
 <!-- own style -->
 <link rel="stylesheet" href="styles/style.css">
+<link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+
 <!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="bower_components/angular/node_modules/ng-grid/ng-grid.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="bower_components/angular/node_modules/ng-grid/ng-grid.css" />
 </head>
 <body>
 	<div class="container-fluid">
@@ -46,6 +49,8 @@
 						<li><a ng-href="#/operations">Operations</a></li>
 						<li><a ng-href="#/categories">Categories</a></li>
 						<li><a ng-href="#/invoices">Invoices</a></li>
+						<li><a ng-href="#/test">test</a></li>
+						<li><a ng-href="#/categoriesABM">Categories ABM</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -63,6 +68,7 @@
 <![endif]-->
 
 <!-- endbuild -->
+
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -74,15 +80,18 @@
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<script src="bower_components/angular-touch/angular-touch.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script
-		src="bower_components/angular/node_modules/ng-grid/ng-grid-2.0.1.min.js"></script>
+	<script src="bower_components/angular/node_modules/ng-grid/ng-grid-2.0.1.min.js"></script>
+	<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
+
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
 	<script src="scripts/controllers/operations.js"></script>
 	<script src="scripts/controllers/categories.js"></script>
 	<script src="scripts/controllers/invoices.js"></script>
+	<script src="scripts/controllers/xeditableCtrl.js"></script>
+	<script src="scripts/controllers/categoriesCtrl.js"></script>
 <!-- endbuild -->
 </body>
 </html>
