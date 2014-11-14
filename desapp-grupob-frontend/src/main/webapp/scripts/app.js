@@ -46,11 +46,11 @@ feag.config([ '$routeProvider', '$locationProvider',
 
 			// Categories ABM
 
-			.when('/categoriesABM', {
-				templateUrl : 'views/categoriesABM.html',
+			.when('/categoriesCRUD', {
+				templateUrl : 'views/categoriesCRUD.html',
 				controller : 'categoriesCtrl'
 			})
-			// CATEGORIES
+			// CATEGORIES 
 			.when('/categories', {
 				templateUrl : 'views/categories.html',
 				controller : 'categoryControllerList'
