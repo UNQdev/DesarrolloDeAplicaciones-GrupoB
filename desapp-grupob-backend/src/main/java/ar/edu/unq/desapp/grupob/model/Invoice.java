@@ -32,9 +32,7 @@ public class Invoice extends Entity{
         this.setTotal(total);
     }
     
-    public Invoice () {
-        
-    }
+    public Invoice () {}
 
 	/*
      * GETTERS & SETTERS

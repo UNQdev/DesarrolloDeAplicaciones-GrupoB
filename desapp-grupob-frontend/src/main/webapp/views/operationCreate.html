@@ -1,0 +1,47 @@
+<div class="row" ng-app="feag" ng-controller="opreationsCtrl">
+
+    <div class="col-md-6 col-md-offset-3">
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Create Operation</h2>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <table class="table table-bordered table-condensed table-hover">
+            <tr style="font-weight: bold">
+                <td style="width:20%">Date</td>
+                
+                <td style="width:20%">Category</td>
+                <td style="width:20%">SubCategory</td>
+                <td style="width:20%">Concept</td>
+                
+                <td style="width:20%">Shift</td>
+                
+                <td style="width:20%">Amount</td>
+                <td style="width:20%">Account</td>             
+            </tr>
+            <td style="white-space: nowrap">
+                <!-- form -->
+                <form editable-form name="rowform" 
+                      onbeforesave="saveCategory($data, category.id)" 
+                      ng-show="rowform.$visible" 
+                      class="form-buttons form-inline">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary"> save </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default"> cancel </button>
+                </form>
+                <div class="buttons" ng-show="!rowform.$visible">
+                    <button class="btn btn-primary" ng-click="rowform.$show()">
+                        <i class="fa fa-pencil fa-fw">
+                        </i>
+                    </button>
+                    <button class="btn btn-default" ng-click="removeCategory(category.id)">
+                        <i class="fa fa-trash-o fa-fw delete">
+                        </i>
+                    </button>
+                </div>
+            </td>
+            </tr>
+        </table>
+    </div>
+</div>
