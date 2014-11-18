@@ -13,17 +13,24 @@ public class OperationDAO extends HibernateGenericDAO<Operation> implements
     private static final long serialVersionUID = 9035841822549761007L;
 
     @Override
-    public List<Operation> filterByName(String name) {
+    public List<Operation> filterByName(String concept) {
         @SuppressWarnings("unchecked")
-        List<Operation> operations = this.getSession().createCriteria(Operation.class)
-                .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
+        List<Operation> operations = this.getSession().createCriteria(getDomainClass())
+                .add(Restrictions.ilike("concept", concept, MatchMode.ANYWHERE))
                 .list();
         return operations;
     }
-
     @Override
     protected Class<Operation> getDomainClass() {
         return Operation.class;
+    }
+
+    @Override
+    public Operation findByName(String concept) {
+       Operation operation = (Operation) this.getSession().createCriteria(getDomainClass())
+               .add(Restrictions.ilike("concept", concept, MatchMode.ANYWHERE))
+               .uniqueResult();
+       return operation;
     }
 
 }

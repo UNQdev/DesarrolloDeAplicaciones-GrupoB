@@ -26,4 +26,10 @@ public class CashAccountDAO extends HibernateGenericDAO<CashAccount> implements
         return CashAccount.class;
     }
 
+    @Override
+    public CashAccount findByName(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

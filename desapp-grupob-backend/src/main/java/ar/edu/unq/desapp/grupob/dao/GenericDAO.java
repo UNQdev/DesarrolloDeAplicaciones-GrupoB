@@ -22,4 +22,6 @@ public interface GenericDAO<T> {
 	List<T> findByExample(T exampleObject);
 	
 	List<T> filterByName(String name);
+
+    T findByName(String name);
 }

@@ -46,6 +46,12 @@ public class GenericService<T> implements Serializable {
         List<T> list = this.dao.filterByName(name);
         return list;
     }
+    
+    @Transactional
+    public T getByName (String name){
+        T object = this.dao.findByName(name);
+        return object;
+    }
 
     public T getById(int id) {
         T object = this.dao.findById(id);

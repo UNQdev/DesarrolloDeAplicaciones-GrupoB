@@ -26,4 +26,10 @@ public class BankAccountDAO extends HibernateGenericDAO<BankAccount> implements
         return BankAccount.class;
     }
 
+    @Override
+    public BankAccount findByName(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
