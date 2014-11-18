@@ -26,4 +26,10 @@ public class CurrentAccountDAO extends HibernateGenericDAO<CurrentAccount>
         return CurrentAccount.class;
     }
 
+    @Override
+    public CurrentAccount findByName(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

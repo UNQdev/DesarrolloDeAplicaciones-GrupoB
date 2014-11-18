@@ -8,7 +8,7 @@
  * Main module of the application.
  */
 var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies', 'ngResource',
-		'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid', 'xeditable' ]);
+		'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid', 'xeditable', 'ui.bootstrap' ]);
 
 feag.config([ '$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider) {

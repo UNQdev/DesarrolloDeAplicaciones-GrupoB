@@ -45,10 +45,23 @@ public class CategoryRest {
     }
 
     @GET
-    @Path("/category/{id}")
+    @Path("/byId/{id}")
     @Produces("application/json")
     public Category getCategory(@PathParam("id") final int id) {
         return getCategoryService().getById(id) ;
+    }
+    
+    @GET
+    @Path("/byName/{name}")
+    @Produces("application/json")
+    public Response getCategory(@PathParam("name") final String name) {
+        Category category = getCategoryService().getByName(name);
+        if (category != null ){
+            return Response.ok().status(HTTP_OK_CREATED).entity(category).build();
+        }
+        else {
+            return Response.ok().status(HTTP_OK).build();
+        }
     }
 
     @GET
@@ -85,19 +98,7 @@ public class CategoryRest {
         }
         return Response.ok().status(HTTP_OK).build();
     }
-    
-//    @POST
-//    @Path("/update")
-//    @Consumes("application/json")
-//    public Response updateBook(@Multipart(value = "category", type = "application/json") final String jsonCategory) {
-//        try {
-//            getCategoryService().update(parseCategory(jsonCategory));
-//        } catch (Exception e) {
-//            return Response.status(Status.METHOD_NOT_ALLOWED).build();
-//        }
-//        return Response.ok().status(HTTP_OK).build();
-//    }
-    
+
     @DELETE
     @Path("/{categoryId}")
     public Response deleteBook(@PathParam("categoryId") final String categoryId) {

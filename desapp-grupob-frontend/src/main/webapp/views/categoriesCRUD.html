@@ -7,42 +7,70 @@
             </div>
             <div class="col-md-3">
                 <br/>
-                <button class="btn btn-success" ng-click="addCategory()"><i class="fa fa-plus"></i></button>
+                <!-- button to show form -->
+                <button type="button" class="btn btn-success" ng-click="editableForm.$show()" popover="Add a new category..."
+                	 popover-trigger="mouseenter" popover-placement="right" ng-show="!editableForm.$visible"> <i class="fa fa-plus"></i>
+                </button>
             </div>
-            
-            
+
             <div class="col-md-6">
                 <br/>
-                <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Search by name" ng-model="query">
-                    <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                </div>
+                <form editable-form name="editableForm" onaftersave="saveCategory($data)">
+                    <div>
+                        <!-- editable username (text with validation) -->
+                        <span editable-text="newCategory.name" e-name="name" onbeforesave="checkName($data)" e-required></span>
+                        <!-- buttons to submit / cancel form -->
+                        <span ng-show="editableForm.$visible">
+                            <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting"><i class="fa fa-floppy-o"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()"><i class="fa fa-times"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
             </div>
+            
         </div>
-        <br/>
+        <!-- Feedback -->
+	    <div class="col-md-12">
+			<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	    </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="col-md-2 col-md-offset-4">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Search by name" ng-model="byName">
+            <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+        </div>
+    </div>
+ 	
+ 
+    <div class="col-md-4 col-md-offset-4">
         <br/>
         <table class="table table-bordered table-condensed table-hover">
             <tr style="font-weight: bold">
-                <td style="width:20%">Name</td>
-                <td style="width:10%">Actions</td>
+                <td  class="col-md-3">Name</td>
+                <td  class="col-md-3">Actions</td>
             </tr>
-            <tr ng-repeat="category in categories | orderBy:'id':false ">
+            <tr ng-repeat="category in categories | orderBy:'id':false | filter:byName">
                 <td>
                     <!-- editable category name (text with validation) -->
-                    <span editable-text="category.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, category.id)" e-required>
+                    <span editable-text="category.name" e-name="name" e-form="rowform" onbeforesave="checkName($data)" e-required>
          		 {{ category.name || 'empty' }}
        			</span>
                 </td>
                 <td style="white-space: nowrap">
                     <!-- form -->
-                    <form editable-form name="rowform" onbeforesave="saveCategory($data, category.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
+                    <form editable-form name="rowform" onbeforesave="updateCategory($data, category.id)" ng-show="rowform.$visible" class="form-buttons form-inline">
                         <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
-
                         <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
                     </form>
                     <div class="buttons" ng-show="!rowform.$visible">
-                        <button class="btn btn-primary" ng-click="rowform.$show()"><i class="fa fa-pencil fa-fw"></i></button>
-                        <button class="btn btn-danger" ng-click="removeCategory(category.id)"><i class="fa fa-trash-o fa-fw delete"></i></button>
+                        <button class="btn btn-primary" ng-click="rowform.$show()"><i class="fa fa-pencil-square-o"></i>
+                        </button>
+                        <button class="btn btn-danger" ng-click="removeCategory(category.id)"><i class="fa fa-trash-o"></i>
+                        </button>
                     </div>
                 </td>
             </tr>
