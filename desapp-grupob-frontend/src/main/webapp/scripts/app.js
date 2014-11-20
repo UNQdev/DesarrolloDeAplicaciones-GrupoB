@@ -44,27 +44,18 @@ feag.config([ '$routeProvider', '$locationProvider',
 				controller : 'CategoryControllerDelete'
 			})
 
-			// Categories ABM
-
+			/** Categories **/
 			.when('/categoriesCRUD', {
 				templateUrl : 'views/categoriesCRUD.html',
 				controller : 'categoriesCtrl'
 			})
-			// CATEGORIES 
-			.when('/categories', {
-				templateUrl : 'views/categories.html',
-				controller : 'categoryControllerList'
+			
+			/** Subcategories **/
+			.when('/subcategoriesCRUD/:categoryId', {
+				templateUrl : 'views/subcategoriesCRUD.html',
+				controller : 'subcategoriesCtrl'
 			})
-
-			.when('/newCategory', {
-				templateUrl : 'views/category.html',
-				controller : 'CategoryControllerNew'
-			}).when('/editCategory/:categoryId', {
-				templateUrl : 'views/category.html',
-				controller : 'CategoryControllerEdit'
-			}).when('/deleteCategory/:categoryId', {
-				controller : 'CategoryControlleDelete'
-			})
+			
 			// INVOICES
 			.when('/invoices', {
 				templateUrl : 'views/invoices.html',

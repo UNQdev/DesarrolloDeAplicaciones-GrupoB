@@ -54,6 +54,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<bean id="subcategoryRest" class="ar.edu.unq.desapp.grupob.web.rest.SubCategoryRest">
 		<property name="subCategoryService" ref="services.subcategories" />
+		<property name="categoryService" ref="services.categories" />
 	</bean>
 
 	<bean id="dbInitializationRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">

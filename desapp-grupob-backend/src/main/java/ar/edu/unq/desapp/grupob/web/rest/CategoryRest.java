@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupob.web.rest;
 
 import java.util.List;
 
+import javax.json.JsonException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,7 +25,6 @@ import ar.edu.unq.desapp.grupob.services.CategoryService;
 
 @Service
 @Path("/categoryService")
-@Features(features = "org.apache.cxf.feature.LoggingFeature") 
 public class CategoryRest {
 	
     private static final int HTTP_OK_CREATED = 201;
@@ -47,20 +47,20 @@ public class CategoryRest {
     @GET
     @Path("/byId/{id}")
     @Produces("application/json")
-    public Category getCategory(@PathParam("id") final int id) {
+    public Category getCategoryById(@PathParam("id") final int id) {
         return getCategoryService().getById(id) ;
     }
     
     @GET
     @Path("/byName/{name}")
     @Produces("application/json")
-    public Response getCategory(@PathParam("name") final String name) {
+    public Response getCategoryByName(@PathParam("name") final String name) {
         Category category = getCategoryService().getByName(name);
         if (category != null ){
-            return Response.ok().status(HTTP_OK_CREATED).entity(category).build();
+           return Response.serverError().status(400).build();
         }
         else {
-            return Response.ok().status(HTTP_OK).build();
+            return Response.ok().status(HTTP_OK).entity(category).build();
         }
     }
 
@@ -86,13 +86,9 @@ public class CategoryRest {
     @PUT
     @Path("/{categoryId}")
     @Consumes("application/json")
-    public Response updateBook(@PathParam("categoryId") final String categoryId, final String jsonCategory) {
+    public Response updateCategory(@PathParam("categoryId") final String categoryId, final String jsonCategory) {
         try {
-            Category older = getCategoryService().getById(new Integer (categoryId));
-            System.out.println("Id y nombre de la categoria a updatear 'vieja': "+older.getId()+ " - "+older.getName());
-            Category newer = parseCategory(jsonCategory);
-            System.out.println("Id y nombre de la categoria a updatear 'nueva': "+newer.getId()+ " - "+newer.getName());
-            getCategoryService().update(newer);
+            getCategoryService().update(parseCategory(jsonCategory));
         } catch (Exception e) {
             return Response.status(Status.METHOD_NOT_ALLOWED).build();
         }
@@ -101,7 +97,7 @@ public class CategoryRest {
 
     @DELETE
     @Path("/{categoryId}")
-    public Response deleteBook(@PathParam("categoryId") final String categoryId) {
+    public Response deleteCategory(@PathParam("categoryId") final String categoryId) {
         try {
             Category categoryToBeDeleted = getCategoryService().getById(new Integer(categoryId));
             getCategoryService().delete(categoryToBeDeleted);
@@ -112,10 +108,10 @@ public class CategoryRest {
     }
 
 
-    private Category parseCategory(final String jasonCategory) throws Exception {
+    private Category parseCategory(final String jsonCategory) throws Exception {
         Category newCategory = new Category();
         ObjectMapper mapper = new ObjectMapper();
-        newCategory = mapper.readValue(jasonCategory, Category.class);
+        newCategory = mapper.readValue(jsonCategory, Category.class);
         return newCategory;
     }
     

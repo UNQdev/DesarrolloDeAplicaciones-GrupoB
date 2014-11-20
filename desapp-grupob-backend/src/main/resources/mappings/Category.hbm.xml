@@ -10,7 +10,7 @@
 		</id>
 		<property name="name"></property>
 		 
-		 <bag name="subcategories" lazy="false" cascade="all">
+		<bag name="subcategories" lazy="false" cascade="all">
 			<key column="categoryID" />
 			<one-to-many class="ar.edu.unq.desapp.grupob.model.SubCategory" />
 		</bag>
