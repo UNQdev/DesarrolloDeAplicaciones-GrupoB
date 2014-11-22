@@ -20,7 +20,7 @@ public class SubCategoryDAO extends HibernateGenericDAO<SubCategory> implements
     public List<SubCategory> filterByName(String name) {
         List<SubCategory> subcategories = this.getSession()
                 .createCriteria(getDomainClass())
-                .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
+                .add(Restrictions.ilike("name", name, MatchMode.EXACT))
                 .list();
         return subcategories;
     }
