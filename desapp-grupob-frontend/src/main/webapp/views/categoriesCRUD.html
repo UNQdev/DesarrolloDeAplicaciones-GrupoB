@@ -1,5 +1,11 @@
 <div class="row" ng-app="feag" ng-controller="categoriesCtrl">
 
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn btn-default" ng-click="setLanguage('en-US')">English</button>
+			<button class="btn btn-default" ng-click="setLanguage('es')">Spanish</button>
+		</div>
+    </div>
     <div class="col-md-6 col-md-offset-3">
         <div class="row">
             <div class="col-md-3">
@@ -12,14 +18,14 @@
                 </button>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <br/>
                 <form editable-form name="editableForm" onaftersave="saveCategory($data)">
                     <div>
                         <!-- editable category name (text with validation) -->
-                        <span editable-text="newCategory.name" e-name="name" onbeforesave="checkName($data)" e-required></span>
+                        <span editable-text="newCategory.name" e-name="name" onbeforesave="checkName($data)" e-required e-placeholder="Enter a name"></span>
                         <!-- buttons to submit / cancel form -->
-                        <span ng-show="editableForm.$visible">
+                        <span class="col-md-12 col-md-offset-6" ng-show="editableForm.$visible">
                             <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting"><i class="fa fa-floppy-o"></i>
                             </button>
                             <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()"><i class="fa fa-times"></i>
@@ -64,7 +70,7 @@
                 <td>
                 <span class="dropdown" dropdown ng-show="category.subcategories">
                     <a href class="dropdown-toggle" dropdown-toggle>
-                        click to preview!
+                        view list
                     </a>
                     <ul class="dropdown-menu">
                         <li ng-repeat="sub in category.subcategories">
@@ -82,9 +88,9 @@
                     <div class="buttons" ng-show="!rowform.$visible">
                         <button class="btn btn-primary" ng-click="rowform.$show()"><i class="fa fa-pencil-square-o"></i>
                         </button>
-                        <button class="btn btn-danger" ng-click="removeCategory(category.id)"><i class="fa fa-trash-o"></i>
+                        <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(category.id)"><i class="fa fa-trash-o"></i>
                         </button>
-                        <a class="btn btn-link" href="#/subcategoriesCRUD/{{category.id}}" ><i class="fa fa-cog"> Edit Subcategories</i>
+                        <a class="btn btn-link" href="#/subcategoriesCRUD/{{category.id}}"><i class="fa fa-cog"> Edit Subcategories</i>
                     </div>
                 </td>
             </tr>

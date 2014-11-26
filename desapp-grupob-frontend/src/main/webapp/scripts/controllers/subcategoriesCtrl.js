@@ -1,4 +1,4 @@
-feag.controller('subcategoriesCtrl', function ($scope, $filter, $http, $location, $route, $q, $routeParams) {
+feag.controller('subcategoriesCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs) {
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
@@ -19,6 +19,26 @@ feag.controller('subcategoriesCtrl', function ($scope, $filter, $http, $location
     
     //Initial call to render list
     getAll();
+    
+    function loadSourceCategory() {
+        $http.get(restWebService + 'categoryService/byId/' + $routeParams.categoryId)
+        .success(function (response) {
+            $scope.categoryName = response.name;
+        }).error(function () {
+            console.log("Error buscar nombre de categoria de origen");
+        });
+    };
+    
+    loadSourceCategory ();
+    
+    $scope.launchConfirmDeleteDialog = function(id) {
+        var dlg = dialogs.confirm();
+        dlg.result.then(function(btn){
+            $scope.removeSubCategory (id);
+        },function(btn){
+            console.log("Delete cancelled");
+        });
+    };
     
     // By perform remote validation, check if the input name already exists in db.
     // For that define validation method returning $q promise. 

@@ -1,8 +1,31 @@
-feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $timeout, ngTableParams) {
+feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate,dialogs) {
     
 	// Variables
 	var restWebService = "http://localhost:8081/backend_api/rest/";
-		  
+	
+	//Integrar globalmente en el app.js
+	$scope.lang = 'en-US';
+	$scope.language = 'English';
+	
+	//-- Listeners & Watchers --// Integrar globalmente en el app.js
+	$scope.$watch('lang',function(val,old){
+		switch(val){
+			case 'en-US':
+				$scope.language = 'English';
+				break;
+			case 'es':
+				$scope.language = 'Spanish';
+				break;
+		}
+	});
+	
+	//-- Methods --// Integrar globalmente en el app.js
+	$scope.setLanguage = function(lang){
+		$scope.lang = lang;
+		$translate.use(lang);
+		console.log(lang);
+	};
+	
 	$scope.closeAlert = function(index) {
 		    $scope.alerts.splice(index, 1);
 		  };
@@ -44,6 +67,15 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
         return d.promise;
     };
 
+    $scope.launchConfirmDeleteDialog = function(id) {
+	    var dlg = dialogs.confirm();
+		dlg.result.then(function(btn){
+			$scope.removeCategory (id);
+		},function(btn){
+			console.log("Delete cancelled");
+		});
+    };
+    
     // add category
     $scope.saveCategory = function (data) {
     	$http.post(restWebService + 'categoryService/save', data).success(
@@ -91,6 +123,5 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
 					console.log("An Error occurred while trying to delete a category: "+id);
 		});
     };
-
 });
 
