@@ -41,5 +41,8 @@
 		
 		<mapping resource="ar/edu/unq/desapp/grupob/mappings/Category.hbm.xml" />
 		<mapping resource="ar/edu/unq/desapp/grupob/mappings/SubCategory.hbm.xml" />
+		<mapping resource="ar/edu/unq/desapp/grupob/mappings/Operation.hbm.xml" />
+		<mapping resource="ar/edu/unq/desapp/grupob/mappings/Invoice.hbm.xml" />
+		<mapping resource="ar/edu/unq/desapp/grupob/mappings/Payment.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

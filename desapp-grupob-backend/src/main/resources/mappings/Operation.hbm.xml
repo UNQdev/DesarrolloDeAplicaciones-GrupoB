@@ -26,8 +26,6 @@
 		<property name="amount"></property>
 		
 		<property name="concept"></property>
-
-		<property name="invoice"></property>
 		
 		<property name="category"></property>
 		

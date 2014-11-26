@@ -31,6 +31,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 			<ref bean="subcategoryRest" />
 			<ref bean="operationRest" />
 			<ref bean="invoiceRest" />
+			<ref bean="PaymentRest" />
 			<ref bean="dbInitializationRest" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
@@ -76,6 +77,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<bean id="invoiceRest" class="ar.edu.unq.desapp.grupob.web.rest.InvoiceRest">
 		<property name="invoiceService" ref="services.invoices" />
+	</bean>
+	
+	<bean id="paymentRest" class="ar.edu.unq.desapp.grupob.web.rest.PaymentRest">
+		<property name="paymentService" ref="services.payments" />
 	</bean>
 
 </beans>

@@ -23,16 +23,20 @@ public class OperationTest {
         OperationType operationType = mock(OperationType.class);
         Shift shift = mock(Shift.class);
         DateTime date = DateTime.parse("2014-09-01T01:00");
-        Invoice invoice = mock(Invoice.class);
         Category category = mock(Category.class);
         SubCategory subcategory = mock(SubCategory.class);
         Account account = mock(Account.class);
         double amount = 0;
         String concept = "";
 
-        Operation operation = builder.withAccount(account).withAmount(amount)
-                .withCategory(category).withSubCategory(subcategory).withConcept(concept).withDate(date)
-                .withInvoice(invoice).withShift(shift).withType(operationType)
+        Operation operation = builder.withAccount(account)
+        		.withAmount(amount)
+                .withCategory(category)
+                .withSubCategory(subcategory)
+                .withConcept(concept)
+                .withDate(date)
+                .withShift(shift)
+                .withType(operationType)
                 .build();
         assertEquals(operation.getAccount(), account);
         assertEquals(operation.getAmount(), amount, 0);
@@ -40,7 +44,6 @@ public class OperationTest {
         assertEquals(operation.getSubcategory(), subcategory);
         assertEquals(operation.getConcept(), concept);
         assertEquals(operation.getDate(), date);
-        assertEquals(operation.getInvoice(), invoice);
         assertEquals(operation.getShift(), shift);
         assertEquals(operation.getType(), operationType);
     }

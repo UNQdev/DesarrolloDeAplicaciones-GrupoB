@@ -39,10 +39,9 @@ public class OperationRest {
     }
 
     @GET
-    @Path("/update/{id}/{name}")
+    @Path("/update/{id}")
     @Produces("application/json")
-    public Operation updateOperation(@PathParam("id") final int id,
-            @PathParam("name") final String name) {
+    public Operation updateOperation(@PathParam("id") final int id) {
         Operation operation = getOperationService().getById(id);
         getOperationService().update(operation);
         return operation;

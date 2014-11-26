@@ -10,7 +10,7 @@ public class Invoice extends Entity{
     private DateTime date;
     private Vendor vendor;
     private InvoiceType invoiceType;
-    private int taxCode;
+    private String taxCode;
     private String description;
     /*
      * TODO: Evaluar la posibilidad de un objeto TAX en el cual delegar todas las persepciones de la factura
@@ -21,7 +21,7 @@ public class Invoice extends Entity{
     private double total;
 
     public Invoice(String number, DateTime date, Vendor entity, InvoiceType invoiceType, 
-            int taxCode, String description, double subtotal, double total) {
+            String taxCode, String description, double subtotal, double total) {
         this.setNumber(number);
         this.setDate(date);
         this.setVendor(entity);
@@ -33,7 +33,7 @@ public class Invoice extends Entity{
     }
     
     public Invoice () {}
-
+    
 	/*
      * GETTERS & SETTERS
      *
@@ -50,7 +50,7 @@ public class Invoice extends Entity{
     public InvoiceType getInvoiceType() {
         return invoiceType;
     }
-    public int getTaxCode() {
+    public String getTaxCode() {
         return taxCode;
     }
     public String getDescription() {
@@ -79,7 +79,7 @@ public class Invoice extends Entity{
         this.invoiceType = invoiceType;
     }
 
-    public void setTaxCode(int taxCode) {
+    public void setTaxCode(String taxCode) {
         this.taxCode = taxCode;
     }
 
