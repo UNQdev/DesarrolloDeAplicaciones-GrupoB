@@ -9,7 +9,7 @@
             <div class="col-md-3">
                 <br/>
                 <!-- button to show form -->
-                <button type="button" class="btn btn-success" ng-click="editableForm.$show()" popover="Add a new subcategory..." popover-trigger="mouseenter" popover-placement="right" ng-show="!editableForm.$visible"> <i class="fa fa-plus"></i>
+                <button type="button" class="btn btn-success" ng-click="editableForm.$show() ; resetNewSubCategoryName()" popover="Add a new subcategory..." popover-trigger="mouseenter" popover-placement="right" ng-show="!editableForm.$visible"> <i class="fa fa-plus"></i>
                 </button>
             </div>
 
@@ -18,7 +18,7 @@
                 <form editable-form name="editableForm" onaftersave="saveSubCategory($data)">
                     <div>
                         <!-- editable category name (text with validation) -->
-                        <span editable-text="newSubCategory.name" e-name="name" onbeforesave="checkName($data)" e-required e-placeholder="Enter a name"></span>
+                        <span editable-text="newSubCategory.name" e-name="name" ng-model="newSubCategory" onbeforesave="checkName($data)" e-required e-placeholder="Enter a name"></span>
                         <!-- buttons to submit / cancel form -->
                         <span class="col-md-12 col-md-offset-6" ng-show="editableForm.$visible">
                             <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting"><i class="fa fa-floppy-o"></i>
