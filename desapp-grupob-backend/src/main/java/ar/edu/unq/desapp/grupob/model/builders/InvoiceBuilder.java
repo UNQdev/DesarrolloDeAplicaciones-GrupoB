@@ -18,7 +18,7 @@ public class InvoiceBuilder {
     private DateTime date = DateTime.now();
     private Vendor vendor;
     private InvoiceType invoiceType;
-    private int taxCode;
+    private String taxCode;
     private String description = "no description";
     private double subtotal;
     private double total;
@@ -50,7 +50,7 @@ public class InvoiceBuilder {
         return this;
     }
 
-    public InvoiceBuilder withTaxCode(final int taxCode) {
+    public InvoiceBuilder withTaxCode(final String taxCode) {
         this.taxCode = taxCode;
         return this;
     }

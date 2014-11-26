@@ -34,7 +34,7 @@ public class InvoiceTest {
         InvoiceBuilder builder = InvoiceBuilder.anInvoiceBuilder();
         InvoiceType invoiceType = InvoiceType.A;
         Vendor vendor = mock(Vendor.class);
-        int taxCode = 201234567;
+        String taxCode = "20-12345678-9";
         int subtotal = 20;
         int total = 30;
         String number = "001";

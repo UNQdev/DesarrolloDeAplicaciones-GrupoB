@@ -40,10 +40,9 @@ public class InvoiceRest {
     }
 
     @GET
-    @Path("/update/{id}/{name}")
+    @Path("/update/{id}")
     @Produces("application/json")
-    public Invoice updateInvoice(@PathParam("id") final int id,
-            @PathParam("name") final String name) {
+    public Invoice updateInvoice(@PathParam("id") final int id) {
         Invoice invoice = getInvoiceService().getById(id);
         getInvoiceService().update(invoice);
         return invoice;

@@ -23,14 +23,13 @@ public class OperationBuilder {
     private DateTime date;
     private double amount;
     private String concept;
-    private Invoice invoice;
     private Category category;
     private SubCategory subcategory;
     private Account account;
 
     // Constructor method
     public Operation build() {
-        Operation operation = new Operation(type, shift, date, amount, invoice,
+        Operation operation = new Operation(type, shift, date, amount,
                 category, subcategory, concept, account);
         return operation;
     }
@@ -55,10 +54,6 @@ public class OperationBuilder {
     }
     public OperationBuilder withConcept(final String concept) {
         this.concept = concept;
-        return this;
-    }
-    public OperationBuilder withInvoice(final Invoice invoice) {
-        this.invoice = invoice;
         return this;
     }
     public OperationBuilder withCategory(final Category category) {
