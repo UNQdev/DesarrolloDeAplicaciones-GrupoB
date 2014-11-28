@@ -11,16 +11,8 @@
 <!-- 	============================================ -->
 
 	<!-- Accounts Services -->
-	<bean id="services.bankaccounts" class="ar.edu.unq.desapp.grupob.services.BankAccountService">
-		<property name="dao" ref="persistence.bankaccounts" />
-	</bean>
-
-	<bean id="services.cashaccounts" class="ar.edu.unq.desapp.grupob.services.CashAccountService">
-		<property name="dao" ref="persistence.cashaccounts" />
-	</bean>
-
-	<bean id="services.currentaccounts" class="ar.edu.unq.desapp.grupob.services.CurrentAccountService">
-		<property name="dao" ref="persistence.currentaccounts" />
+	<bean id="services.accounts" class="ar.edu.unq.desapp.grupob.services.AccountService">
+		<property name="dao" ref="persistence.accounts" />
 	</bean>
 
 	<!-- Categories Services -->

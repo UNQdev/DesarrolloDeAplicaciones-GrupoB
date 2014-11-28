@@ -11,9 +11,7 @@ import ar.edu.unq.desapp.grupob.services.*;
 @Path("/app")
 public class FakeDataRest {
 
-    private CashAccountService cashAccountService;
-    private BankAccountService bankAccountService;
-    private CurrentAccountService currentAccountService;
+	private AccountService accountService;
     private CategoryService categoryService;
     private OperationService operationService;
     private InvoiceService invoiceService;
@@ -26,9 +24,9 @@ public class FakeDataRest {
         CashAccount cash = new CashAccount();
         BankAccount bank = new BankAccount(2);
         CurrentAccount current = new CurrentAccount();
-        getCashAccountService().save(cash);
-        getBankAccountService().save(bank);
-        getCurrentAccountService().save(current);
+        getAccountService().save(cash);
+        getAccountService().save(bank);
+        getAccountService().save(current);
         
         // Categories & SubCategories
         Category compras = new Category("Compras");
@@ -85,29 +83,12 @@ public class FakeDataRest {
         this.operationService = operationService;
     }
 
-    public CashAccountService getCashAccountService() {
-        return cashAccountService;
+    public AccountService getAccountService() {
+        return accountService;
     }
 
-    public void setCashAccountService(CashAccountService cashAccountService) {
-        this.cashAccountService = cashAccountService;
-    }
-
-    public BankAccountService getBankAccountService() {
-        return bankAccountService;
-    }
-
-    public void setBankAccountService(BankAccountService bankAccountService) {
-        this.bankAccountService = bankAccountService;
-    }
-
-    public CurrentAccountService getCurrentAccountService() {
-        return currentAccountService;
-    }
-
-    public void setCurrentAccountService(
-            CurrentAccountService currentAccountService) {
-        this.currentAccountService = currentAccountService;
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
     }
 
     public InvoiceService getInvoiceService() {

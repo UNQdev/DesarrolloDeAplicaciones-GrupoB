@@ -6,6 +6,7 @@ public class CashAccount extends Account {
 
     public CashAccount() {
         super();
+        this.setAccountName("CASH");
     }
 
     @Override

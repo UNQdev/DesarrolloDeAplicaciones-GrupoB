@@ -9,8 +9,11 @@ public class BankAccount extends Account {
     private Devenger devenger;
     private double available;
 
+    public BankAccount() {}
+    
     public BankAccount(int consolidationPeriod) {
         super();
+        this.setAccountName("BANK");
         this.setAvailable(0);
         this.setDevenger(new Devenger(consolidationPeriod));
     }

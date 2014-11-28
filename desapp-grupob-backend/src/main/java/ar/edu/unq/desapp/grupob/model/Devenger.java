@@ -10,9 +10,17 @@ import org.joda.time.DateTime;
  * @author Marcelo Rubini
  *
  */
-public class Devenger {
+public class Devenger extends Entity {
 
-    private int consolidationPeriod;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8422958801431584987L;
+	
+	/**
+	 * 
+	 */
+	private int consolidationPeriod;
     private List<Operation> unConsolidatedOperations;
     private DateTime systemDate;
     private double unConsolidatedAmount;

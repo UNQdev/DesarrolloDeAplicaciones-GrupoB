@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false"
+	default-access="field" default-cascade="save-update">
+	<class name="ar.edu.unq.desapp.grupob.model.Account" table="accounts">
+
+        <id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+
+        <discriminator column="account_type" type="string" />
+
+        <property name="accountBalance"></property>
+
+        <bag name="operations" lazy="false" cascade="all">
+			<key column="accountID" />
+			<one-to-many class="ar.edu.unq.desapp.grupob.model.Operation" />
+		</bag>
+
+		<!-- Mapeo de Herencia -->
+        <subclass name="ar.edu.unq.desapp.grupob.model.CashAccount" discriminator-value="Cash">
+        </subclass>
+        
+        <subclass name="ar.edu.unq.desapp.grupob.model.BankAccount" discriminator-value="Bank" >
+<!--             <property name="devenger" type="ar.edu.unq.desapp.grupob.model.Devenger" /> -->
+	    	<property name="available" type="double" />
+	    </subclass>
+
+        <subclass name="ar.edu.unq.desapp.grupob.model.CurrentAccount" discriminator-value="Current">
+        </subclass>
+
+	</class>
+
+</hibernate-mapping>

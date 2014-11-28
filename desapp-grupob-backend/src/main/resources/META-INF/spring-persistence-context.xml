@@ -105,17 +105,10 @@
 	</bean>
 
 	<!-- Accounts DAO -->
-	<bean id="persistence.bankaccounts" class="ar.edu.unq.desapp.grupob.dao.BankAccountDAO">
+	<bean id="persistence.accounts" class="ar.edu.unq.desapp.grupob.dao.AccountDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
 
-	<bean id="persistence.cashaccounts" class="ar.edu.unq.desapp.grupob.dao.CashAccountDAO">
-		<property name="sessionFactory" ref="persistence.sessionFactory" />
-	</bean>
-
-	<bean id="persistence.currentaccounts" class="ar.edu.unq.desapp.grupob.dao.CurrentAccountDAO">
-		<property name="sessionFactory" ref="persistence.sessionFactory" />
-	</bean>
 
 	<!-- Operations DAO -->
 	<bean id="persistence.operations" class="ar.edu.unq.desapp.grupob.dao.OperationDAO">

@@ -27,11 +27,11 @@
 		
 		<property name="concept"></property>
 		
-		<property name="category"></property>
+		<property name="category" type="ar.edu.unq.desapp.grupob.model.Category"></property>
 		
-		<property name="subcategory"></property>
+		<property name="subcategory" type="ar.edu.unq.desapp.grupob.model.SubCategory"></property>
 		
-		<property name="account"></property>
+		<property name="account" type="ar.edu.unq.desapp.grupob.model.Account"></property>
 
 	</class>
 

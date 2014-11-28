@@ -27,6 +27,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<jaxrs:server id="feag" address="/">
 		<jaxrs:serviceBeans>
+			<ref bean="accountRest" />
 			<ref bean="categoryRest" />
 			<ref bean="subcategoryRest" />
 			<ref bean="operationRest" />
@@ -49,6 +50,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	</jaxrs:server>
 
 	<!-- define rest services -->
+	<bean id="accountRest" class="ar.edu.unq.desapp.grupob.web.rest.AccountRest">
+		<property name="accountService" ref="services.accounts" />
+	</bean>
+	
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
 		<property name="categoryService" ref="services.categories" />
 	</bean>
@@ -60,9 +65,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<bean id="dbInitializationRest" class="ar.edu.unq.desapp.grupob.web.rest.FakeDataRest">
 		<!-- Accounts -->
-		<property name="bankAccountService" ref="services.bankaccounts" />
-		<property name="cashAccountService" ref="services.cashaccounts" />
-		<property name="currentAccountService" ref="services.currentaccounts" />
+		<property name="accountService" ref="services.accounts" />
 		<!-- Categories -->
 		<property name="categoryService" ref="services.categories" />
 		<!-- Operations -->
@@ -82,5 +85,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	<bean id="paymentRest" class="ar.edu.unq.desapp.grupob.web.rest.PaymentRest">
 		<property name="paymentService" ref="services.payments" />
 	</bean>
+	
+	
 
 </beans>
