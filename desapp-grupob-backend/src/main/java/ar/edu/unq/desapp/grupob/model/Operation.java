@@ -22,56 +22,11 @@ public class Operation extends Entity {
     /*
      * CONSTRUCTORS
      */
-    public Operation (OperationType outcoming, Shift afternoon, 
-    		DateTime dateTime, double d, 
-    		String string, 
-    		Category compras, SubCategory insumos, 
-    		CashAccount cash) {
-    	this.setType(type);
-        this.setShift(shift);
-        this.setDate(date);
-        this.setAmount(amount);
-        this.setCategory(category);
-        this.setSubcategory(subcategory);
-        this.setConcept(concept);
-        this.setAccount(cash);
-    };
+    public Operation () {};
     
-    public Operation (OperationType outcoming, Shift afternoon, 
-    		DateTime dateTime, double d, 
-    		String string, 
-    		Category compras, SubCategory insumos, 
-    		CurrentAccount current) {
-    	this.setType(type);
-        this.setShift(shift);
-        this.setDate(date);
-        this.setAmount(amount);
-        this.setCategory(category);
-        this.setSubcategory(subcategory);
-        this.setConcept(concept);
-        this.setAccount(current);
-    };
-    
-    public Operation (OperationType outcoming, Shift afternoon, 
-    		DateTime dateTime, double d, 
-    		String string, 
-    		Category compras, SubCategory insumos, 
-    		BankAccount bank) {
-    	this.setType(type);
-        this.setShift(shift);
-        this.setDate(date);
-        this.setAmount(amount);
-        this.setCategory(category);
-        this.setSubcategory(subcategory);
-        this.setConcept(concept);
-        this.setAccount(bank);
-    };
-    
-    public Operation(OperationType type, Shift shift, 
-    		DateTime date, double amount, 
-    		String concept,
-    		Category category, SubCategory subcategory, 
-            Account account) {
+    public Operation(OperationType type, Shift shift, DateTime date,
+            double amount, Category category, SubCategory subcategory, 
+            String concept, Account account) {
         this.setType(type);
         this.setShift(shift);
         this.setDate(date);
