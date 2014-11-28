@@ -24,9 +24,13 @@ public class Operation extends Entity {
      */
     public Operation () {};
     
-    public Operation(OperationType type, Shift shift, DateTime date,
-            double amount, Category category, SubCategory subcategory, 
-            String concept, Account account) {
+    public Operation(
+    		OperationType type, Shift shift, 
+    		DateTime date,
+            double amount,
+            String concept,
+            Category category, SubCategory subcategory,
+            Account account) {
         this.setType(type);
         this.setShift(shift);
         this.setDate(date);

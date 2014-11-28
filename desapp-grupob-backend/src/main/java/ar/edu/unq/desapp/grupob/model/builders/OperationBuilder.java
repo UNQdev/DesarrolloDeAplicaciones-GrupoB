@@ -29,8 +29,12 @@ public class OperationBuilder {
 
     // Constructor method
     public Operation build() {
-        Operation operation = new Operation(type, shift, date, amount,
-                category, subcategory, concept, account);
+        Operation operation = new Operation(
+        		type, shift,
+        		date, amount,
+        		concept, 
+                category, subcategory,
+                account);
         return operation;
     }
 
