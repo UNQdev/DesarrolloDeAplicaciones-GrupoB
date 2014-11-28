@@ -53,6 +53,7 @@ public class GenericService<T> implements Serializable {
         return object;
     }
 
+    @Transactional
     public T getById(int id) {
         T object = this.dao.findById(id);
         return object;

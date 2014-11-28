@@ -20,7 +20,7 @@ public class CategoryDAO extends HibernateGenericDAO<Category> implements
     @SuppressWarnings("unchecked")
     public List<Category> filterByName(String name) {
         List<Category> categories = this.getSession().createCriteria(getDomainClass())
-                .add(Restrictions.ilike("name", name, MatchMode.EXACT))
+                .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
                 .list();
         return categories;
 
@@ -29,7 +29,7 @@ public class CategoryDAO extends HibernateGenericDAO<Category> implements
     @Override
     public Category findByName(String name) {
         Category category = (Category) this.getSession().createCriteria(getDomainClass())
-                .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE)).uniqueResult();
+                .add(Restrictions.ilike("name", name, MatchMode.EXACT)).uniqueResult();
         return category;
     }
 }

@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupob.model.*;
@@ -15,9 +16,11 @@ import ar.edu.unq.desapp.grupob.services.*;
 @Service
 @Path("/paymentService")
 public class PaymentRest {
+        
+        @Autowired
 	    private PaymentService paymentService;
-	    
-	    @GET
+
+        @GET
 	    @Path("/payments")
 	    @Produces("application/json")
 	    public List<Payment> getPayments() {
@@ -60,12 +63,11 @@ public class PaymentRest {
 	        return payment;
 	    }
 
+       public PaymentService getPaymentService() {
+            return paymentService;
+        }
 
-	    private GenericService<Payment> getPaymentService() {
-	        return this.paymentService;
-	    }
-
-	    public void setOperationService(PaymentService paymentService) {
-	        this.paymentService = paymentService;
-	    }
+        public void setPaymentService(PaymentService paymentService) {
+            this.paymentService = paymentService;
+        }
 }

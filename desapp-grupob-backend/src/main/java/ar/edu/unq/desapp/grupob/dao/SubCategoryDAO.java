@@ -20,7 +20,7 @@ public class SubCategoryDAO extends HibernateGenericDAO<SubCategory> implements
     public List<SubCategory> filterByName(String name) {
         List<SubCategory> subcategories = this.getSession()
                 .createCriteria(getDomainClass())
-                .add(Restrictions.ilike("name", name, MatchMode.EXACT))
+                .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
                 .list();
         return subcategories;
     }
@@ -29,7 +29,7 @@ public class SubCategoryDAO extends HibernateGenericDAO<SubCategory> implements
     public SubCategory findByName(String name) {
         SubCategory subcategory = (SubCategory) this.getSession()
                     .createCriteria(getDomainClass())
-                    .add(Restrictions.ilike("name", name, MatchMode.ANYWHERE))
+                    .add(Restrictions.ilike("name", name, MatchMode.EXACT))
                     .uniqueResult();
         return subcategory;
     }

@@ -67,24 +67,28 @@ public class Payment extends Entity {
 	        		.withDate(inputDate)
 	        		.build());
     }
-
-	public DateTime getInputDate() {
-            return inputDate;
+    
+    public DateTime getInputDate() {
+        return inputDate;
     }
+
     public void setInputDate(DateTime inputDate) {
         this.inputDate = inputDate;
     }
-    public Invoice getInvoice() {
-		return invoice;
-	}
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
-	}
-	public Operation getOperation() {
-		return operation;
-	}
-	public void setOperation(Operation operation) {
-		this.operation = operation;
-	}
 
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public void setOperation(Operation operation) {
+        this.operation = operation;
+    }
 }
