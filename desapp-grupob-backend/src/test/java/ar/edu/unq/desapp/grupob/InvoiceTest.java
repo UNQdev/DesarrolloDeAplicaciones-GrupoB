@@ -23,7 +23,7 @@ public class InvoiceTest {
         assertNotNull(invoice.getDescription());
 
         assertNull(invoice.getInvoiceType());
-        assertEquals(invoice.getTaxCode(),0);
+        assertEquals(invoice.getTaxCode(),null);
         assertEquals(invoice.getSubtotal(),0,0);
         assertEquals(invoice.getTotal(),0,0);
         assertNull(invoice.getVendor());
