@@ -1,11 +1,16 @@
 package ar.edu.unq.desapp.grupob.web.rest;
 
 import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.springframework.stereotype.Service;
+
 import ar.edu.unq.desapp.grupob.model.*;
 import ar.edu.unq.desapp.grupob.services.*;
 

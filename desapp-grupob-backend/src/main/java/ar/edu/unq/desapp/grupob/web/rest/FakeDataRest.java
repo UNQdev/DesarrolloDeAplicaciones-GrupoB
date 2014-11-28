@@ -23,43 +23,52 @@ public class FakeDataRest {
     public void dbInit() {
         
         // Accounts
-//        CashAccount cash = new CashAccount();
-//        BankAccount bank = new BankAccount(2);
-//        CurrentAccount current = new CurrentAccount();
-//        getCashAccountService().save(cash);
-//        getBankAccountService().save(bank);
-//        getCurrentAccountService().save(current);
+        CashAccount cash = new CashAccount();
+        BankAccount bank = new BankAccount(2);
+        CurrentAccount current = new CurrentAccount();
+        
+        getCashAccountService().save(cash);
+        getBankAccountService().save(bank);
+        getCurrentAccountService().save(current);
         
         // Categories & SubCategories
         Category compras = new Category("Compras");
         
         SubCategory insumos = new SubCategory("Insumos Libreria");
         SubCategory limpieza = new SubCategory("Art Limpieza");
+        
         compras.createSubCategory(insumos);
         compras.createSubCategory(limpieza);
+        getCategoryService().save(compras);
         
         Category ventas = new Category("Ventas");
         SubCategory alfajores = new SubCategory("Alfajores");
-        ventas.createSubCategory(alfajores);
         
-        getCategoryService().save(compras);
+        ventas.createSubCategory(alfajores);
         getCategoryService().save(ventas);
         
         // Operations
-//        Operation operation1 = new Operation(OperationType.Outcoming,
-//                Shift.Afternoon, DateTime.parse("2014-10-01T04:00"), 359.00,
-//                new Invoice(), compras,
-//                "Insumos de libreria SEPTIEMBRE 2014", current);
-//        Operation operation2 = new Operation(OperationType.Outcoming,
-//                Shift.Beforenoon, DateTime.parse("2014-10-01T010:15"), 544.29,
-//                new Invoice(), compras,
-//                "Articulos de limpieza SEPTIEMBRE 2014", bank);
-//        Operation operation3 = new Operation(OperationType.Incoming,
-//                Shift.Afternoon, DateTime.parse("2014-09-01T02:30"), 12.00,
-//                new Invoice(), ventas, "Capitan Triple x1", cash);
-//        getOperationService().save(operation1);
-//        getOperationService().save(operation2);
-//        getOperationService().save(operation3);
+        Operation operation1 = new Operation(
+        		OperationType.Outcoming, Shift.Afternoon, 
+        		DateTime.parse("2014-10-01T04:00"), 359.00,
+        		"Insumos de libreria SEPTIEMBRE 2014",
+                compras, insumos,
+                current);
+        Operation operation2 = new Operation(
+        		OperationType.Outcoming, Shift.Beforenoon, 
+        		DateTime.parse("2014-10-01T010:15"), 544.29,
+        		"Articulos de limpieza SEPTIEMBRE 2014",
+        		compras, limpieza, 
+                bank);
+        Operation operation3 = new Operation(
+        		OperationType.Incoming, Shift.Afternoon, 
+        		DateTime.parse("2014-09-01T02:30"), 12.00,
+        		"Capitan Triple x1",
+                ventas, alfajores,
+                cash);
+        getOperationService().save(operation1);
+        getOperationService().save(operation2);
+        getOperationService().save(operation3);
     }
 
     public CategoryService getCategoryService() {
