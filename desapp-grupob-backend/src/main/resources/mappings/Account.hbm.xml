@@ -23,7 +23,7 @@
         </subclass>
         
         <subclass name="ar.edu.unq.desapp.grupob.model.BankAccount" discriminator-value="Bank" >
-<!--             <property name="devenger" type="ar.edu.unq.desapp.grupob.model.Devenger" /> -->
+            <many-to-one name="devenger" class="ar.edu.unq.desapp.grupob.model.Devenger"></many-to-one>
 	    	<property name="available" type="double" />
 	    </subclass>
 

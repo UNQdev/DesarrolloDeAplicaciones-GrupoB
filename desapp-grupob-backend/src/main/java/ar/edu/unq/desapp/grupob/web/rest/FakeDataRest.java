@@ -52,7 +52,7 @@ public class FakeDataRest {
                 current);
         Operation operation2 = new Operation(
         		OperationType.Outcoming, Shift.Beforenoon, 
-        		DateTime.parse("2014-10-01T010:15"), 544.29,
+        		DateTime.parse("2014-10-01T10:15"), 544.29,
                 "Articulos de limpieza SEPTIEMBRE 2014",
                 compras, limpieza,
                 bank);

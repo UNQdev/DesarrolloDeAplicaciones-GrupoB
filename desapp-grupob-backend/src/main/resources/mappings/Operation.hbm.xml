@@ -21,17 +21,17 @@
     		</type>       
   		</property>
 
-		<property name="date" type="org.joda.time.DateTime"></property>
+		<property name="date" type="org.jadira.usertype.dateandtime.joda.PersistentDateTime"></property>
 
 		<property name="amount"></property>
 		
 		<property name="concept"></property>
 		
-		<property name="category" type="ar.edu.unq.desapp.grupob.model.Category"></property>
+		<many-to-one name="category"></many-to-one>
 		
-		<property name="subcategory" type="ar.edu.unq.desapp.grupob.model.SubCategory"></property>
+		<many-to-one name="subcategory"></many-to-one>
 		
-		<property name="account" type="ar.edu.unq.desapp.grupob.model.Account"></property>
+		<many-to-one name="account" lazy="false"></many-to-one>
 
 	</class>
 

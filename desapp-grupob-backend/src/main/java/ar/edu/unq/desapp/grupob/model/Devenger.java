@@ -25,6 +25,7 @@ public class Devenger extends Entity {
     private DateTime systemDate;
     private double unConsolidatedAmount;
 
+    public Devenger () {};
     /**
      *
      * @param days
