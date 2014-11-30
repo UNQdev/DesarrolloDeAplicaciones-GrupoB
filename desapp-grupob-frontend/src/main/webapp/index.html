@@ -1,105 +1,172 @@
 <!doctype html>
-<html ng-app="feag">
+<html ng-app="feag" lang="en">
+
 <head>
-<meta charset="utf-8">
-<title></title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sistema de flujo de efectivo y análisis de gastos</title>
 
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistema de flujo de efectivo y análisis de gastos</title>
 
-<!-- build:css(.) styles/vendor.css -->
-<!-- bower:css -->
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-<!-- endbower -->
-<!-- endbuild -->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-<!-- build:css(.tmp) styles/main.css -->
-<link rel="stylesheet" href="styles/main.css">
-<!-- endbuild -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!-- endbower -->
+    <!-- endbuild -->
 
-<!-- fix to use angular-bootstrap -->
-<style type="text/css"> .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }</style>
+    <!-- Custom CSS -->
+    <link href="styles/sb-admin.css" rel="stylesheet">
 
-<!-- own style -->
-<link rel="stylesheet" href="styles/style.css">
-<link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
-<link href="bower_components/ng-table/ng-table.css" rel="stylesheet">
-<link href="bower_components/angular-dialog-service/example/css/dialogs.css" rel="stylesheet">
+    <!-- fix to use angular-bootstrap -->
+    <style type="text/css">
+        .nav,
+        .pagination,
+        .carousel,
+        .panel-title a {
+            cursor: pointer;
+        }
+    </style>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="bower_components/angular/node_modules/ng-grid/ng-grid.css" />
+    <!-- own style -->
+    <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+    <link href="bower_components/ng-table/ng-table.css" rel="stylesheet">
+    <link href="bower_components/angular-dialog-service/example/css/dialogs.css" rel="stylesheet">
+    <link href="bower_components/angular/node_modules/ng-grid/ng-grid.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 </head>
+
 <body>
-	<div class="container-fluid">
-		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand sis">FEAG</a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a ng-href="#/operations">Operations</a></li>
-						<li><a ng-href="#/categoriesCRUD">Categories</a></li>
-						<li><a ng-href="#/invoices">Invoices</a></li>
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid -->
-		</nav>
-		<div ng-view=""></div>
-	</div>
-	
-	
-<!-- build:js(.) scripts/oldieshim.js -->
-<!--[if lt IE 9]>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">FEAG</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li><a ng-href="#/"><i class="fa fa-fw fa-dashboard"></i> Home</a>
+                    </li>
+                    <li><a ng-href="#/operations"> Operations</a>
+                    </li>
+                    <li><a ng-href="#/"> Payments</a>
+                    </li>
+                    <li><a ng-href="#/"> Analisis y Proyeccion</a>
+                    </li>
+                    <li><a ng-href="#/categoriesCRUD"> Categories</a>
+                    </li>
+                    <li><a ng-href="#/invoices"> Invoices</a>
+                    </li>
+                    <li><a ng-href="#/"> Vendors</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div id="page-wrapper" ng-view=""></div>
+        <!-- /#wrapper -->
+        </div>
+
+
+        <!-- build:js(.) scripts/oldieshim.js -->
+        <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/json3/lib/json3.js"></script>
 <![endif]-->
 
-<!-- endbuild -->
+        <!-- endbuild -->
 
-<!-- build:js(.) scripts/vendor.js -->
-<!-- bower:js -->
-	<script src="bower_components/jquery/dist/jquery.js"></script>
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-touch/angular-touch.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular/node_modules/ng-grid/ng-grid-2.0.1.min.js"></script>
-	<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
-	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-	<script src="bower_components/ng-table/ng-table.js"></script>
-	<script src="bower_components/angular-translate/angular-translate.js"></script>
-	<script src="bower_components/angular-dialog-service/example/js/dialogs.js"></script>
-	<!-- REEMPLAZAR CUANDO SE HAGA EL TRANSLATE COMPLETO -->
-	<script src="bower_components/angular-dialog-service/example/js/dialogs-default-translations.js"></script>
-<!-- endbower -->
-<!-- endbuild -->
+        <!-- build:js(.) scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular/node_modules/ng-grid/ng-grid-2.0.1.min.js"></script>
+        <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/ng-table/ng-table.js"></script>
+        <script src="bower_components/angular-translate/angular-translate.js"></script>
+        <script src="bower_components/angular-dialog-service/example/js/dialogs.js"></script>
+        <!-- REEMPLAZAR CUANDO SE HAGA EL TRANSLATE COMPLETO -->
+        <script src="bower_components/angular-dialog-service/example/js/dialogs-default-translations.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
 
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
-	<script src="scripts/app.js"></script>
-	<script src="scripts/controllers/operationsCtrl.js"></script>
-	<script src="scripts/controllers/invoices.js"></script>
-	<script src="scripts/controllers/categoriesCtrl.js"></script>
-    <script src="scripts/controllers/subcategoriesCtrl.js"></script>
-<!-- endbuild -->
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/operationsCtrl.js"></script>
+        <script src="scripts/controllers/invoices.js"></script>
+        <script src="scripts/controllers/categoriesCtrl.js"></script>
+        <script src="scripts/controllers/subcategoriesCtrl.js"></script>
+        <!-- endbuild -->
 </body>
+
 </html>

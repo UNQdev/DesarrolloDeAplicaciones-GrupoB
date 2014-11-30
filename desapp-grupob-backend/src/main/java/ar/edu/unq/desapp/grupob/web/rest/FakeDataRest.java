@@ -62,6 +62,7 @@ public class FakeDataRest {
         		"Capitan Triple x1",
         		ventas, alfajores,
         		cash);
+        
         getOperationService().save(operation1);
         getOperationService().save(operation2);
         getOperationService().save(operation3);

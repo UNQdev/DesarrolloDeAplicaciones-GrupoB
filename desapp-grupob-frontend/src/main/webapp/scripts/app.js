@@ -71,7 +71,9 @@ feag.config([ '$routeProvider', '$locationProvider',
 			})
 			// OTHERWISE
 			.otherwise({
-				redirectTo : '/'
+				redirectTo : '/',
+			    templateUrl : 'views/home.html',
+				controller : ''
 			});
 
 		} ]);

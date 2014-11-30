@@ -39,6 +39,7 @@ public class Operation extends Entity {
         this.setSubcategory(subcategory);
         this.setConcept(concept);
         this.setAccount(account);
+//        account.addOperation(this);
     }
     /**
      * Depending the OperationType of this (a.k.a Incomming/Outcomming),
