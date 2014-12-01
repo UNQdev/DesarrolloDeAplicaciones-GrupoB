@@ -56,11 +56,11 @@ public class CategoryRest {
     @Produces("application/json")
     public Response getCategoryByName(@PathParam("name") final String name) {
         Category category = getCategoryService().getByName(name);
-        if (category != null ){
-           return Response.serverError().status(400).build();
+        if (category == null ){
+        	return Response.ok().status(HTTP_OK).build();
         }
         else {
-            return Response.ok().status(HTTP_OK).entity(category).build();
+        	return Response.ok().status(Status.CONFLICT).entity("Categoria ya existente").build();
         }
     }
 
@@ -102,11 +102,10 @@ public class CategoryRest {
             Category categoryToBeDeleted = getCategoryService().getById(new Integer(categoryId));
             getCategoryService().delete(categoryToBeDeleted);
         } catch (Exception e) {
-            return Response.status(Status.CONFLICT).build();
+            return Response.status(Status.CONFLICT).entity("Hay una OPERACION que la utiliza").build();
         }
         return Response.ok().status(HTTP_DELETE).build();
     }
-
 
     private Category parseCategory(final String jsonCategory) throws Exception {
         Category newCategory = new Category();

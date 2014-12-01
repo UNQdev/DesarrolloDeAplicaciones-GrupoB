@@ -49,25 +49,58 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
     //Initial call to render list
     getAll();
 
-    // By perform remote validation, check if the input name already exists in db.
+    // By perform remote validation, | if the input name already exists in db.
     // For that define validation method returning $q promise. 
     // If promise resolves to string validation failed.
-    $scope.checkName = function (data) {
+    $scope.checkCreationName = function (data) {
         var d = $q.defer();
         if (data == undefined) {
             d.reject('Input a name...');
         } else {
             $http.get(restWebService + "categoryService/byName/" + data)
-                .success(function (res) {
-                    res = res || {};
-                    if (res.status === 'ok') { // {status: "ok"}
-                        d.resolve()
-                    } else { // {status: "error", msg: "Message from server..."}
-                        d.resolve(res.msg)
+                .success(function (data, status, header, config) {
+                    data = data || {};
+                    if ( status == 200 ) {
+                        d.resolve();
+                    } else {
+                        d.resolve();
                     }
                 }).error(function (e) {
-                    d.reject('Error: already exists');
+                    $scope.alerts = [];
+                    $scope.alerts.push({
+                        type: 'error',
+                        msg: 'La categoria ya existe'
+                    });
+                    d.reject();
                 });
+        }
+        return d.promise;
+    };
+    
+    // By perform remote validation, | if the input name already exists in db.
+    // For that define validation method returning $q promise. 
+    // If promise resolves to string validation failed.
+    $scope.checkEditionName = function (data) {
+        var d = $q.defer();
+        if (data == undefined) {
+            d.reject('Input a name...');
+        } else {
+            $http.get(restWebService + "categoryService/byName/" + data)
+            .success(function (data, status, header, config) {
+                data = data || {};
+                if ( status == 200 ) {
+                    d.resolve();
+                } else {
+                    d.resolve();
+                }
+            }).error(function (e) {
+                $scope.alerts = [];
+                $scope.alerts.push({
+                    type: 'error',
+                    msg: 'La categoria ' + data ' ya existe'
+                });
+                d.reject();
+            });
         }
         return d.promise;
     };
@@ -136,7 +169,12 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
                     getAll(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
-            console.log("An Error occurred while trying to delete a category: " + id);
+                $scope.alerts = [];
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: data
+                });
+                console.log("An Error occurred while trying to delete a category: " + id);
         });
     };
 });
