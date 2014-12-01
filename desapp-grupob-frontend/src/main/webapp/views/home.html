@@ -3,8 +3,8 @@
     <!-- Page Heading -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-header" align="center">
-                Accounts Balance
+            <h1 class="page-header">
+                Flujo de Efectivo y Analisis de Gastos
                 <small></small>
             </h1>
             <!-- ACCOUNT DISPLAYS -->
@@ -109,66 +109,25 @@
                                         </tr>
                                         <tr ng-repeat="operation in operations | orderBy:'date':true ">
                                             <td>
-                                                <span editable-text="operation.date" 
-                                                      e-name="name" e-form="rowform" 
-                                                      onbeforesave="checkDate($data, operation.id)" 
-                                                      e-required> {{ operation.date }} </span>
+                                                <span type="date"> {{ operation.dateToString }} </span>
                                             </td>
                                             <td>
-                                                <span editable-text="operation.category" 
-                                                      e-name="name" e-form="rowform" 
-                                                      onbeforesave="checkCategory($data, operation.id)" 
-                                                      e-required> {{ operation.category }} </span>
+                                                <span type="text"> {{ operation.category.name }} </span>
                                             </td>
                                             <td>
-                                                <span editable-text="operation.subcategory" 
-                                                      e-name="name" e-form="rowform" 
-                                                      onbeforesave="checkSubcategory($data, operation.id)" 
-                                                      e-required> {{ operation.subcategory }} </span>
+                                                <span type="text"> {{ operation.subcategory.name }} </span>
                                             </td>
                                             <td>
-                                                <span editable-text="operation.concept" 
-                                                      e-name="name" e-form="rowform" 
-                                                      onbeforesave="checkConcept($data, operation.id)" 
-                                                      e-required> {{ operation.concept }} </span>
+                                                <span type="text"> {{ operation.concept }} </span>
                                             </td>
                                             <td>
-                                                <span editable-text="operation.shift" 
-                                                      e-name="name" e-form="rowform" 
-                                                      onbeforesave="checkConcept($data, operation.id)" 
-                                                      e-required> {{ operation.shift }} </span>
+                                                <span type="text"> {{ operation.shift }} </span>
                                             </td>
                                             <td>
-                                                <span editable-text="operation.amount" 
-                                                      e-name="name" e-form="rowform" 
-                                                      onbeforesave="checkAmount($data, operation.id)" 
-                                                      e-required> {{ operation.amount }} </span>
+                                                <span type="text"> {{ operation.realAmount }} </span>
                                             </td>
                                             <td>
-                                                <span editable-text="operation.account" 
-                                                      e-name="name" e-form="rowform" 
-                                                      onbeforesave="checkAccount($data, operation.id)" 
-                                                      e-required> {{ operation.account }} </span>
-                                            </td>
-                                            <td style="white-space: nowrap">
-                                                <!-- form -->
-                                                <form editable-form name="rowform" 
-                                                      onbeforesave="saveOperation($data, operation.id)" 
-                                                      ng-show="rowform.$visible" class="form-buttons form-inline">
-                                                    <button type="submit" ng-disabled="rowform.$waiting" 
-                                                            class="btn btn-primary">save</button>
-
-                                                    <button type="button" ng-disabled="rowform.$waiting" 
-                                                            ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
-                                                </form>
-                                                <div class="buttons" ng-show="!rowform.$visible">
-                                                    <button class="btn btn-primary" ng-click="rowform.$show()">
-                                                        <i class="fa fa-pencil fa-fw"></i>
-                                                    </button>
-                                                    <button class="btn btn-default" ng-click="removeOperation(operation.id)">
-                                                        <i class="fa fa-trash-o fa-fw delete"></i>
-                                                    </button>
-                                                </div>
+                                                <span type="text"> {{ operation.account.name }} </span>
                                             </td>
                                         </tr>
                                     </table>
