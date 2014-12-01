@@ -67,7 +67,6 @@ public class PaymentTest {
         assertEquals(payment.getInvoice().getNumber(), invoiceNumber);
         assertEquals(payment.getInvoice().getDescription(), invoiceDescription);
         
-//        assertEquals(payment.getOperation().getAccount(), operationAccount);
         assertEquals(payment.getOperation().getAmount(), invoiceTotal, 0);
         assertEquals(payment.getOperation().getCategory(), operationCategory);
         assertEquals(payment.getOperation().getSubcategory(), operationSubcategory);

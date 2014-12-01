@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-app="feag" ng-controller="homeCtrl">
 
     <!-- Page Heading -->
     <div class="row">
@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="height:130px">
                             <div class="row">
                                 <div class="col-xs-3">
                                     <i class="fa fa-usd fa-4x"></i>
@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="" ng-click="loadCashOperations()">
                             <div class="panel-footer">
                                 <span class="pull-left">Cash Operations</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-down"></i></span>
@@ -30,23 +30,25 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div>  
                 <!-- ./chash account display -->
 
                 <!-- banck account display-->
                 <div class="col-md-4">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="height:130px">
                             <div class="row">
                                 <div class="col-xs-3">
                                     <i class="fa fa-university fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">$ {{ bank_account_amount }}</div>
+                                    <div class="huge">$ {{ bank_account_available }}</div>
+                                    </br>
+                                <div class="medium text-center">$ {{ bank_account_unconsolidated }} to be accrued</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a  href="" ng-click="loadBankOperations()">
                             <div class="panel-footer">
                                 <span class="pull-left">Bank Account Operations</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-down"></i></span>
@@ -60,7 +62,7 @@
                 <!-- current account display-->
                 <div class="col-xs-4 col-md-4">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <div class="panel-heading" style="height:130px">
                             <div class="row">
                                 <div class="col-xs-3">
                                     <i class="fa fa-money fa-4x"></i>
@@ -70,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a  href="" ng-click="loadCurrentOperations()">
                             <div class="panel-footer">
                                 <span class="pull-left">Current Account Operations</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-down"></i></span>
@@ -92,15 +94,14 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Recent Operations</h3>
                             </div>
-                            <div class="panel-body">
                                 <!-- recent operations table -->
                                 <div class="table-responsive">
-                                    <table class="table table-hover table-striped">
+                                    <table class="table table-bordered table-hover table-striped">
                                             <td class="col-md-3">Date</td>
 
-                                            <td class="col-md-3">Category</td>
-                                            <td class="col-md-3">SubCategory</td>
-                                            <td class="col-md-3">Concept</td>
+                                            <td class="col-md-2">Category</td>
+                                            <td class="col-md-2">SubCategory</td>
+                                            <td class="col-md-5">Concept</td>
 
                                             <td class="col-md-3">Shift</td>
 
@@ -121,19 +122,18 @@
                                                 <span type="text"> {{ operation.concept }} </span>
                                             </td>
                                             <td>
-                                                <span type="text"> {{ operation.shift }} </span>
+                                                <span type="text"> {{ operation.shiftToString }} </span>
                                             </td>
                                             <td>
                                                 <span type="text">$ {{ operation.realAmount }} </span>
                                             </td>
                                             <td>
-                                                <span type="text"> {{ operation.account.accountName }} </span>
+                                                <span type="text"> {{ operation.account }} </span>
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                                 <!-- ./recent operations table -->
-                            </div>
                         </div>
                     </div>
                 <!-- ./recent operations panel -->

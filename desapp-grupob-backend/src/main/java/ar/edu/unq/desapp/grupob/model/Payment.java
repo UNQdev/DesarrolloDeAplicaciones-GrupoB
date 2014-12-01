@@ -59,7 +59,7 @@ public class Payment extends Entity {
         		OperationBuilder.aOperationBuilder()
 	        		.withType(OperationType.Outcoming)
 	        		.withAmount(invoiceTotal)
-	        		.withAccount(operationAccount)
+	        		.withAccount(operationAccount.getAccountName())
 	        		.withCategory(operationCategory)
 	        		.withSubCategory(operationSubcategory)
 	        		.withConcept("Cancelacion Pago " + invoiceVendor.getName() + " - " + invoiceDescription)

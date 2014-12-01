@@ -29,7 +29,7 @@ public class OperationTest {
         double amount = 0;
         String concept = "";
 
-        Operation operation = builder.withAccount(account)
+        Operation operation = builder.withAccount(account.getAccountName())
         		.withAmount(amount)
                 .withCategory(category)
                 .withSubCategory(subcategory)
@@ -38,7 +38,7 @@ public class OperationTest {
                 .withShift(shift)
                 .withType(operationType)
                 .build();
-//        assertEquals(operation.getAccount(), account);
+        assertEquals(operation.getAccount(), account.getAccountName());
         assertEquals(operation.getAmount(), amount, 0);
         assertEquals(operation.getCategory(), category);
         assertEquals(operation.getSubcategory(), subcategory);

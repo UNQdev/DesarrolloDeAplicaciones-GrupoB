@@ -25,7 +25,7 @@ public class OperationBuilder {
     private String concept;
     private Category category;
     private SubCategory subcategory;
-    private Account account;
+    private String account;
 
     // Constructor method
     public Operation build() {
@@ -68,7 +68,7 @@ public class OperationBuilder {
         this.subcategory = subcategory;
         return this;
     }
-    public OperationBuilder withAccount(final Account account) {
+    public OperationBuilder withAccount(final String account) {
         this.account = account;
         return this;
     }

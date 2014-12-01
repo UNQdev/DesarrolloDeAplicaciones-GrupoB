@@ -49,19 +49,19 @@ public class FakeDataRest {
         		DateTime.now(), 359.00,
                 "Insumos de libreria SEPTIEMBRE 2014",
                 compras, insumos,
-                current);
+                current.getAccountName());
         Operation operation2 = new Operation(
         		OperationType.Outcoming, Shift.Beforenoon, 
         		DateTime.now(), 544.29,
                 "Articulos de limpieza SEPTIEMBRE 2014",
                 compras, limpieza,
-                bank);
+                bank.getAccountName());
         Operation operation3 = new Operation(
         		OperationType.Incoming, Shift.Afternoon,
         		DateTime.now(), 12.00,
         		"Capitan Triple x1",
         		ventas, alfajores,
-        		cash);
+        		cash.getAccountName());
         
         cash.addOperation(operation3);
         bank.addOperation(operation2);

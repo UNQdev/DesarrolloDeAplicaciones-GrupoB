@@ -23,7 +23,7 @@ public class CashAccountTest {
         CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cash).withAmount(100)
+        Operation operation = builder.withAccount(cash.getAccountName()).withAmount(100)
                 .withType(OperationType.Incoming).build();
 
         cash.addOperation(operation);
@@ -38,7 +38,7 @@ public class CashAccountTest {
         CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cash).withAmount(100)
+        Operation operation = builder.withAccount(cash.getAccountName()).withAmount(100)
                 .withType(OperationType.Outcoming).build();
 
         cash.addOperation(operation);
@@ -53,7 +53,7 @@ public class CashAccountTest {
         CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cash).withAmount(100)
+        Operation operation = builder.withAccount(cash.getAccountName()).withAmount(100)
                 .withType(OperationType.Incoming).build();
 
         
@@ -69,7 +69,7 @@ public class CashAccountTest {
         CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cash).withAmount(100)
+        Operation operation = builder.withAccount(cash.getAccountName()).withAmount(100)
                 .withType(OperationType.Outcoming).build();
 
         cash.removeOperation(operation);
