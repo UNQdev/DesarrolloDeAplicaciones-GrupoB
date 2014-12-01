@@ -68,7 +68,7 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
                 }).error(function (e) {
                     $scope.alerts = [];
                     $scope.alerts.push({
-                        type: 'error',
+                        type: 'danger',
                         msg: 'La categoria ya existe'
                     });
                     d.reject();
