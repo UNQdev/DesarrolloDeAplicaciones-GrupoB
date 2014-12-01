@@ -76,30 +76,22 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
         }
         return d.promise;
     };
-    
-    // By perform remote validation, | if the input name already exists in db.
-    // For that define validation method returning $q promise. 
-    // If promise resolves to string validation failed.
+
     $scope.checkEditionName = function (data) {
         var d = $q.defer();
         if (data == undefined) {
             d.reject('Input a name...');
         } else {
             $http.get(restWebService + "categoryService/byName/" + data)
-            .success(function (data, status, header, config) {
-                data = data || {};
-                if ( status == 200 ) {
-                    d.resolve();
+            .success(function (res) {
+                res = res || {};
+                if (res.status === 'ok') {
+                    d.resolve()
                 } else {
-                    d.resolve();
+                    d.resolve(res.msg)
                 }
             }).error(function (e) {
-                $scope.alerts = [];
-                $scope.alerts.push({
-                    type: 'error',
-                    msg: 'La categoria ' + data + ' ya existe'
-                });
-                d.reject();
+                d.reject('La categoria ' + data + ' ya existe');
             });
         }
         return d.promise;

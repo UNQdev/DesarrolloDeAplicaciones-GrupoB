@@ -4,19 +4,20 @@
         <!-- Page Heading -->
         <div class="col-lg-12">
             <h1 class="page-header">
-                SubCategories <small>ABM</small>
+                Categories <small>ABM</small>
             </h1>
             <ol class="breadcrumb">
                 <li> 
-                    <i class="fa fa-dashboard"></i>
-                    <a href="index.html"> Home</a>                
+                    <i class="fa fa-dashboard"></i> 
+                    <a href="index.html"> Home </a>            
                 </li>
                 <li>
                     <i class="fa fa-file"></i>
                     <a ng-href="#/categoriesCRUD"> Categories</a>  
                 </li>
-                <li class="active"> 
-                    <i class="fa fa-file"></i> SubCategories</li>
+                <li class="active">
+                    <i class="fa fa-file"> SubCategories</i>
+                </li>
             </ol>
         </div>
     </div>
@@ -24,28 +25,29 @@
     <div class="row">
         <!-- Feedback -->
         <div class="col-md-12">
-            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"> {{alert.msg}} </alert>
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}"
+                   close="closeAlert($index)"> {{alert.msg}} </alert>
         </div>
     </div>
 
     <div class="row">
         <!-- Page Activity -->
-        <!-- new category button -->
+        <!-- new subcategory button -->
         <div class="col-md-4">       
-            <!--button to show formbutton to show form-->
+            <!--button to show form-->
             <button type="button" class="btn btn-success" 
-                    ng-click="editableForm.$show() ; resetNewCategoryName()" popover="Add a new category..." 
+                    ng-click="editableForm.$show() ; resetNewSubCategoryName()" popover="Add a new sub category..." 
                     popover-trigger="mouseenter" popover-placement="right" 
                     ng-show="!editableForm.$visible"> <i class="fa fa-plus"></i>
             </button>
         </div>
-        <!-- new category form -->
+        <!-- new subcategory form -->
         <div class="col-md-4">
             <br/>
-            <form editable-form name="editableForm" onaftersave="saveCategory($data)">
+            <form editable-form name="editableForm" onaftersave="saveSubCategory($data)">
                 <!-- NEW CATEGORY NAME INPUT -->
-                <span editable-text="newCategory.name" e-name="name" 
-                      ng-model="newCategory" onbeforesave="checkCreationName($data)"
+                <span editable-text="newSubCategory.name" e-name="name" 
+                      ng-model="newSubCategory" onbeforesave="checkCreationName($data)"
                       e-required e-placeholder="Enter a name">
                 </span>
                 <!-- SUBMIT - CANCEL BUTTONS -->
@@ -72,10 +74,6 @@
         </div>
         <!-- ./SEARCH BOX -->
     </div>
-
-
-
-
     <div class="row">
         <div class="col-md-12 ">
             <br/>
@@ -86,25 +84,18 @@
                         <td class="col-md-3"> Subcategories</td>
                         <td class="col-md-3"> Actions</td>
                     </tr>
-                    <tr ng-repeat="category in categories | orderBy:'id':false | filter:byName">
+                    <tr ng-repeat="subcategory in subcategories | orderBy:'id':false | filter:byName">
                         <td>
                             <!-- editable category name (text with validation) -->
-                            <span editable-text="category.name" e-name="name" 
-                                  e-form="rowform" onbeforesave="checkName($data)" e-required> {{ category.name }} </span>
-                        </td>
-                        <td>
-                            <span class="dropdown" dropdown ng-show="category.subcategories">
-                                <a href class="dropdown-toggle" dropdown-toggle> view list </a>
-                                <ul class="dropdown-menu">
-                                    <li ng-repeat="sub in category.subcategories"> {{sub.name}} </li>
-                                </ul>
-                            </span>
+                            <span editable-text="subcategory.name" e-name="name" 
+                                  e-form="rowform" onbeforesave="checkEditionName($data)" e-required> {{ subcategory.name }} </span>
                         </td>
                         <td style="white-space: nowrap">
                             <!-- form -->
-                            <form editable-form name="rowform" onbeforesave="updateCategory($data, category.id)" 
+                            <form editable-form name="rowform" onbeforesave="updateSubCategory($data, subcategory.id)" 
                                   ng-show="rowform.$visible" class="form-buttons form-inline">
-                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary"> save </button>
+                                <button type="submit" ng-disabled="rowform.$waiting" 
+                                        class="btn btn-primary"> save </button>
                                 <button type="button" ng-disabled="rowform.$waiting" 
                                         ng-click="rowform.$cancel()" class="btn btn-default"> cancel </button>
                             </form>
@@ -112,10 +103,10 @@
                                 <button class="btn btn-primary" ng-click="rowform.$show()">
                                     <i class="fa fa-pencil-square-o"></i>
                                 </button>
-                                <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(category.id)">
+                                <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(subcategory.id)">
                                     <i class="fa fa-trash-o"></i>
                                 </button>
-                                <a class="btn btn-link" href="#/subcategoriesCRUD/{{category.id}}">
+                                <a class="btn btn-link" href="#/subcategoriesCRUD/{{subcategory.id}}">
                                     <i class="fa fa-cog"> Edit Subcategories</i>
                                     </div>
                                 </td>
