@@ -3,16 +3,16 @@
     <!-- Page Heading -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-header">
-                Flujo de Efectivo y Analisis de Gastos
+            <h3 class="page-header">
+            <!-- Flujo de Efectivo y Analisis de Gastos -->
                 <small></small>
-            </h1>
+            </h3>
             <!-- ACCOUNT DISPLAYS -->
             <!-- chash account display -->
             <div class="row">
                 <div class="col-md-4">
                     <div class="panel panel-primary">
-                        <div class="panel-heading" style="height:130px">
+                        <div class="panel-heading" style="height:130px" vertical-align="middle">
                             <div class="row">
                                 <div class="col-xs-3">
                                     <i class="fa fa-usd fa-4x"></i>
@@ -97,18 +97,19 @@
                                 <!-- recent operations table -->
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped">
-                                            <td class="col-md-3">Date</td>
+                                        <tr style="font-weight: bold">
+                                            <td class="col-md-3 text-center">Date</td>
 
-                                            <td class="col-md-2">Category</td>
-                                            <td class="col-md-2">SubCategory</td>
-                                            <td class="col-md-5">Concept</td>
+                                            <td class="col-md-2 text-center">Category</td>
+                                            <td class="col-md-2 text-center">SubCategory</td>
+                                            <td class="col-md-5 text-center">Concept</td>
 
-                                            <td class="col-md-3">Shift</td>
+                                            <td class="col-md-3 text-center">Shift</td>
 
-                                            <td class="col-md-3">Amount</td>
-                                            <td class="col-md-3">Account</td>
+                                            <td class="col-md-3 text-center">Amount</td>
+                                            <td class="col-md-3 text-center">Account</td>
                                         </tr>
-                                        <tr ng-repeat="operation in operations | orderBy:'date':true ">
+                                        <tr ng-repeat="operation in operations | orderBy:'date':true">
                                             <td>
                                                 <span type="date"> {{ operation.dateToString | date:'fullDate' }} </span>
                                             </td>
