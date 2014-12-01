@@ -7,7 +7,8 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
     function getAll() {
         $http.get(restWebService + "operationService/operations")
         .success(function (response) {
-            $scope.categories = response;
+            console.log(response);
+            $scope.operations = response;
         }).error(function () {
             console.log("Error al listar categorias");
         });

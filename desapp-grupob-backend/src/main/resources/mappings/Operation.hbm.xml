@@ -21,7 +21,7 @@
     		</type>       
   		</property>
 
-		<property name="date" type="org.jadira.usertype.dateandtime.joda.PersistentDateTime"></property>
+		<property name="date" type="org.joda.time.contrib.hibernate.PersistentDateTime"></property>
 
 		<property name="amount"></property>
 		

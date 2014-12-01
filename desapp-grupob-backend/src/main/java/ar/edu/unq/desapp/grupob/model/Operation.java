@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupob.model;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.joda.time.DateTime;
 
 public class Operation extends Entity {
@@ -48,6 +50,10 @@ public class Operation extends Entity {
     public double getRealAmount() {
         return this.getType().getValue(this.getAmount());
     }
+    
+    public String getDateToString(){
+        return this.getDate().toString("MM-dd-YYYY");
+    }
     /*
      * ACCESORS
      */
@@ -63,6 +69,7 @@ public class Operation extends Entity {
 	public void setShift(Shift shift) {
 		this.shift = shift;
 	}
+	@XmlTransient
 	public DateTime getDate() {
 		return date;
 	}

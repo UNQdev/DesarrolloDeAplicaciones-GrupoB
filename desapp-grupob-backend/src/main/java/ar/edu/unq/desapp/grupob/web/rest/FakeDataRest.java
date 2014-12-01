@@ -46,19 +46,19 @@ public class FakeDataRest {
         // Operations
         Operation operation1 = new Operation(
         		OperationType.Outcoming, Shift.Afternoon,
-                DateTime.parse("2014-10-01T04:00"), 359.00,
+        		DateTime.now(), 359.00,
                 "Insumos de libreria SEPTIEMBRE 2014",
                 compras, insumos,
                 current);
         Operation operation2 = new Operation(
         		OperationType.Outcoming, Shift.Beforenoon, 
-        		DateTime.parse("2014-10-01T10:15"), 544.29,
+        		DateTime.now(), 544.29,
                 "Articulos de limpieza SEPTIEMBRE 2014",
                 compras, limpieza,
                 bank);
         Operation operation3 = new Operation(
         		OperationType.Incoming, Shift.Afternoon,
-        		DateTime.parse("2014-09-01T02:30"), 12.00,
+        		DateTime.now(), 12.00,
         		"Capitan Triple x1",
         		ventas, alfajores,
         		cash);
