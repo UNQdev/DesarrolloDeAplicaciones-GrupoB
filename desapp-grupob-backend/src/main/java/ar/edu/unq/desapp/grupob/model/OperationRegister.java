@@ -15,16 +15,16 @@ public class OperationRegister {
     }
 
     
-    public void registerOperation(Operation op) {
-        op.getAccount().addOperation(op);
-    }
-    public void deleteOperation(Operation op) {
-        op.getAccount().removeOperation(op);
-    }
-    public void modifyOperation(Operation opOriginal, Operation opModificada) {
-        opOriginal.getAccount().removeOperation(opOriginal);
-        opModificada.getAccount().addOperation(opModificada);
-    }
+//    public void registerOperation(Operation op) {
+//        op.getAccount().addOperation(op);
+//    }
+//    public void deleteOperation(Operation op) {
+//        op.getAccount().removeOperation(op);
+//    }
+//    public void modifyOperation(Operation opOriginal, Operation opModificada) {
+//        opOriginal.getAccount().removeOperation(opOriginal);
+//        opModificada.getAccount().addOperation(opModificada);
+//    }
   
     public void accountConsolidation() {
         for (Account account : accounts) {

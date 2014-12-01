@@ -24,9 +24,9 @@ public class FakeDataRest {
         CashAccount cash = new CashAccount();
         BankAccount bank = new BankAccount(2);
         CurrentAccount current = new CurrentAccount();
-        getAccountService().save(cash);
-        getAccountService().save(bank);
-        getAccountService().save(current);
+//        getAccountService().save(cash);
+//        getAccountService().save(bank);
+//        getAccountService().save(current);
         
         // Categories & SubCategories
         Category compras = new Category("Compras");
@@ -63,9 +63,15 @@ public class FakeDataRest {
         		ventas, alfajores,
         		cash);
         
-        getOperationService().save(operation1);
-        getOperationService().save(operation2);
-        getOperationService().save(operation3);
+        cash.addOperation(operation3);
+        bank.addOperation(operation2);
+        current.addOperation(operation1);
+        getAccountService().save(cash);
+        getAccountService().save(bank);
+        getAccountService().save(current);
+//        getOperationService().save(operation1);
+//        getOperationService().save(operation2);
+//        getOperationService().save(operation3);
     }
 
     public CategoryService getCategoryService() {

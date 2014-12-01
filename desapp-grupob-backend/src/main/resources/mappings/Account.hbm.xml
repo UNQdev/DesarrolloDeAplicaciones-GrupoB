@@ -11,6 +11,8 @@
 
         <discriminator column="account_type" type="string" />
 
+ 		<property name="accountName"></property>
+ 		
         <property name="accountBalance"></property>
 
         <bag name="operations" lazy="false" cascade="all">
