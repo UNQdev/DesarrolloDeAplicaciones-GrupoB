@@ -6,6 +6,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import ar.edu.unq.desapp.grupob.model.Account;
+import ar.edu.unq.desapp.grupob.model.Category;
 
 public class AccountDAO extends HibernateGenericDAO<Account> implements
         GenericDAO<Account> {
@@ -25,10 +26,12 @@ public class AccountDAO extends HibernateGenericDAO<Account> implements
     protected Class<Account> getDomainClass() {
         return Account.class;
     }
-
+    
     @Override
     public Account findByName(String name) {
-        return null;
+        Account account = (Account) this.getSession().createCriteria(getDomainClass())
+                .add(Restrictions.ilike("accountName", name, MatchMode.EXACT)).uniqueResult();
+        return account;
     }
 
 }

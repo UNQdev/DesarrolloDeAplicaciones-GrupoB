@@ -31,7 +31,7 @@
 		
 		<many-to-one name="subcategory"></many-to-one>
 		
-		<many-to-one name="account" lazy="false"></many-to-one>
+<!-- 		<many-to-one name="account" lazy="no-proxy"></many-to-one> -->
 
 	</class>
 

@@ -19,8 +19,6 @@ public class Operation extends Entity {
     private Category category;
     private SubCategory subcategory;
 
-    private Account account;
-
     /*
      * CONSTRUCTORS
      */
@@ -40,7 +38,6 @@ public class Operation extends Entity {
         this.setCategory(category);
         this.setSubcategory(subcategory);
         this.setConcept(concept);
-        this.setAccount(account);
 //        account.addOperation(this);
     }
     /**
@@ -52,7 +49,7 @@ public class Operation extends Entity {
     }
     
     public String getDateToString(){
-        return this.getDate().toString("MM-dd-YYYY");
+        return this.getDate().toString("YYYY-MM-dd");
     }
     /*
      * ACCESORS
@@ -99,11 +96,5 @@ public class Operation extends Entity {
 	}
 	public void setSubcategory(SubCategory subcategory) {
 		this.subcategory = subcategory;
-	}
-	public Account getAccount() {
-		return account;
-	}
-	public void setAccount(Account account) {
-		this.account = account;
 	}
 }

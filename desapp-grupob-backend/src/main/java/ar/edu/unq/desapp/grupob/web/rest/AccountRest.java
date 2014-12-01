@@ -55,13 +55,14 @@ public class AccountRest {
     @GET
     @Path("/byName/{name}")
     @Produces("application/json")
-    public Response getAccountByName(@PathParam("accountName") final String name) {
+    public Response getAccountByName(@PathParam("name") final String name) {
         Account account = getAccountService().getByName(name);
         if (account != null ){
-           return Response.serverError().status(400).build();
+            return Response.ok().status(HTTP_OK).entity(account).build();
+           
         }
         else {
-            return Response.ok().status(HTTP_OK).entity(account).build();
+            return Response.serverError().status(400).build();
         }
     }
 
