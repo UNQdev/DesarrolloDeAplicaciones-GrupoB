@@ -97,7 +97,7 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
                 $scope.alerts = [];
                 $scope.alerts.push({
                     type: 'error',
-                    msg: 'La categoria ' + data ' ya existe'
+                    msg: 'La categoria ' + data + ' ya existe'
                 });
                 d.reject();
             });
