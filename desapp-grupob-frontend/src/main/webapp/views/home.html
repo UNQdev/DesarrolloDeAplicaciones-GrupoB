@@ -7,6 +7,7 @@
                 Flujo de Efectivo y Análisis de Gastos
                 <small></small>
             </h1>
+
             <!-- ACCOUNT DISPLAYS -->
             <!-- chash account display -->
             <div class="row">
@@ -15,17 +16,17 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa fa-usd fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
+                                    <div class="huge">$ 1.578,00 {{ cash_account_amount }}</div>
                                     <div>New Comments!</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Cash Operations</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -36,21 +37,21 @@
 
                 <!-- banck account display-->
                 <div class="col-md-4">
-                    <div class="panel panel-yellow">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-university fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
+                                    <div class="huge">$ 8.000,00 {{ bank_account_amount }}</div>
                                     <div>New Orders!</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Bank Account Operations</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -58,24 +59,24 @@
                     </div>
                 </div>
                 <!-- ./banck account display-->
-                
+
                 <!-- current account display-->
                 <div class="col-xs-4 col-md-4">
-                    <div class="panel panel-red">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa fa-money fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge">$ 5.400,00 {{ current_account_amount }}</div>
                                     <div>Support Tickets!</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Current Account Operations</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -86,140 +87,111 @@
             </div>
             <!-- ./ACCOUNT DISPLAYS -->
 
+
+            <!-- OPERATION TABLE & TASK PANEL -->
             <div class="row">
-                <div class="col-md-8">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-striped">
-                            <tr style="font-weight: bold">
-                                <td class="col-md-3">Date</td>
-
-                                <td class="col-md-3">Category</td>
-                                <td class="col-md-3">SubCategory</td>
-                                <td class="col-md-3">Concept</td>
-
-                                <td class="col-md-3">Shift</td>
-
-                                <td class="col-md-3">Amount</td>
-                                <td class="col-md-3">Account</td> 
-                            </tr>
-                            <tr ng-repeat="operation in operations | orderBy:'date':true ">
-                                <td>
-                                    <span editable-text="operation.date" 
-                                          e-name="name" e-form="rowform" 
-                                          onbeforesave="checkDate($data, operation.id)" e-required> {{ operation.date }} </span>
-                                </td>
-                                <td>
-                                    <span editable-text="operation.category" 
-                                          e-name="name" e-form="rowform" 
-                                          onbeforesave="checkCategory($data, operation.id)" e-required> {{ operation.category }} </span>
-                                </td>
-                                <td>
-                                    <span editable-text="operation.subcategory" 
-                                          e-name="name" e-form="rowform" 
-                                          onbeforesave="checkSubcategory($data, operation.id)" e-required> {{ operation.subcategory }} </span>
-                                </td>
-                                <td>
-                                    <span editable-text="operation.concept" 
-                                          e-name="name" e-form="rowform" 
-                                          onbeforesave="checkConcept($data, operation.id)" e-required> {{ operation.concept }} </span>
-                                </td>
-                                <td>
-                                    <span editable-text="operation.shift" 
-                                          e-name="name" e-form="rowform" 
-                                          onbeforesave="checkConcept($data, operation.id)" e-required> {{ operation.shift }} </span>
-                                </td>
-                                <td>
-                                    <span editable-text="operation.amount" 
-                                          e-name="name" e-form="rowform" 
-                                          onbeforesave="checkAmount($data, operation.id)" e-required> {{ operation.amount }} </span>
-                                </td>
-                                <td>
-                                    <span editable-text="operation.account" 
-                                          e-name="name" e-form="rowform" 
-                                          onbeforesave="checkAccount($data, operation.id)" e-required> {{ operation.account }} </span>
-                                </td>
-                                <td style="white-space: nowrap">
-                                    <!-- form -->
-                                    <form editable-form name="rowform" 
-                                          onbeforesave="saveOperation($data, operation.id)" 
-                                          ng-show="rowform.$visible" 
-                                          class="form-buttons form-inline">
-                                        <button type="submit" 
-                                                ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
-
-                                        <button type="button" 
-                                                ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
-                                    </form>
-                                    <div class="buttons" ng-show="!rowform.$visible">
-                                        <button class="btn btn-primary" ng-click="rowform.$show()">
-                                            <i class="fa fa-pencil fa-fw"></i>
-                                        </button>
-                                        <button class="btn btn-default" ng-click="removeOperation(operation.id)">
-                                            <i class="fa fa-trash-o fa-fw delete"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-           
-               
-                <!-- task panel -->
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">just now</span>
-                                    <i class="fa fa-fw fa-calendar"></i> Calendar updated
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">4 minutes ago</span>
-                                    <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">23 minutes ago</span>
-                                    <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">46 minutes ago</span>
-                                    <i class="fa fa-fw fa-money"></i> Invoice 653 has been paid
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">1 hour ago</span>
-                                    <i class="fa fa-fw fa-user"></i> A new user has been added
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">2 hours ago</span>
-                                    <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">yesterday</span>
-                                    <i class="fa fa-fw fa-globe"></i> Saved the world
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">two days ago</span>
-                                    <i class="fa fa-fw fa-check"></i> Completed task: "fix error on sales page"
-                                </a>
+                <!-- recent operations panel -->
+                <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Recent Operations</h3>
                             </div>
-                            <div class="text-right">
-                                <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+                            <div class="panel-body">
+                                <!-- recent operations table -->
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped">
+                                            <td class="col-md-3">Date</td>
+
+                                            <td class="col-md-3">Category</td>
+                                            <td class="col-md-3">SubCategory</td>
+                                            <td class="col-md-3">Concept</td>
+
+                                            <td class="col-md-3">Shift</td>
+
+                                            <td class="col-md-3">Amount</td>
+                                            <td class="col-md-3">Account</td>
+                                        </tr>
+                                        <tr ng-repeat="operation in operations | orderBy:'date':true ">
+                                            <td>
+                                                <span editable-text="operation.date" 
+                                                      e-name="name" e-form="rowform" 
+                                                      onbeforesave="checkDate($data, operation.id)" 
+                                                      e-required> {{ operation.date }} </span>
+                                            </td>
+                                            <td>
+                                                <span editable-text="operation.category" 
+                                                      e-name="name" e-form="rowform" 
+                                                      onbeforesave="checkCategory($data, operation.id)" 
+                                                      e-required> {{ operation.category }} </span>
+                                            </td>
+                                            <td>
+                                                <span editable-text="operation.subcategory" 
+                                                      e-name="name" e-form="rowform" 
+                                                      onbeforesave="checkSubcategory($data, operation.id)" 
+                                                      e-required> {{ operation.subcategory }} </span>
+                                            </td>
+                                            <td>
+                                                <span editable-text="operation.concept" 
+                                                      e-name="name" e-form="rowform" 
+                                                      onbeforesave="checkConcept($data, operation.id)" 
+                                                      e-required> {{ operation.concept }} </span>
+                                            </td>
+                                            <td>
+                                                <span editable-text="operation.shift" 
+                                                      e-name="name" e-form="rowform" 
+                                                      onbeforesave="checkConcept($data, operation.id)" 
+                                                      e-required> {{ operation.shift }} </span>
+                                            </td>
+                                            <td>
+                                                <span editable-text="operation.amount" 
+                                                      e-name="name" e-form="rowform" 
+                                                      onbeforesave="checkAmount($data, operation.id)" 
+                                                      e-required> {{ operation.amount }} </span>
+                                            </td>
+                                            <td>
+                                                <span editable-text="operation.account" 
+                                                      e-name="name" e-form="rowform" 
+                                                      onbeforesave="checkAccount($data, operation.id)" 
+                                                      e-required> {{ operation.account }} </span>
+                                            </td>
+                                            <td style="white-space: nowrap">
+                                                <!-- form -->
+                                                <form editable-form name="rowform" 
+                                                      onbeforesave="saveOperation($data, operation.id)" 
+                                                      ng-show="rowform.$visible" class="form-buttons form-inline">
+                                                    <button type="submit" ng-disabled="rowform.$waiting" 
+                                                            class="btn btn-primary">save</button>
+
+                                                    <button type="button" ng-disabled="rowform.$waiting" 
+                                                            ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
+                                                </form>
+                                                <div class="buttons" ng-show="!rowform.$visible">
+                                                    <button class="btn btn-primary" ng-click="rowform.$show()">
+                                                        <i class="fa fa-pencil fa-fw"></i>
+                                                    </button>
+                                                    <button class="btn btn-default" ng-click="removeOperation(operation.id)">
+                                                        <i class="fa fa-trash-o fa-fw delete"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- ./recent operations table -->
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- ./task panel -->
+                <!-- ./recent operations panel -->
             </div>
-                </div>
             </div>
+            <!-- ./OPERATION TABLE & TASK PANEL -->
+
         </div>
     </div>
-    </div>
-    <!-- /.row -->
+</div>
+</div>
+</div>
+<!-- /.row -->
 
 </div>
 <!-- /.container-fluid -->
