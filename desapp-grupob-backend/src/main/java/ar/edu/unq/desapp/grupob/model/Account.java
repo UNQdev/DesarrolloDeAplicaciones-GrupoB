@@ -17,6 +17,7 @@ public abstract class Account extends Entity{
      */
     public void addOperation(Operation operation) {
         this.getOperations().add(operation);
+        operation.setAccount(getAccountName());
         this.updateAccountBalance(operation.getRealAmount());
     }
     /**

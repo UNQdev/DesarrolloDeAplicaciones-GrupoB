@@ -18,6 +18,8 @@ public class Operation extends Entity {
 
     private Category category;
     private SubCategory subcategory;
+    
+    private String account;
 
     /*
      * CONSTRUCTORS
@@ -30,7 +32,7 @@ public class Operation extends Entity {
             double amount,
             String concept,
             Category category, SubCategory subcategory,
-            Account account) {
+            String account) {
         this.setType(type);
         this.setShift(shift);
         this.setDate(date);
@@ -38,7 +40,7 @@ public class Operation extends Entity {
         this.setCategory(category);
         this.setSubcategory(subcategory);
         this.setConcept(concept);
-//        account.addOperation(this);
+        this.setAccount(account);
     }
     /**
      * Depending the OperationType of this (a.k.a Incomming/Outcomming),
@@ -51,6 +53,10 @@ public class Operation extends Entity {
     public String getDateToString(){
         return this.getDate().toString("YYYY-MM-dd");
     }
+    
+    public String getShiftToString () {
+        return this.getShift().getTimeOfDay();
+    }
     /*
      * ACCESORS
      */
@@ -60,6 +66,7 @@ public class Operation extends Entity {
 	public void setType(OperationType type) {
 		this.type = type;
 	}
+	@XmlTransient
 	public Shift getShift() {
 		return shift;
 	}
@@ -97,4 +104,10 @@ public class Operation extends Entity {
 	public void setSubcategory(SubCategory subcategory) {
 		this.subcategory = subcategory;
 	}
+    public String getAccount() {
+        return account;
+    }
+    public void setAccount(String account) {
+        this.account = account;
+    }
 }

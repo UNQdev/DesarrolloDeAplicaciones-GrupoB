@@ -12,7 +12,7 @@ public enum Shift {
     },
     Afternoon {
         public String getTimeOfDay() {
-            return "Noche";
+            return "Tarde";
         }
     };
 

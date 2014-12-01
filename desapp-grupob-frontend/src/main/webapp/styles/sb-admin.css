@@ -27,6 +27,11 @@ body {
     background-color: #fff;
 }
 
+.medium {
+    font-size: 20px;
+    line-height: normal;
+}
+
 .huge {
     font-size: 50px;
     line-height: normal;

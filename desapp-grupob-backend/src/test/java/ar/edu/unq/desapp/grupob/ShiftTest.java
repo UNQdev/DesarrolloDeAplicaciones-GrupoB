@@ -19,6 +19,6 @@ public class ShiftTest {
     public void testShiftAfternoon () {
         Shift shift = Shift.Afternoon;
         
-        assertEquals(shift.getTimeOfDay(), "Noche");
+        assertEquals(shift.getTimeOfDay(), "Tarde");
     }
 }

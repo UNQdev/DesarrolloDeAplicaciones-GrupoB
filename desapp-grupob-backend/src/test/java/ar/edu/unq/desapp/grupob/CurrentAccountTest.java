@@ -24,7 +24,7 @@ public class CurrentAccountTest {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cc).withAmount(100)
+        Operation operation = builder.withAccount(cc.getAccountName()).withAmount(100)
                 .withType(OperationType.Incoming).build();
 
         cc.addOperation(operation);
@@ -39,7 +39,7 @@ public class CurrentAccountTest {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cc).withAmount(100)
+        Operation operation = builder.withAccount(cc.getAccountName()).withAmount(100)
                 .withType(OperationType.Outcoming).build();
 
         cc.addOperation(operation);
@@ -54,7 +54,7 @@ public class CurrentAccountTest {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cc).withAmount(100)
+        Operation operation = builder.withAccount(cc.getAccountName()).withAmount(100)
                 .withType(OperationType.Incoming).build();
 
         
@@ -70,7 +70,7 @@ public class CurrentAccountTest {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
-        Operation operation = builder.withAccount(cc).withAmount(100)
+        Operation operation = builder.withAccount(cc.getAccountName()).withAmount(100)
                 .withType(OperationType.Outcoming).build();
 
         cc.removeOperation(operation);

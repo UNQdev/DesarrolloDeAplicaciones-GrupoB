@@ -10,28 +10,29 @@
 		</id>
 
 		<property name="type">
-  		  	<type name="org.hibernate.type.EnumType">
-      			<param name="enumClass">ar.edu.unq.desapp.grupob.model.OperationType</param>
-    		</type>       
-  		</property>
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">ar.edu.unq.desapp.grupob.model.OperationType</param>
+			</type>
+		</property>
 
 		<property name="shift">
-  		  	<type name="org.hibernate.type.EnumType">
-      			<param name="enumClass">ar.edu.unq.desapp.grupob.model.Shift</param>
-    		</type>       
-  		</property>
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">ar.edu.unq.desapp.grupob.model.Shift</param>
+			</type>
+		</property>
 
-		<property name="date" type="org.joda.time.contrib.hibernate.PersistentDateTime"></property>
+		<property name="date"
+			type="org.joda.time.contrib.hibernate.PersistentDateTime"></property>
+
+		<property name="account"></property>
 
 		<property name="amount"></property>
-		
+
 		<property name="concept"></property>
-		
+
 		<many-to-one name="category"></many-to-one>
-		
+
 		<many-to-one name="subcategory"></many-to-one>
-		
-<!-- 		<many-to-one name="account" lazy="no-proxy"></many-to-one> -->
 
 	</class>
 

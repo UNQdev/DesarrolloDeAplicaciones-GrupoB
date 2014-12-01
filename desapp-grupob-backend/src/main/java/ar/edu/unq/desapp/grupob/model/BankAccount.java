@@ -13,7 +13,7 @@ public class BankAccount extends Account {
     
     public BankAccount(int consolidationPeriod) {
         super();
-        this.setAccountName("BANK");
+        this.setAccountName("Bank");
         this.setAvailable(0);
         this.setDevenger(new Devenger(consolidationPeriod));
     }
