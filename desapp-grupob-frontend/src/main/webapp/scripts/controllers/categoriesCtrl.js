@@ -134,9 +134,11 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
 
     // update category
     $scope.updateCategory = function (data, id) {
+        
         angular.extend(data, {
             id: id
         });
+        console.log(data);
         var jsonCategory = angular.toJson(data);
         $http.put(restWebService + 'categoryService/' + id, jsonCategory).success(
             function (data, status, headers, config) {

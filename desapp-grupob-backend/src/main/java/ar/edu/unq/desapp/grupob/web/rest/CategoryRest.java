@@ -88,7 +88,12 @@ public class CategoryRest {
     @Consumes("application/json")
     public Response updateCategory(@PathParam("categoryId") final String categoryId, final String jsonCategory) {
         try {
-            getCategoryService().update(parseCategory(jsonCategory));
+            Category categoryBeforeToBeUpdated = getCategoryService().getById(new Integer (categoryId));
+            
+            Category categoryToBeUpdated = parseCategory(jsonCategory);
+            categoryToBeUpdated.setSubcategories(categoryBeforeToBeUpdated.getSubcategories());
+            
+            getCategoryService().update(categoryToBeUpdated);
         } catch (Exception e) {
             return Response.status(Status.METHOD_NOT_ALLOWED).build();
         }

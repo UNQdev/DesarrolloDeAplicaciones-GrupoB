@@ -56,7 +56,7 @@ public class SubCategoryRest {
     @GET
     @Path("/byName/{name}")
     @Produces("application/json")
-    public Response getCategoryByName(@PathParam("name") final String name) {
+    public Response getSubCategoryByName(@PathParam("name") final String name) {
         SubCategory category = getSubCategoryService().getByName(name);
         if (category != null ){
            return Response.serverError().status(400).build();
@@ -76,7 +76,7 @@ public class SubCategoryRest {
     @POST
     @Path("/save/{categoryFatherId}")
     @Consumes("application/json")
-    public Response saveCategory(@PathParam("categoryFatherId") final int categoryFatherId,  final String jsonSubCategory) {
+    public Response saveSubCategory(@PathParam("categoryFatherId") final int categoryFatherId,  final String jsonSubCategory) {
         try {
             SubCategory subcategory = parseSubCategory(jsonSubCategory);
             Category father = getCategoryService().getById(categoryFatherId);
@@ -91,7 +91,7 @@ public class SubCategoryRest {
     @PUT
     @Path("/{subCategoryId}")
     @Consumes("application/json")
-    public Response updateCategory(@PathParam("subCategoryId") final String subCategoryId, final String jsonSubCategory) {
+    public Response updateSubCategory(@PathParam("subCategoryId") final String subCategoryId, final String jsonSubCategory) {
         try {
             getSubCategoryService().update(parseSubCategory(jsonSubCategory));
         } catch (Exception e) {
@@ -102,12 +102,12 @@ public class SubCategoryRest {
 
     @DELETE
     @Path("/{subCategoryId}")
-    public Response deleteCategory(@PathParam("subCategoryId") final String subCategoryId) {
+    public Response deleteSubCategory(@PathParam("subCategoryId") final String subCategoryId) {
         try {
             SubCategory subcategoryToBeDeleted = getSubCategoryService().getById(new Integer(subCategoryId));
             getSubCategoryService().delete(subcategoryToBeDeleted);
         } catch (Exception e) {
-            return Response.status(Status.CONFLICT).build();
+            return Response.status(Status.CONFLICT).entity("Hay una OPERACION que la utiliza").build();
         }
         return Response.ok().status(HTTP_DELETE).build();
     }
