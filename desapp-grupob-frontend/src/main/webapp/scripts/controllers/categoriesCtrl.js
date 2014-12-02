@@ -18,11 +18,11 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
             break;
         }
     });
-    
+
     $scope.resetNewCategoryName = function () {
         $scope.newCategory = {
             name: ''
-        } 
+        }
     };
 
     //-- Methods --// Integrar globalmente en el app.js
@@ -60,16 +60,16 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
             $http.get(restWebService + "categoryService/byName/" + data)
                 .success(function (data, status, header, config) {
                     data = data || {};
-                    if ( status == 200 ) {
+                    if (status == 200) {
                         d.resolve();
                     } else {
                         d.resolve();
                     }
-                }).error(function (e) {
+                }).error(function (data, status, header, config) {
                     $scope.alerts = [];
                     $scope.alerts.push({
                         type: 'danger',
-                        msg: 'La categoria ya existe'
+                        msg: 'Error: ' + data
                     });
                     d.reject();
                 });
@@ -83,16 +83,16 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
             d.reject('Input a name...');
         } else {
             $http.get(restWebService + "categoryService/byName/" + data)
-            .success(function (res) {
-                res = res || {};
-                if (res.status === 'ok') {
-                    d.resolve()
-                } else {
-                    d.resolve(res.msg)
-                }
-            }).error(function (e) {
-                d.reject('La categoria ' + data + ' ya existe');
-            });
+                .success(function (data, status, header, config) {
+                    data = data || {};
+                    if (status == 200) {
+                        d.resolve();
+                    } else {
+                        d.resolve();
+                    }
+                }).error(function (data, status, header, config) {
+                    d.reject('Error: ' + data);
+                });
         }
         return d.promise;
     };
@@ -126,15 +126,12 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
 
     // update category
     $scope.updateCategory = function (data, id) {
-        
         angular.extend(data, {
             id: id
         });
-        console.log(data);
         var jsonCategory = angular.toJson(data);
         $http.put(restWebService + 'categoryService/' + id, jsonCategory).success(
             function (data, status, headers, config) {
-                console.log("status del success de mkUpdate: " + status);
                 if (status == 200) {
                     $scope.alerts = [];
                     $scope.alerts.push({
@@ -163,12 +160,12 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
                     getAll(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
-                $scope.alerts = [];
-                $scope.alerts.push({
-                    type: 'danger',
-                    msg: data
-                });
-                console.log("An Error occurred while trying to delete a category: " + id);
+            $scope.alerts = [];
+            $scope.alerts.push({
+                type: 'danger',
+                msg: 'Error: '+data
+            });
+            console.log("An Error occurred while trying to delete a category: " + id);
         });
     };
 });

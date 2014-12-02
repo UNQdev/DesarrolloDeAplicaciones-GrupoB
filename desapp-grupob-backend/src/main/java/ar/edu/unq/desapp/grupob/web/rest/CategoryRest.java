@@ -60,7 +60,7 @@ public class CategoryRest {
         	return Response.ok().status(HTTP_OK).build();
         }
         else {
-        	return Response.ok().status(Status.CONFLICT).entity("Categoria ya existente").build();
+        	return Response.ok().status(Status.CONFLICT).entity("Categoria con nombre '"+name+"' ya existente").build();
         }
     }
 

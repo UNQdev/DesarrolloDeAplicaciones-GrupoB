@@ -57,12 +57,12 @@ public class SubCategoryRest {
     @Path("/byName/{name}")
     @Produces("application/json")
     public Response getSubCategoryByName(@PathParam("name") final String name) {
-        SubCategory category = getSubCategoryService().getByName(name);
-        if (category != null ){
-           return Response.serverError().status(400).build();
+        SubCategory subcategory = getSubCategoryService().getByName(name);
+        if (subcategory == null ){
+            return Response.ok().status(HTTP_OK).build();
         }
         else {
-            return Response.ok().status(HTTP_OK).entity(category).build();
+            return Response.ok().status(Status.CONFLICT).entity("SubCategoria con nombre '"+name+"' ya existente").build();
         }
     }
 

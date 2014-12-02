@@ -16,11 +16,11 @@ feag.controller('subcategoriesCtrl', function ($scope, $filter, $http, $location
                 console.log("Error al listar subcategorias");
             });
     };
-    
+
     $scope.resetNewSubCategoryName = function () {
         $scope.newSubCategory = {
             name: ''
-        } 
+        }
     };
 
     //Initial call to render list
@@ -46,50 +46,50 @@ feag.controller('subcategoriesCtrl', function ($scope, $filter, $http, $location
         });
     };
 
-    // By perform remote validation, check if the input name already exists in db.
-    // For that define validation method returning $q promise. 
-    // If promise resolves to string validation failed.
     $scope.checkCreationName = function (data) {
         var d = $q.defer();
         if (data == undefined) {
             d.reject('Input a name...');
         } else {
             $http.get(restWebService + "subcategoryService/byName/" + data)
-            .success(function (data, status, header, config) {
-                data = data || {};
-                if ( status == 200 ) {
-                    d.resolve();
-                } else {
-                    d.resolve();
-                }
-            }).error(function (e) {
-                $scope.alerts = [];
-                $scope.alerts.push({
-                    type: 'error',
-                    msg: 'La subcategoria ' + data + ' ya existe'
+                .success(function (data, status, header, config) {
+                    data = data || {};
+                    if (status == 200) {
+                        d.resolve();
+                    } else {
+                        d.resolve();
+                    }
+                }).error(function (data, status, header, config) {
+                    $scope.alerts = [];
+                    $scope.alerts.push({
+                        type: 'danger',
+                        msg: 'Error: ' + data
+                    });
+                    d.reject();
                 });
-                d.reject();
-            });
         }
         return d.promise;
     };
-    
+
+    // By perform remote validation, check if the input name already exists in db.
+    // For that define validation method returning $q promise. 
+    // If promise resolves to string validation failed.
     $scope.checkEditionName = function (data) {
         var d = $q.defer();
         if (data == undefined) {
-            d.reject('Input a name...');
+            d.reject('Input a valid name...');
         } else {
             $http.get(restWebService + "subcategoryService/byName/" + data)
-            .success(function (res) {
-                res = res || {};
-                if (res.status === 'ok') {
-                    d.resolve()
-                } else {
-                    d.resolve(res.msg)
-                }
-            }).error(function (e) {
-                d.reject('La subcategoria ' + data + ' ya existe');
-            });
+                .success(function (data, status, header, config) {
+                    data = data || {};
+                    if (status == 200) {
+                        d.resolve();
+                    } else {
+                        d.resolve();
+                    }
+                }).error(function (data, status, header, config) {
+                    d.reject('Error: ' + data);
+                });
         }
         return d.promise;
     };
@@ -148,6 +148,11 @@ feag.controller('subcategoriesCtrl', function ($scope, $filter, $http, $location
                     getAll(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
+            $scope.alerts = [];
+            $scope.alerts.push({
+                type: 'danger',
+                msg: 'Error: '+ data
+            });
             console.log("An Error occurred while trying to delete a SubCategory: " + id);
         });
     };
