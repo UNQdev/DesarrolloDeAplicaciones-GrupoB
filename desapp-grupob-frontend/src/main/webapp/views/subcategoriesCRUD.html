@@ -4,7 +4,7 @@
         <!-- Page Heading -->
         <div class="col-lg-12">
             <h1 class="page-header">
-                Categories <small>ABM</small>
+                SubCategories <small>ABM</small>
             </h1>
             <ol class="breadcrumb">
                 <li> 
@@ -16,7 +16,7 @@
                     <a ng-href="#/categoriesCRUD"> Categories</a>  
                 </li>
                 <li class="active">
-                    <i class="fa fa-file"> SubCategories</i>
+                    <i class="fa fa-file"> SubCategories from {{categoryName}}</i>
                 </li>
             </ol>
         </div>
@@ -75,13 +75,12 @@
         <!-- ./SEARCH BOX -->
     </div>
     <div class="row">
-        <div class="col-md-12 ">
+        <div class="col-md-8 col-md-offset-2">
             <br/>
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <tr style="font-weight: bold">
                         <td class="col-md-3"> Name</td>
-                        <td class="col-md-3"> Subcategories</td>
                         <td class="col-md-3"> Actions</td>
                     </tr>
                     <tr ng-repeat="subcategory in subcategories | orderBy:'id':false | filter:byName">
@@ -106,10 +105,8 @@
                                 <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(subcategory.id)">
                                     <i class="fa fa-trash-o"></i>
                                 </button>
-                                <a class="btn btn-link" href="#/subcategoriesCRUD/{{subcategory.id}}">
-                                    <i class="fa fa-cog"> Edit Subcategories</i>
-                                    </div>
-                                </td>
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>
