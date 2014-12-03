@@ -15,7 +15,7 @@ public class VendorTest {
         Vendor vendor = builder.build();
 
         assertEquals(vendor.getName(), "no name");
-        assertEquals(vendor.getTaxCode(), "0");
+        assertEquals(vendor.getTaxCode(), "");
     }
 
     @Test

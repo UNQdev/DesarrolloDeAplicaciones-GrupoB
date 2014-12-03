@@ -80,7 +80,6 @@ public class FakeDataRest {
                 100.00); 									// monto neto
         Payment payment = new Payment(DateTime.now(), invoice, operation1);
         getPaymentService().save(payment);
-        
     }
 
     public CategoryService getCategoryService() {

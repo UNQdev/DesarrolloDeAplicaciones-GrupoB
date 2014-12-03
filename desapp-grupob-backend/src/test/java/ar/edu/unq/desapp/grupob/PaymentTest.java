@@ -34,6 +34,6 @@ public class PaymentTest {
             .build();
 
         assertEquals(payment.getInvoice(), invoice);
-        assertEquals(payment.getInvoice(), operation);
+        assertEquals(payment.getOperation(), operation);
     }
 }
