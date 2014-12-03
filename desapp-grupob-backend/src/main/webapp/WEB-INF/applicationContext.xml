@@ -72,6 +72,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="operationService" ref="services.operations" />
 		<!-- Invoices -->
 		<property name="invoiceService" ref="services.invoices" />
+		<!-- Payments -->
+		<property name="paymentService" ref="services.payments" />
 	</bean>
 
 	<bean id="operationRest" class="ar.edu.unq.desapp.grupob.web.rest.OperationRest">

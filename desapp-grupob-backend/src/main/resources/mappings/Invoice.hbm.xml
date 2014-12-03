@@ -9,7 +9,8 @@
 			<generator class="native" />
 		</id>
 
-		<property name="date" type="org.joda.time.DateTime"></property>
+		<property name="date"
+			type="org.joda.time.contrib.hibernate.PersistentDateTime"></property>
 
 		<property name="number"></property>
 

@@ -6,20 +6,23 @@ feag.controller('paymentsCtrl', function ($scope, $filter, ngTableParams, $http,
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
     };
-
     
     // Get all categories	  
     function getAll() {
+        var d = $q.defer();
         $http.get(restWebService + "paymentService/payments")
         .success(function (response) {
             $scope.payments = response;
+            d.resolve();
         }).error(function () {
             console.log("Error al listar pagos");
+            d.reject();
         });
     }
 
     //Initial call to render list
     getAll();
+    
 
     // By perform remote validation, | if the input name already exists in db.
     // For that define validation method returning $q promise. 
@@ -153,24 +156,50 @@ feag.controller('paymentsCtrl', function ($scope, $filter, ngTableParams, $http,
         page: 1,            // show first page
         count: 10,          // count per page
         filter: {
-            name: ''       // initial filter
+            name: ''        // initial filter
         },
         sorting: {
-            name: ''     // initial sorting
+            name: ''        // initial sorting
         }
     }, {
-        total: $scope.payments.length, // length of data
+        counts: [],
+        total: function() {
+            return getData().length;
+            // return $scope.payments.length; // length of data
+        },
         getData: function($defer, params) {
-            // use build-in angular filter
             var filteredData = params.filter() ?
-                $filter('filter')($scope.payments, params.filter()) :
-            $scope.payments;
+                $filter('filter')($scope.payments, params.filter()) : $scope.payments;
             var orderedData = params.sorting() ?
-                $filter('orderBy')(filteredData, params.orderBy()) :
-            $scope.payments;
+                $filter('orderBy')(filteredData, params.orderBy()) : $scope.payments;
 
             params.total(orderedData.length); // set total for recalc pagination
-            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            $defer.resolve(orderedData.slice((params.page() - 1)
+                    * params.count(), params.page() * params.count()));
         }
     });
+    
+    /*$scope.tableParams = new ngTableParams({
+        page : 1, // show first page
+        count : 30, // count per page
+        sorting : {
+            name : 'asc' // initial sorting
+        }
+    }, {
+        counts: [],
+        total: function() {
+            return getData().length;
+        }, // length of data
+        getData : function($defer, params) {
+            var filteredData = billElements;
+            var orderedData = params.sorting() ? $filter('orderBy')(
+                filteredData, params.orderBy()) : filteredData;
+
+            $defer.resolve(orderedData.slice((params.page() - 1)
+                                             * params.count(), params.page() * params.count()));
+        },
+        $scope : {
+            $data : {}
+        }
+    });*/
 });

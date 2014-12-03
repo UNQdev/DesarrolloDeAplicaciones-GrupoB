@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupob.model;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.joda.time.DateTime;
 
 public class Invoice extends Entity{
@@ -48,9 +50,13 @@ public class Invoice extends Entity{
     public String getNumber() {
         return number;
     }
+    @XmlTransient
     public DateTime getDate() {
         return date;
     }
+    public String getDateToString(){
+        return this.getDate().toString("YYYY-MM-dd");
+    }    
     public Vendor getVendor() {
         return vendor;
     }
