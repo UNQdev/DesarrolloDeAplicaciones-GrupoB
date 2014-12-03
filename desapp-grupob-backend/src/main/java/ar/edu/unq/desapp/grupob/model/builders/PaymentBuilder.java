@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupob.model.builders;
 import org.joda.time.DateTime;
 
 import ar.edu.unq.desapp.grupob.model.Account;
+import ar.edu.unq.desapp.grupob.model.AccountType;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.InvoiceType;
 import ar.edu.unq.desapp.grupob.model.Operation;
@@ -29,7 +30,7 @@ public class PaymentBuilder {
     private InvoiceType invoiceType;
     private String invoiceTaxCode;
     private String invoiceDescription;
-    private Account operationAccount;
+    private AccountType operationAccount;
     private Category operationCategory;
     private SubCategory operationSubCategory;
     private Shift operationShift;
@@ -86,7 +87,7 @@ public class PaymentBuilder {
         this.invoiceDescription = invoiceDescription;
         return this;
     }
-    public PaymentBuilder withOperationAccount(final Account account) {
+    public PaymentBuilder withOperationAccount(final AccountType account) {
     	this.operationAccount = account;
     	return this;
     }

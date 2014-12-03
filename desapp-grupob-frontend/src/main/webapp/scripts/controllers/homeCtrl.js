@@ -4,7 +4,7 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
     var restWebService = "http://localhost:8081/backend_api/rest/";
     
     function loadAmounts() {
-        $http.get(restWebService + "accountService/byName/"+"Cash")
+        $http.get(restWebService + "accountService/byId/1")
         .success(function (response) {
             $scope.cash_account_amount = response.accountBalance;
             $scope.operations = response.operations; //default operations 
@@ -12,7 +12,7 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
             console.log("Error al cargar saldos de cuenta efectivo");
         });
         
-        $http.get(restWebService + "accountService/byName/"+"Bank")
+        $http.get(restWebService + "accountService/byId/2")
         .success(function (response) {
             $scope.bank_account_available = response.available;
             $scope.bank_account_unconsolidated = response.unConsolidatedAmount;
@@ -20,7 +20,7 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
             console.log("Error al cargar saldos de cuenta banco");
         });
         
-        $http.get(restWebService + "accountService/byName/"+"Current")
+        $http.get(restWebService + "accountService/byId/3")
         .success(function (response) {
             $scope.current_account_amount = response.accountBalance;
         }).error(function () {
@@ -31,7 +31,7 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
     loadAmounts();
     
     $scope.loadCashOperations = function () {
-        $http.get(restWebService + "accountService/byName/"+"Cash")
+        $http.get(restWebService + "accountService/byId/1")
         .success(function (response) {
             console.log("loadCashOperations OK");
             $scope.operations = response.operations;
@@ -41,7 +41,7 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
     }
     
     $scope.loadBankOperations = function () {
-        $http.get(restWebService + "accountService/byName/"+"Bank")
+        $http.get(restWebService + "accountService/byId/2")
         .success(function (response) {
             console.log("loadBankOperations OK"+response.operations);
             $scope.operations = response.operations;
@@ -51,7 +51,7 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
     }
     
     $scope.loadCurrentOperations = function () {
-        $http.get(restWebService + "accountService/byName/"+"Current")
+        $http.get(restWebService + "accountService/byId/3")
         .success(function (response) {
             console.log("loadCurrentOperations OK");
             $scope.operations = response.operations;

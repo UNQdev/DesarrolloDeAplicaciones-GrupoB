@@ -2,8 +2,12 @@ package ar.edu.unq.desapp.grupob.web.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+
 import ar.edu.unq.desapp.grupob.model.*;
 import ar.edu.unq.desapp.grupob.services.*;
 
@@ -24,9 +28,6 @@ public class FakeDataRest {
         CashAccount cash = new CashAccount();
         BankAccount bank = new BankAccount(2);
         CurrentAccount current = new CurrentAccount();
-//        getAccountService().save(cash);
-//        getAccountService().save(bank);
-//        getAccountService().save(current);
         
         // Categories & SubCategories
         Category compras = new Category("Compras");
@@ -46,19 +47,19 @@ public class FakeDataRest {
         // Operations
         Operation operation1 = new Operation(
         		OperationType.Outcoming, Shift.Afternoon,
-        		DateTime.now(), 359.00,
+        		DateTime.parse("2014-09-01T01:00"), 359.00,
                 "Insumos de libreria SEPTIEMBRE 2014",
                 compras, insumos,
                 current.getAccountName());
         Operation operation2 = new Operation(
         		OperationType.Outcoming, Shift.Beforenoon, 
-        		DateTime.now(), 544.29,
+        		DateTime.parse("2014-09-05T02:00"), 544.29,
                 "Articulos de limpieza SEPTIEMBRE 2014",
                 compras, limpieza,
                 bank.getAccountName());
         Operation operation3 = new Operation(
         		OperationType.Incoming, Shift.Afternoon,
-        		DateTime.now(), 12.00,
+        		DateTime.parse("2014-09-10T03:00"), 12.00,
         		"Capitan Triple x1",
         		ventas, alfajores,
         		cash.getAccountName());
@@ -69,9 +70,6 @@ public class FakeDataRest {
         getAccountService().save(cash);
         getAccountService().save(bank);
         getAccountService().save(current);
-//        getOperationService().save(operation1);
-//        getOperationService().save(operation2);
-//        getOperationService().save(operation3);
     }
 
     public CategoryService getCategoryService() {

@@ -1,47 +1,42 @@
-<div class="row" ng-app="feag" ng-controller="opreationsCtrl">
+<div class="container-fluid" ng-app="feag" ng-controller="operationNewCtrl">
 
-    <div class="col-md-6 col-md-offset-3">
-        <div class="row">
-            <div class="col-md-3">
-                <h2>Create Operation</h2>
-            </div>
+    <div class="row">
+        <!-- Page Heading -->
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Operacion <small>alta</small>
+            </h1>
         </div>
-        <br/>
-        <br/>
-        <table class="table table-bordered table-condensed table-hover">
-            <tr style="font-weight: bold">
-                <td style="width:20%">Date</td>
-                
-                <td style="width:20%">Category</td>
-                <td style="width:20%">SubCategory</td>
-                <td style="width:20%">Concept</td>
-                
-                <td style="width:20%">Shift</td>
-                
-                <td style="width:20%">Amount</td>
-                <td style="width:20%">Account</td>             
-            </tr>
-            <td style="white-space: nowrap">
-                <!-- form -->
-                <form editable-form name="rowform" 
-                      onbeforesave="saveCategory($data, category.id)" 
-                      ng-show="rowform.$visible" 
-                      class="form-buttons form-inline">
-                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary"> save </button>
-                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default"> cancel </button>
-                </form>
-                <div class="buttons" ng-show="!rowform.$visible">
-                    <button class="btn btn-primary" ng-click="rowform.$show()">
-                        <i class="fa fa-pencil fa-fw">
-                        </i>
-                    </button>
-                    <button class="btn btn-default" ng-click="removeCategory(category.id)">
-                        <i class="fa fa-trash-o fa-fw delete">
-                        </i>
-                    </button>
-                </div>
-            </td>
-            </tr>
-        </table>
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <label>Fecha</label>
+                <p class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd" ng-model="dt" is-open="opened" 
+                           date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-4 form-group">
+                </br>
+                <label>Turno</label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+
 </div>

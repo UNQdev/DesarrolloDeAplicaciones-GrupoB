@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 
 import ar.edu.unq.desapp.grupob.model.Account;
+import ar.edu.unq.desapp.grupob.model.AccountType;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.Invoice;
 import ar.edu.unq.desapp.grupob.model.Operation;
@@ -17,19 +18,20 @@ import ar.edu.unq.desapp.grupob.model.builders.OperationBuilder;
 
 public class OperationTest {
 
+    @SuppressWarnings("static-access")
     @Test
     public void testOperationConstructor() {
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
         OperationType operationType = mock(OperationType.class);
-        Shift shift = mock(Shift.class);
+        Shift shift = Shift.Afternoon;
         DateTime date = DateTime.parse("2014-09-01T01:00");
         Category category = mock(Category.class);
         SubCategory subcategory = mock(SubCategory.class);
-        Account account = mock(Account.class);
+        AccountType accountType = AccountType.Bank;
         double amount = 0;
         String concept = "";
 
-        Operation operation = builder.withAccount(account.getAccountName())
+        Operation operation = builder.withAccount(accountType)
         		.withAmount(amount)
                 .withCategory(category)
                 .withSubCategory(subcategory)
@@ -38,7 +40,7 @@ public class OperationTest {
                 .withShift(shift)
                 .withType(operationType)
                 .build();
-        assertEquals(operation.getAccount(), account.getAccountName());
+        assertEquals(operation.getAccountType(), accountType.Bank);
         assertEquals(operation.getAmount(), amount, 0);
         assertEquals(operation.getCategory(), category);
         assertEquals(operation.getSubcategory(), subcategory);

@@ -1,4 +1,4 @@
-feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs) {
+feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs) {
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";

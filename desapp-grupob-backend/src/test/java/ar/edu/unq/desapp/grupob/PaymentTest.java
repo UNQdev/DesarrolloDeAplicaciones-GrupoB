@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 
 import ar.edu.unq.desapp.grupob.model.Account;
+import ar.edu.unq.desapp.grupob.model.AccountType;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.Invoice;
 import ar.edu.unq.desapp.grupob.model.InvoiceType;
@@ -36,12 +37,12 @@ public class PaymentTest {
         String invoiceTaxCode = "30328304326";
         String invoiceDescription = "Pelotas chicas, pelotas grandes, que pelotas tiene Fernandez!";
         //OPERATION MOCKS
-        Account operationAccount = mock(Account.class);
+        AccountType operationAccount = AccountType.Cash;
         Category operationCategory = mock(Category.class);     
         SubCategory operationSubcategory = mock(SubCategory.class);
         String operationConcept = "Cancelacion Pago " + 
         		invoiceVendor.getName() + " - " + invoiceDescription;
-        Shift operationShift = mock(Shift.class);
+        Shift operationShift = Shift.Afternoon;
 
         Payment payment = builder.withInputDate(inputDate)
     		.withInvoiceVendor(invoiceVendor)

@@ -14,44 +14,20 @@ feag.config([ '$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider) {
 			$routeProvider
 
-			// //ACCOUNTS
-			// .when('/accounts', {
-			// templateUrl : 'views/accounts.html',
-			// controller : 'AccountControllerList'
-			// }).when('/newAccount', {
-			// templateUrl : 'views/account.html',
-			// controller : 'AccountControllerNew'
-			// })
-			// EN PRINCIPIO ESTO NO TIENE SENTIDO
-			// .when('/editAccount/:accountId', {
-			// templateUrl : 'views/account.html',
-			// controller : 'AccountControllerEdit'
-			// }).when('/deleteAccount/:accountId', {
-			// controller : 'AccountControllerDelete'
-			// })
-
-			// OPERATIONS
+        
+			/** Operations **/
 			.when('/operations', {
-				templateUrl : 'views/operations.html',
-				controller : 'OperationControllerList'
-			}).when('/newOperation', {
-				templateUrl : 'views/operation.html',
-				controller : 'OperationControllerNew'
-			}).when('/editOperation/:operationId', {
-				templateUrl : 'views/operation.html',
-				controller : 'CategoryControllerEdit'
-			}).when('/deleteOperation/:operationId', {
-				controller : 'CategoryControllerDelete'
-			})
-
+				templateUrl : 'views/operationsCRUD.html',
+                controller : 'operationsCtrl'
+            })
 			/** Categories **/
-			.when('/categoriesCRUD', {
+			.when('/categories', {
 				templateUrl : 'views/categoriesCRUD.html',
 				controller : 'categoriesCtrl'
 			})
 			
 			/** Subcategories **/
-			.when('/subcategoriesCRUD/:categoryId', {
+			.when('/subcategories/:categoryId', {
 				templateUrl : 'views/subcategoriesCRUD.html',
 				controller : 'subcategoriesCtrl'
 			})
@@ -69,7 +45,8 @@ feag.config([ '$routeProvider', '$locationProvider',
 			}).when('/deleteInvoice/:invoiceId', {
 				controller : 'InvoiceControllerDelete'
 			})
-			// OTHERWISE
+			
+            /** Home **/
 			.otherwise({
 				redirectTo : '/',
 			    templateUrl : 'views/home.html',

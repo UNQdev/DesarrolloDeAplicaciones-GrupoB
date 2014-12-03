@@ -35,7 +35,7 @@ public class Payment extends Entity {
     		/**
     		 * OPERATION REQUIREMENTS
     		 */
-    		Account operationAccount,
+    		AccountType operationAccount,
     		Category operationCategory,			//PODRIA TRAERSE UNA CUENTA DEPENDIENDO EL VENDOR
     		SubCategory operationSubcategory,
     		Shift operationShift					//RESPONSABILIDAD DEL SISTEMA
@@ -59,7 +59,7 @@ public class Payment extends Entity {
         		OperationBuilder.aOperationBuilder()
 	        		.withType(OperationType.Outcoming)
 	        		.withAmount(invoiceTotal)
-	        		.withAccount(operationAccount.getAccountName())
+//	        		.withAccount(operationAccount)
 	        		.withCategory(operationCategory)
 	        		.withSubCategory(operationSubcategory)
 	        		.withConcept("Cancelacion Pago " + invoiceVendor.getName() + " - " + invoiceDescription)
