@@ -46,19 +46,19 @@ public class FakeDataRest {
         // Operations
         Operation operation1 = new Operation(
         		OperationType.Outcoming, Shift.Afternoon,
-        		DateTime.now(), 120.00,
+        		DateTime.parse("2014-09-01T01:00"), 120.00,
                 "",
                 compras, insumos,
                 current.getAccountName());
         Operation operation2 = new Operation(
         		OperationType.Outcoming, Shift.Beforenoon, 
-        		DateTime.now(), 544.29,
+        		DateTime.parse("2014-09-05T02:00"), 544.29,
                 "Articulos de limpieza SEPTIEMBRE 2014",
                 compras, limpieza,
                 bank.getAccountName());
         Operation operation3 = new Operation(
         		OperationType.Incoming, Shift.Afternoon,
-        		DateTime.now(), 12.00,
+        		DateTime.parse("2014-09-10T03:00"), 12.00,
         		"Capitan Triple x1",
         		ventas, alfajores,
         		cash.getAccountName());
@@ -80,6 +80,7 @@ public class FakeDataRest {
                 100.00); 									// monto neto
         Payment payment = new Payment(DateTime.now(), invoice, operation1);
         getPaymentService().save(payment);
+
     }
 
     public CategoryService getCategoryService() {

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unq.desapp.grupob.dao.GenericDAO;
+import ar.edu.unq.desapp.grupob.model.AccountType;
 
 public class GenericService<T> implements Serializable {
 

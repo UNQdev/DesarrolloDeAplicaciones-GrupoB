@@ -7,7 +7,7 @@ public abstract class Account extends Entity{
 
     private static final long serialVersionUID = -6329867468802681632L;
     
-    private String accountName;
+    private AccountType accountName;
     private double accountBalance = 0;
     private List<Operation> operations = new ArrayList<Operation>();
 
@@ -17,7 +17,7 @@ public abstract class Account extends Entity{
      */
     public void addOperation(Operation operation) {
         this.getOperations().add(operation);
-        operation.setAccount(getAccountName());
+        operation.setAccountType(getAccountName());
         this.updateAccountBalance(operation.getRealAmount());
     }
     /**
@@ -49,14 +49,14 @@ public abstract class Account extends Entity{
      * 
      * @return
      */
-    public String getAccountName() {
+    public AccountType getAccountName() {
  		return accountName;
  	}
     /**
      * 
      * @param account_name
      */
- 	public void setAccountName(String accountName) {
+ 	public void setAccountName(AccountType accountName) {
  		this.accountName = accountName;
  	}
     /**

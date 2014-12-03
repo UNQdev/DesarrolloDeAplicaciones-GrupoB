@@ -6,6 +6,6 @@ public class CurrentAccount extends Account {
 
     public CurrentAccount() {
         super();
-        this.setAccountName("Current");
+        this.setAccountName(AccountType.Current);
     }
 }

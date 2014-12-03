@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupob.model.builders;
 import org.joda.time.DateTime;
 
 import ar.edu.unq.desapp.grupob.model.Account;
+import ar.edu.unq.desapp.grupob.model.AccountType;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.Invoice;
 import ar.edu.unq.desapp.grupob.model.InvoiceType;
@@ -24,7 +25,6 @@ public class PaymentBuilder {
     private DateTime inputDate;
     private Invoice invoice;
     private Operation operation;
-
 
     // Constructor method
     public Payment build() {
@@ -48,6 +48,4 @@ public class PaymentBuilder {
         this.operation = operation;
         return this;
     }
-    
-
 }

@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupob.model.builders;
 import org.joda.time.DateTime;
 
 import ar.edu.unq.desapp.grupob.model.Account;
+import ar.edu.unq.desapp.grupob.model.AccountType;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.Invoice;
 import ar.edu.unq.desapp.grupob.model.Operation;
@@ -25,7 +26,7 @@ public class OperationBuilder {
     private String concept;
     private Category category;
     private SubCategory subcategory;
-    private String account;
+    private AccountType accountType;
 
     // Constructor method
     public Operation build() {
@@ -34,7 +35,7 @@ public class OperationBuilder {
         		date, amount,
         		concept, 
                 category, subcategory,
-                account);
+                accountType);
         return operation;
     }
 
@@ -68,8 +69,8 @@ public class OperationBuilder {
         this.subcategory = subcategory;
         return this;
     }
-    public OperationBuilder withAccount(final String account) {
-        this.account = account;
+    public OperationBuilder withAccount(final AccountType accountType) {
+        this.accountType = accountType;
         return this;
     }
 }

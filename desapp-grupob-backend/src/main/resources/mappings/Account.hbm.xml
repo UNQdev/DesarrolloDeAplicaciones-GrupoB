@@ -10,8 +10,6 @@
 		</id>
 
         <discriminator column="account_type" type="string" />
-
- 		<property name="accountName"></property>
  		
         <property name="accountBalance"></property>
 
@@ -19,6 +17,12 @@
 			<key column="accountID" />
 			<one-to-many class="ar.edu.unq.desapp.grupob.model.Operation" />
 		</bag>
+
+		<property name="accountName">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">ar.edu.unq.desapp.grupob.model.AccountType</param>
+			</type>
+		</property>
 
 		<!-- Mapeo de Herencia -->
         <subclass name="ar.edu.unq.desapp.grupob.model.CashAccount" discriminator-value="Cash">
