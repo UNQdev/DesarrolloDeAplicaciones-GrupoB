@@ -2,8 +2,10 @@ package ar.edu.unq.desapp.grupob.web.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
+
 import ar.edu.unq.desapp.grupob.model.*;
 import ar.edu.unq.desapp.grupob.services.*;
 
@@ -15,6 +17,7 @@ public class FakeDataRest {
     private CategoryService categoryService;
     private OperationService operationService;
     private InvoiceService invoiceService;
+    private PaymentService paymentService;
 
     @GET
     @Path("/initialize-db")
@@ -24,9 +27,6 @@ public class FakeDataRest {
         CashAccount cash = new CashAccount();
         BankAccount bank = new BankAccount(2);
         CurrentAccount current = new CurrentAccount();
-//        getAccountService().save(cash);
-//        getAccountService().save(bank);
-//        getAccountService().save(current);
         
         // Categories & SubCategories
         Category compras = new Category("Compras");
@@ -46,8 +46,8 @@ public class FakeDataRest {
         // Operations
         Operation operation1 = new Operation(
         		OperationType.Outcoming, Shift.Afternoon,
-        		DateTime.now(), 359.00,
-                "Insumos de libreria SEPTIEMBRE 2014",
+        		DateTime.now(), 120.00,
+                "",
                 compras, insumos,
                 current.getAccountName());
         Operation operation2 = new Operation(
@@ -69,9 +69,19 @@ public class FakeDataRest {
         getAccountService().save(cash);
         getAccountService().save(bank);
         getAccountService().save(current);
-//        getOperationService().save(operation1);
-//        getOperationService().save(operation2);
-//        getOperationService().save(operation3);
+
+        // Payment
+        Invoice invoice = new Invoice(
+        		"0000001", 						// numero de factura
+        		DateTime.now().minusDays(5),	//fecha factura 
+        		new Vendor("20-32830432-6", "Pepito"), 
+        		InvoiceType.A,
+                "Insumos de libreria SEPTIEMBRE 2014", 
+                100.00, 
+                120.00);
+        Payment payment = new Payment(DateTime.now(), invoice, operation1);
+        getPaymentService().save(payment);
+        
     }
 
     public CategoryService getCategoryService() {
@@ -105,4 +115,12 @@ public class FakeDataRest {
     public void setInvoiceService(InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
     }
+
+	public PaymentService getPaymentService() {
+		return paymentService;
+	}
+
+	public void setPaymentService(PaymentService paymentService) {
+		this.paymentService = paymentService;
+	}
 }

@@ -21,18 +21,30 @@ public class Invoice extends Entity{
     private double total;
 
     public Invoice(String number, DateTime date, Vendor entity, InvoiceType invoiceType, 
-            String taxCode, String description, double subtotal, double total) {
+            String description, double subtotal) {
         this.setNumber(number);
         this.setDate(date);
         this.setVendor(entity);
         this.setInvoiceType(invoiceType);
-        this.setTaxCode(taxCode);
+        this.setTaxCode(entity.getTaxCode());
         this.setDescription(description);
         this.setSubtotal(subtotal);
-        this.setTotal(total);
+        this.setTotal(invoiceType.getTotal(subtotal, 0.0));
     }
     
-    public Invoice () {}
+    public Invoice(String number, DateTime date, Vendor entity, InvoiceType invoiceType, 
+            String description, double subtotal, double tax, boolean hasIIBB, double noGrabado) {
+        this.setNumber(number);
+        this.setDate(date);
+        this.setVendor(entity);
+        this.setInvoiceType(invoiceType);
+        this.setTaxCode(entity.getTaxCode());
+        this.setDescription(description);
+        this.setSubtotal(subtotal);
+        this.setTotalIIBB(invoiceType, subtotal, tax, hasIIBB, noGrabado);
+    }
+    
+    public Invoice() {};
     
 	/*
      * GETTERS & SETTERS
@@ -92,6 +104,14 @@ public class Invoice extends Entity{
     }
 
     public void setTotal(double total) {
-        this.total = total;
+       	this.total = total;
+    }
+    
+    public void setTotalIIBB(InvoiceType invoiceType, double subtotal, double tax, boolean hasIIBB, double noGrabado) {
+        if (hasIIBB) {
+        	this.setTotal(invoiceType.getFullTotal(subtotal, tax) + noGrabado);
+        } else {
+        	this.setTotal(invoiceType.getTotal(subtotal, tax) + noGrabado);
+        }
     }
 }

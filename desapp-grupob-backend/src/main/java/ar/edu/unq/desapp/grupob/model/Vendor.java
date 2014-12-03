@@ -12,14 +12,14 @@ public class Vendor extends Entity{
 	 *
 	 */
 	private String name;
-	private int taxCode;
+	private String taxCode;
 
 	/**
 	 *
 	 * @param taxCode
 	 * @param name
 	 */
-    public Vendor(int taxCode, String name) {
+    public Vendor(String taxCode, String name) {
     	this.setTaxCode(taxCode);
     	this.setName(name);
     }
@@ -30,10 +30,10 @@ public class Vendor extends Entity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getTaxCode() {
+	public String getTaxCode() {
 		return taxCode;
 	}
-	public void setTaxCode(int taxCode) {
+	public void setTaxCode(String taxCode) {
 		this.taxCode = taxCode;
 	}
 }

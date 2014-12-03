@@ -15,14 +15,14 @@ public class VendorTest {
         Vendor vendor = builder.build();
 
         assertEquals(vendor.getName(), "no name");
-        assertEquals(vendor.getTaxCode(), 0);
+        assertEquals(vendor.getTaxCode(), "0");
     }
 
     @Test
     public void testVendorConstructorFull() {
         VendorBuilder builder = VendorBuilder.aVendorBuilder();
         String name = "proveedor";
-        int taxCode = 1111;
+        String taxCode = "1111";
 
         Vendor vendor = builder.withName(name).withTaxCode(taxCode).build();
 

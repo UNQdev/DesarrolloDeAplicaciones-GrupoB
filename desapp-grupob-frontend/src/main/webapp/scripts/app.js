@@ -56,6 +56,12 @@ feag.config([ '$routeProvider', '$locationProvider',
 				controller : 'subcategoriesCtrl'
 			})
 			
+            .when('/paymentsCRUD', {
+                templateUrl : 'views/paymentsCRUD.html',
+                controller : 'paymentsCtrl'
+            })
+
+            
 			// INVOICES
 			.when('/invoices', {
 				templateUrl : 'views/invoices.html',
