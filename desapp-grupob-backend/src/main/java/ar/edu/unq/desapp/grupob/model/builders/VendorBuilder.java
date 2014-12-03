@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupob.model.builders;
 
-import ar.edu.unq.desapp.grupob.model.SubCategory;
 import ar.edu.unq.desapp.grupob.model.Vendor;
 
 public class VendorBuilder {
@@ -12,7 +11,7 @@ public class VendorBuilder {
 
     // Instances
     private String name = "no name";
-    private int taxCode;
+    private String taxCode = "";
 
     // Constructor method
     public Vendor build() {
@@ -26,7 +25,7 @@ public class VendorBuilder {
         return this;
     }
     
-    public VendorBuilder withTaxCode(final int taxCode) {
+    public VendorBuilder withTaxCode(final String taxCode) {
         this.taxCode = taxCode;
         return this;
     }

@@ -14,39 +14,61 @@ import ar.edu.unq.desapp.grupob.model.builders.InvoiceBuilder;
 public class InvoiceTest {
 
     @Test
-    public void testInvoiceConstructorDefault() {
-        InvoiceBuilder builder = InvoiceBuilder.anInvoiceBuilder();
-        Invoice invoice = builder.build();
+    public void testInvoiceXConstructor() {
+    	InvoiceBuilder builder = InvoiceBuilder.anInvoiceBuilder();
+        InvoiceType invoiceType = InvoiceType.B;
+        Vendor vendor = mock(Vendor.class);
+        when(vendor.getName()).thenReturn("FERNANDEZ");
+        when(vendor.getTaxCode()).thenReturn("20-12345678-9");
+        double subtotal = 100.00;
+        double total = 100.00 ;
+        String number = "001";
+        DateTime date = DateTime.now();
+        String description = "another description";
+        Invoice invoice = builder.withDate(date)
+                .withNumber(number)
+                .withVendor(vendor)
+        		.withTaxCode(vendor.getTaxCode())
+        		.withInvoiceType(invoiceType)
+        		.withDescription(description)
+                .withSubTotal(subtotal)
+                .buildA();
+
+        assertEquals(invoice.getInvoiceType(), invoiceType);
+        assertEquals(invoice.getTaxCode(), "20-12345678-9");
+        assertEquals(invoice.getSubtotal(), subtotal, 0);
+        assertEquals(invoice.getTotal(), total, 0);
+        assertEquals(invoice.getVendor(), vendor);
 
         assertNotNull(invoice.getDate());
         assertNotNull(invoice.getNumber());
         assertNotNull(invoice.getDescription());
-
-        assertNull(invoice.getInvoiceType());
-        assertEquals(invoice.getTaxCode(),null);
-        assertEquals(invoice.getSubtotal(),0,0);
-        assertEquals(invoice.getTotal(),0,0);
-        assertNull(invoice.getVendor());
     }
 
     @Test
-    public void testInvoiceConstructorFullyLoaded() {
+    public void testInvoiceAConstructor() {
         InvoiceBuilder builder = InvoiceBuilder.anInvoiceBuilder();
         InvoiceType invoiceType = InvoiceType.A;
         Vendor vendor = mock(Vendor.class);
-        String taxCode = "20-12345678-9";
-        int subtotal = 20;
-        int total = 30;
+        when(vendor.getName()).thenReturn("FERNANDEZ");
+        when(vendor.getTaxCode()).thenReturn("20-12345678-9");
+        double subtotal = 100.00;
+        double total = 121.00 ;
         String number = "001";
         DateTime date = DateTime.now();
         String description = "another description";
-        Invoice invoice = builder.withInvoiceType(invoiceType)
-                .withTaxCode(taxCode).withSubTotal(subtotal).withTotal(total)
-                .withVendor(vendor).withNumber(number).withDate(date)
-                .withDescription(description).build();
+        Invoice invoice = builder.withDate(date)
+                .withNumber(number)
+                .withVendor(vendor)
+                .withTax(0.21)
+        		.withTaxCode(vendor.getTaxCode())
+        		.withInvoiceType(invoiceType)
+        		.withDescription(description)
+                .withSubTotal(subtotal)
+                .buildA();
 
         assertEquals(invoice.getInvoiceType(), invoiceType);
-        assertEquals(invoice.getTaxCode(), taxCode);
+        assertEquals(invoice.getTaxCode(), "20-12345678-9");
         assertEquals(invoice.getSubtotal(), subtotal, 0);
         assertEquals(invoice.getTotal(), total, 0);
         assertEquals(invoice.getVendor(), vendor);

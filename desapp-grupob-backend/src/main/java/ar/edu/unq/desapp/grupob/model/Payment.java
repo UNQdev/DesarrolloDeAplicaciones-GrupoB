@@ -19,56 +19,13 @@ public class Payment extends Entity {
      */
     public Payment () {};
     
-    public Payment(
-    		DateTime inputDate,
-    		/**
-    		 * INVOICE REQUIREMENTS
-    		 */
-    		Vendor invoiceVendor, 				//LA FC NECESITA EL OBJETO VENDOR (RESPONSABILIDAD DEL CONTROLLER)
-    		String invoiceNumber,
-    		DateTime invoiceDate,
-    		double invoiceSubTotal,
-    		double invoiceTotal,
-    		InvoiceType invoiceType,
-    		String invoiceTaxCode,				//REPLANTEAR ESTO! QUE REPRESENTABA
-    		String invoiceDescription,
-    		/**
-    		 * OPERATION REQUIREMENTS
-    		 */
-    		AccountType operationAccount,
-    		Category operationCategory,			//PODRIA TRAERSE UNA CUENTA DEPENDIENDO EL VENDOR
-    		SubCategory operationSubcategory,
-    		Shift operationShift					//RESPONSABILIDAD DEL SISTEMA
-    		) {
-
+    public Payment(DateTime inputDate, Invoice invoice, Operation operation) {
         this.setInputDate(inputDate);
-
-        this.setInvoice(
-        		InvoiceBuilder.anInvoiceBuilder()
-        		.withVendor(invoiceVendor)
-        		.withNumber(invoiceNumber)
-        		.withDate(invoiceDate)
-        		.withSubTotal(invoiceSubTotal)
-        		.withTotal(invoiceTotal)
-        		.withInvoiceType(invoiceType)
-        		.withTaxCode(invoiceTaxCode)
-        		.withDescription(invoiceDescription)
-        		.build());
-
-        this.setOperation(
-        		OperationBuilder.aOperationBuilder()
-	        		.withType(OperationType.Outcoming)
-	        		.withAmount(invoiceTotal)
-//	        		.withAccount(operationAccount)
-	        		.withCategory(operationCategory)
-	        		.withSubCategory(operationSubcategory)
-	        		.withConcept("Cancelacion Pago " + invoiceVendor.getName() + " - " + invoiceDescription)
-	        		.withShift(operationShift)
-	        		.withDate(inputDate)
-	        		.build());
+        this.setInvoice(invoice);
+        this.setOperation(operation);
     }
-    
-    public DateTime getInputDate() {
+
+	public DateTime getInputDate() {
         return inputDate;
     }
 

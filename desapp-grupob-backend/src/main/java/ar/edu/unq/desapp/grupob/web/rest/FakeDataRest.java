@@ -2,8 +2,6 @@ package ar.edu.unq.desapp.grupob.web.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
@@ -19,6 +17,7 @@ public class FakeDataRest {
     private CategoryService categoryService;
     private OperationService operationService;
     private InvoiceService invoiceService;
+    private PaymentService paymentService;
 
     @GET
     @Path("/initialize-db")
@@ -47,8 +46,8 @@ public class FakeDataRest {
         // Operations
         Operation operation1 = new Operation(
         		OperationType.Outcoming, Shift.Afternoon,
-        		DateTime.parse("2014-09-01T01:00"), 359.00,
-                "Insumos de libreria SEPTIEMBRE 2014",
+        		DateTime.parse("2014-09-01T01:00"), 120.00,
+                "",
                 compras, insumos,
                 current.getAccountName());
         Operation operation2 = new Operation(
@@ -70,6 +69,18 @@ public class FakeDataRest {
         getAccountService().save(cash);
         getAccountService().save(bank);
         getAccountService().save(current);
+
+        // Payment
+        Invoice invoice = new Invoice(
+        		"0000001", 									// numero de factura
+        		DateTime.now().minusDays(5),				// fecha factura 
+        		new Vendor("20-32830432-6", "Pepito"), 		// proveedor
+        		InvoiceType.A,								// tipo factura
+                "Insumos de libreria SEPTIEMBRE 2014", 		// descripcion
+                100.00); 									// monto neto
+        Payment payment = new Payment(DateTime.now(), invoice, operation1);
+        getPaymentService().save(payment);
+
     }
 
     public CategoryService getCategoryService() {
@@ -103,4 +114,12 @@ public class FakeDataRest {
     public void setInvoiceService(InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
     }
+
+	public PaymentService getPaymentService() {
+		return paymentService;
+	}
+
+	public void setPaymentService(PaymentService paymentService) {
+		this.paymentService = paymentService;
+	}
 }
