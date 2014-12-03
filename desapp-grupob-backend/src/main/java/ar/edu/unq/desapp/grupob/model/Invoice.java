@@ -12,11 +12,6 @@ public class Invoice extends Entity{
     private InvoiceType invoiceType;
     private String taxCode;
     private String description;
-    /*
-     * TODO: Evaluar la posibilidad de un objeto TAX en el cual delegar todas las persepciones de la factura
-     * 
-     * private Tax taxes;
-     */
     private double subtotal;
     private double total;
 

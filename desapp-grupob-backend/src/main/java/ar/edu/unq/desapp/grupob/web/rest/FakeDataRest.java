@@ -72,13 +72,12 @@ public class FakeDataRest {
 
         // Payment
         Invoice invoice = new Invoice(
-        		"0000001", 						// numero de factura
-        		DateTime.now().minusDays(5),	//fecha factura 
-        		new Vendor("20-32830432-6", "Pepito"), 
-        		InvoiceType.A,
-                "Insumos de libreria SEPTIEMBRE 2014", 
-                100.00, 
-                120.00);
+        		"0000001", 									// numero de factura
+        		DateTime.now().minusDays(5),				// fecha factura 
+        		new Vendor("20-32830432-6", "Pepito"), 		// proveedor
+        		InvoiceType.A,								// tipo factura
+                "Insumos de libreria SEPTIEMBRE 2014", 		// descripcion
+                100.00); 									// monto neto
         Payment payment = new Payment(DateTime.now(), invoice, operation1);
         getPaymentService().save(payment);
         

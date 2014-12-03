@@ -16,7 +16,7 @@ public class InvoiceTest {
     @Test
     public void testInvoiceConstructorDefault() {
         InvoiceBuilder builder = InvoiceBuilder.anInvoiceBuilder();
-        Invoice invoice = builder.build();
+        Invoice invoice = builder.buildX();
 
         assertNotNull(invoice.getDate());
         assertNotNull(invoice.getNumber());
@@ -34,16 +34,21 @@ public class InvoiceTest {
         InvoiceBuilder builder = InvoiceBuilder.anInvoiceBuilder();
         InvoiceType invoiceType = InvoiceType.A;
         Vendor vendor = mock(Vendor.class);
+        when(vendor.getName()).thenReturn("FERNANDEZ");
         String taxCode = "20-12345678-9";
         int subtotal = 20;
         int total = 30;
         String number = "001";
         DateTime date = DateTime.now();
         String description = "another description";
-        Invoice invoice = builder.withInvoiceType(invoiceType)
-                .withTaxCode(taxCode).withSubTotal(subtotal).withTotal(total)
-                .withVendor(vendor).withNumber(number).withDate(date)
-                .withDescription(description).build();
+        Invoice invoice = builder.withDate(date)
+                .withNumber(number)
+                .withVendor(vendor)
+        		.withTaxCode(vendor.getTaxCode())
+        		.withInvoiceType(invoiceType)
+        		.withDescription(description)
+                .withSubTotal(subtotal)
+                .buildA();
 
         assertEquals(invoice.getInvoiceType(), invoiceType);
         assertEquals(invoice.getTaxCode(), taxCode);

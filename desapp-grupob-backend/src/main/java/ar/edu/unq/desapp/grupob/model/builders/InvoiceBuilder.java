@@ -17,12 +17,14 @@ public class InvoiceBuilder {
     private String number = "";
     private DateTime date = DateTime.now();
     private Vendor vendor;
+    private String taxCode;
     private InvoiceType invoiceType;
     private String description = "no description";
     private double subtotal;
-    private double tax;
+    private double tax;    
     private boolean hasIIBB;
     private double noGrabado;
+    
 
     // Construct method
     public Invoice buildA() {
@@ -41,42 +43,44 @@ public class InvoiceBuilder {
         this.number = number;
         return this;
     }
-
     public InvoiceBuilder withDate(final DateTime date) {
         this.date = date;
         return this;
     }
-
     public InvoiceBuilder withVendor(final Vendor vendor) {
         this.vendor = vendor;
         return this;
     }
-
-    public InvoiceBuilder withInvoiceType(final InvoiceType invoiceType) {
+    public String getTaxCode() {
+		return taxCode;
+	}
+	public void setTaxCode(String taxCode) {
+		this.taxCode = taxCode;
+	}
+	public InvoiceBuilder withInvoiceType(final InvoiceType invoiceType) {
         this.invoiceType = invoiceType;
         return this;
     }
-
     public InvoiceBuilder withDescription(final String description) {
         this.description = description;
         return this;
     }
-
     public InvoiceBuilder withSubTotal(final double subtotal) {
         this.subtotal = subtotal;
         return this;
     }
-
     public InvoiceBuilder withTax(final double tax) {
         this.tax = tax;
         return this;
     }
-    
+    public InvoiceBuilder withTaxCode(final String taxCode) {
+        this.setTaxCode(taxCode);
+        return this;
+    }
     public InvoiceBuilder withHasIIBB(final boolean hasIIBB) {
         this.hasIIBB = hasIIBB;
         return this;
     }
-    
     public InvoiceBuilder withNoGrabado(final double noGrabado) {
         this.noGrabado = noGrabado;
         return this;
