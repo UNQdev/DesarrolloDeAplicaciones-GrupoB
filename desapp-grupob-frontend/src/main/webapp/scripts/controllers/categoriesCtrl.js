@@ -1,4 +1,4 @@
-feag.controller('categoriesCtrl', ['resolvedCategories', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, resolvedCategories) {
+function categoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, resolvedCategories){
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
@@ -6,9 +6,23 @@ feag.controller('categoriesCtrl', ['resolvedCategories', function ($scope, $filt
     console.log(resolvedCategories);
     $scope.categories = resolvedCategories.data;
     
+    
     /*
      *  CATEGORIES CRUD
-     */    
+     */
+    function refreshElements() {
+        var d = $q.defer();
+        $http.get(restWebService + "categoryService/categories")
+        .success(function (response) {
+            $scope.categories = response;
+            d.resolve();
+        }).error(function () {
+            console.log("Error al listar categorias");
+            d.reject();
+        });
+        return d.promise;
+    }
+    
     $scope.saveCategory = function (data) {
         $http.post(restWebService + 'categoryService/save', data).success(
             function (data, status, headers, config) {
@@ -19,7 +33,7 @@ feag.controller('categoriesCtrl', ['resolvedCategories', function ($scope, $filt
                         msg: 'Saved!'
                     });
                     console.log("Save Category OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             console.log("An Error occurred while trying to store a category, with name: " + data.name);
@@ -40,7 +54,7 @@ feag.controller('categoriesCtrl', ['resolvedCategories', function ($scope, $filt
                         msg: 'Updated!'
                     });
                     console.log("Update Category OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             console.log("An Error occurred while trying to update a category: " + id);
@@ -57,7 +71,7 @@ feag.controller('categoriesCtrl', ['resolvedCategories', function ($scope, $filt
                         msg: 'Deleted!'
                     });
                     console.log("Delete Category OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             $scope.alerts = [];
@@ -187,4 +201,4 @@ feag.controller('categoriesCtrl', ['resolvedCategories', function ($scope, $filt
     };
 
     
-}]);
+}

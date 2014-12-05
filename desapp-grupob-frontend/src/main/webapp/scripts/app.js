@@ -11,25 +11,22 @@
 var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies', 
                                     'ngResource', 'pascalprecht.translate',
                                     'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid',
-                                    'xeditable', 'ui.bootstrap', 'ngTable' , 
+                                    'xeditable', 'ui.bootstrap', 'ngTable',
                                     'dialogs.main','dialogs.default-translations' ]);
 
 
-feag.config([ '$routeProvider', function($routeProvider) { 
-                	   $routeProvider
+feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
 
-			/** Operations **/
 			.when('/operations', {
 				templateUrl : 'views/operationsCRUD.html',
                 controller : 'operationsCtrl',
-                /*resolve: {
+                resolve: {
                     resolvedOperations: function(resolverService) {
                         return resolverService.getOperations();
                     }
-                }*/
+                }
             })
             
-			/** Categories **/
 			.when('/categories', {
 				templateUrl : 'views/categoriesCRUD.html',
 				controller : 'categoriesCtrl',
@@ -40,37 +37,34 @@ feag.config([ '$routeProvider', function($routeProvider) {
                 ]}
 			})
 			
-			/** Subcategories **/
 			.when('/subcategories/:categoryId', {
 				templateUrl : 'views/subcategoriesCRUD.html',
 				controller : 'subcategoriesCtrl',
-                /*resolve: {
+                resolve: {
                     resolvedSubCategories: function(resolverService) {
                         return resolverService.getSubCategories();
                     }
-                }*/
+                }
 			})
 			
             .when('/payments', {
                 templateUrl : 'views/paymentsCRUD.html',
                 controller : 'paymentsCtrl',
-                /*resolve: {
+                resolve: {
                     resolvedPayments: function(resolverService) {
                         return resolverService.getPayments();
                     }
-                }*/
+                }
             })
 
-            
-			// INVOICES
 			.when('/invoices', {
 				templateUrl : 'views/invoices.html',
 				controller : 'InvoiceControllerList',
-                /*resolve: {
+                resolve: {
                     resolvedInvoices: function(resolverService) {
                         return resolverService.getInvoices();
                     }
-                }*/
+                }
             })
 			
             /** Home **/
@@ -85,6 +79,14 @@ feag.factory('resolverService', ['$http', function($http) {
   var restWebService = "http://localhost:8081/backend_api/rest/";
 
   var result = {
+      getOperations: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'operationService/operations' })
+          .success(function(data, status, headers, config) {
+              console.log(data);
+              return data;
+          });
+          return promise;
+      },
       getCategories: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'categoryService/categories' })
           .success(function(data, status, headers, config) {
@@ -92,10 +94,35 @@ feag.factory('resolverService', ['$http', function($http) {
               return data;
           });
           return promise;
-      }        
+      },
+      getSubCategories: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'subcategoryService/subcategories' })
+          .success(function(data, status, headers, config) {
+              console.log(data);
+              return data;
+          });
+          return promise;
+      },
+      getPayments: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'paymentService/payments' })
+          .success(function(data, status, headers, config) {
+              console.log(data);
+              return data;
+          });
+          return promise;
+      },
+      getInvoices: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'invoiceService/invoices' })
+          .success(function(data, status, headers, config) {
+              console.log(data);
+              return data;
+          });
+          return promise;
+      }
   }
   return result;
 }]);
+
                       
 feag.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$translateProvider){
 	dialogsProvider.useBackdrop('static');
