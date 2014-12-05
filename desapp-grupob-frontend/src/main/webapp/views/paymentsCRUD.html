@@ -49,21 +49,21 @@
             <br/>
 
         <table class="table-responsive" ng-table="tableParams" show-filter="true" >
-            <tr ng-repeat="payment in $scope.mockedPayments">
-                <td data-title="'Date'" sortable="'date'" filter="{ 'date': 'text' }">
-                    {{payment.inputDate}}
+            <tr ng-repeat="payment in payments">
+                <td data-title="'Date'" sortable="'dateToString'" filter="{ 'dateToString': 'text' }">
+                    {{payment.dateToString}}
                 </td>
                 <td data-title="'Vendor'" sortable="'vendor'" filter="{ 'vendor': 'text' }">
                     {{payment.invoice.vendor.name}}
                 </td>
                 <td data-title="'Invoice N°'" sortable="'number'" filter="{ 'number': 'text' }">
-                    {{payment.invoice.number}}
+                    N° {{payment.invoice.number}}
                 </td>
                 <td data-title="'Invoice SubTotal'" sortable="'subtotal'" filter="{ 'total': 'text' }">
-                    $ {{payment.invoice.total}}
+                    {{payment.invoice.subtotal | currency}}
                 </td>
                 <td data-title="'Invoice Total'" sortable="'total'" filter="{ 'total': 'text' }">
-                    $ {{payment.invoice.total}}
+                    {{payment.invoice.total | currency}
                 </td>
             </tr>
         </table>

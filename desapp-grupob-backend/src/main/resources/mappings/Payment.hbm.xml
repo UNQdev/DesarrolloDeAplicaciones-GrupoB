@@ -9,11 +9,12 @@
 			<generator class="native" />
 		</id>
 
-		<property name="inputDate" type="org.joda.time.DateTime"></property>
+		<property name="inputDate"
+			type="org.joda.time.contrib.hibernate.PersistentDateTime"></property>
 
-		<property name="invoice"></property>
+		<one-to-one name="invoice"></one-to-one>
 
-		<property name="operation"></property>
+		<one-to-one name="operation"></one-to-one>
 
 	</class>
 

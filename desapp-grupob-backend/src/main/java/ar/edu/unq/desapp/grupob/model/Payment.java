@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupob.model;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.joda.time.DateTime;
 
 import ar.edu.unq.desapp.grupob.model.builders.InvoiceBuilder;
@@ -24,7 +26,8 @@ public class Payment extends Entity {
         this.setInvoice(invoice);
         this.setOperation(operation);
     }
-
+    
+    @XmlTransient
 	public DateTime getInputDate() {
         return inputDate;
     }
@@ -33,6 +36,10 @@ public class Payment extends Entity {
         this.inputDate = inputDate;
     }
 
+    public String getDateToString(){
+        return this.getInputDate().toString("YYYY-MM-dd");
+    }
+    
     public Invoice getInvoice() {
         return invoice;
     }
