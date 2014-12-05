@@ -52,7 +52,7 @@ public class SubCategoryRest {
         Category category = getCategoryService().getById(categoryId);
         return category.getSubcategories();
     }
-    
+
     @GET
     @Path("/byName/{name}")
     @Produces("application/json")

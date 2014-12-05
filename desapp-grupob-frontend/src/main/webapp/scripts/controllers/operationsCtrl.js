@@ -1,5 +1,6 @@
 feag.controller('operationsCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, $modal) {
     
+
 	// Variables
    var restWebService = "http://localhost:8081/backend_api/rest/";
 	
@@ -19,7 +20,7 @@ feag.controller('operationsCtrl', function ($scope, $filter, $http, $location, $
     $scope.loadModalCreate = function () {
         $modal.open({
             templateUrl: 'views/operationCreate.html',
-            backdrop: true,
+            backdrop: false,
             size: 'lg',
             scope: $scope
         });
