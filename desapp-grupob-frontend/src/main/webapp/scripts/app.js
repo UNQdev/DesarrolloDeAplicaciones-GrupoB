@@ -2,55 +2,76 @@
 
 /**
  * @ngdoc overview
- * @name app
- * @description # app
+ * @name feag
+ * @description # feag
  * 
  * Main module of the application.
  */
-var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies', 'ngResource', 'pascalprecht.translate', 
-		'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid', 'xeditable', 'ui.bootstrap', 'ngTable' , 'dialogs.main','dialogs.default-translations' ]);
 
-feag.config([ '$routeProvider', '$locationProvider',
-		function($routeProvider, $locationProvider) {
-			$routeProvider
+var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies', 
+                                    'ngResource', 'pascalprecht.translate',
+                                    'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid',
+                                    'xeditable', 'ui.bootstrap', 'ngTable' , 
+                                    'dialogs.main','dialogs.default-translations' ]);
 
-        
+
+feag.config([ '$routeProvider', function($routeProvider) { 
+                	   $routeProvider
+
 			/** Operations **/
 			.when('/operations', {
 				templateUrl : 'views/operationsCRUD.html',
-                controller : 'operationsCtrl'
+                controller : 'operationsCtrl',
+                /*resolve: {
+                    resolvedOperations: function(resolverService) {
+                        return resolverService.getOperations();
+                    }
+                }*/
             })
+            
 			/** Categories **/
 			.when('/categories', {
 				templateUrl : 'views/categoriesCRUD.html',
-				controller : 'categoriesCtrl'
+				controller : 'categoriesCtrl',
+				resolve: {
+                    resolvedCategories: ['resolverService', function(resolverService) {
+                        return resolverService.getCategories();
+                    }
+                ]}
 			})
 			
 			/** Subcategories **/
 			.when('/subcategories/:categoryId', {
 				templateUrl : 'views/subcategoriesCRUD.html',
-				controller : 'subcategoriesCtrl'
+				controller : 'subcategoriesCtrl',
+                /*resolve: {
+                    resolvedSubCategories: function(resolverService) {
+                        return resolverService.getSubCategories();
+                    }
+                }*/
 			})
 			
-            .when('/paymentsCRUD', {
+            .when('/payments', {
                 templateUrl : 'views/paymentsCRUD.html',
-                controller : 'paymentsCtrl'
+                controller : 'paymentsCtrl',
+                /*resolve: {
+                    resolvedPayments: function(resolverService) {
+                        return resolverService.getPayments();
+                    }
+                }*/
             })
 
             
 			// INVOICES
 			.when('/invoices', {
 				templateUrl : 'views/invoices.html',
-				controller : 'InvoiceControllerList'
-			}).when('/newInvoice', {
-				templateUrl : 'views/invoices.html',
-				controller : 'InvoiceControllerNew'
-			}).when('/editInvoice/:invoiceId', {
-				templateUrl : 'views/invoices.html',
-				controller : 'InvoiceControllerEdit'
-			}).when('/deleteInvoice/:invoiceId', {
-				controller : 'InvoiceControllerDelete'
-			})
+				controller : 'InvoiceControllerList',
+                /*resolve: {
+                    resolvedInvoices: function(resolverService) {
+                        return resolverService.getInvoices();
+                    }
+                }*/
+            })
 			
             /** Home **/
 			.otherwise({
@@ -58,9 +79,24 @@ feag.config([ '$routeProvider', '$locationProvider',
 			    templateUrl : 'views/home.html',
 				controller : 'homeCtrl'
 			});
+}]);
+                  
+feag.factory('resolverService', ['$http', function($http) {
+  var restWebService = "http://localhost:8081/backend_api/rest/";
 
-		} ]);
-
+  var result = {
+      getCategories: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'categoryService/categories' })
+          .success(function(data, status, headers, config) {
+              console.log(data);
+              return data;
+          });
+          return promise;
+      }        
+  }
+  return result;
+}]);
+                      
 feag.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$translateProvider){
 	dialogsProvider.useBackdrop('static');
 	dialogsProvider.useEscClose(false);
@@ -85,9 +121,21 @@ feag.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$tr
 	});
 
 	$translateProvider.preferredLanguage('en-US');
-}])
+}]);
 
 feag.run(function(editableOptions) {
 	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2',
-									// 'default'
+								   // 'default'
 });
+
+feag.run(function($rootScope) {
+    $rootScope.categories = function() {
+        var promise = $http({ method: 'GET', url: restWebService + 'categoryService/categories' })
+        .success(function(data, status, headers, config) {
+            console.log(data);
+            return data;
+        });
+        return promise;
+    }
+});
+         

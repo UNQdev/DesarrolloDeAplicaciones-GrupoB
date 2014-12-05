@@ -50,7 +50,7 @@
                     </tr>
                     <tr ng-repeat="operation in operations | orderBy:'date':true">
                         <td>
-                            <span type="date"> {{ operation.dateToString | date:'fullDate' }} </span>
+                            <span type="date" class="text-center"> {{ operation.dateToString | date:'fullDate' }} </span>
                         </td>
                         <td>
                             <span type="text"> {{ operation.category.name }} </span>

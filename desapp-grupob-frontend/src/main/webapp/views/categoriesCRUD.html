@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-app="feag" ng-controller="categoriesCtrl">
+<div class="container-fluid" ng-app="feag">
 
     <div class="row">
         <!-- Page Heading -->
@@ -77,7 +77,7 @@
                         <td class="col-md-3"> Subcategories</td>
                         <td class="col-md-3"> Actions</td>
                     </tr>
-                    <tr ng-repeat="category in categories | orderBy:'id':false | filter:byName">
+                    <tr ng-repeat="category in filteredCategories | orderBy:'id':false | filter:byName">
                         <td>
                             <!-- editable category name (text with validation) -->
                             <span editable-text="category.name" e-name="name" 
@@ -109,10 +109,16 @@
                                 </button>
                                 <a class="btn btn-link" href="#/subcategories/{{category.id}}">
                                     <i class="fa fa-cog"> Edit Subcategories</i>
-                                    </div>
-                                </td>
+                            </div>
+                        </td>
                     </tr>
                 </table>
+                <br>
+                <pagination ng-model="currentPage"
+                            total-items="totalCategories()" items-per-page="itemsOnPage" 
+                            max-size="pageQtty()" 
+                            class="pagination-md pull-left" boundary-links="true">
+                </pagination>
             </div>
         </div>
     </div>
