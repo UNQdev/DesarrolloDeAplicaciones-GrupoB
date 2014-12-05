@@ -52,8 +52,8 @@ public class FakeDataRest {
                 current.getAccountName());
         Operation operation2 = new Operation(
         		OperationType.Outcoming, Shift.Beforenoon, 
-        		DateTime.parse("2014-09-05T02:00"), 544.29,
-                "Articulos de limpieza SEPTIEMBRE 2014",
+        		DateTime.parse("2014-09-05T02:00"), 658.59,
+        		"",
                 compras, limpieza,
                 bank.getAccountName());
         Operation operation3 = new Operation(
@@ -70,16 +70,26 @@ public class FakeDataRest {
         getAccountService().save(bank);
         getAccountService().save(current);
 
-        // Payment
-        Invoice invoice = new Invoice(
+        // Payments
+        Invoice invoice1 = new Invoice(
         		"0000001", 									// numero de factura
         		DateTime.now().minusDays(5),				// fecha factura 
         		new Vendor("20-32830432-6", "Pepito"), 		// proveedor
         		InvoiceType.A,								// tipo factura
                 "Insumos de libreria SEPTIEMBRE 2014", 		// descripcion
                 100.00); 									// monto neto
-        Payment payment = new Payment(DateTime.now(), invoice, operation1);
-        getPaymentService().save(payment);
+        Payment payment1 = new Payment(DateTime.now(), invoice1, operation1);
+        getPaymentService().save(payment1);
+        
+        Invoice invoice2 = new Invoice(
+        		"0000002", 									// numero de factura
+        		DateTime.now().minusDays(4),				// fecha factura 
+        		new Vendor("20-35401778-6", "Arnaldo"), 	// proveedor
+        		InvoiceType.A,								// tipo factura
+        		"Articulos de limpieza SEPTIEMBRE 2014", 	// descripcion
+                544.29); 									// monto neto
+        Payment payment2 = new Payment(DateTime.now(), invoice2, operation2);
+        getPaymentService().save(payment2);
 
     }
 
