@@ -83,7 +83,6 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
         });
     };
 
-    // add category
     $scope.savePayment = function (data) {
         $http.post(restWebService + 'paymentService/save', data)
         .success( function (data, status, headers, config) {
@@ -94,14 +93,13 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
                         msg: 'Saved!'
                     });
                     console.log("Save Payment OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             console.log("An Error occurred while trying to store a payment");
         });
     };
 
-    // update category
     $scope.updatePayment = function (data, id) {
         angular.extend(data, {
             id: id
@@ -124,7 +122,6 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
         });
     };
 
-    // delete category
     $scope.removePayment = function (id) {
         $http.delete(restWebService + 'paymentService/' + id).success(
             function (data, status, headers, config) {
@@ -135,7 +132,7 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
                         msg: 'Deleted!'
                     });
                     console.log("Delete Payment OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             $scope.alerts = [];
@@ -166,7 +163,6 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
             return $scope.payments.length;
         },
         getData: function($defer, params) {
-            getAll();
             var filteredData = params.filter() ?
                 $filter('filter')($scope.payments, params.filter()) : $scope.payments;
             var orderedData = params.sorting() ?

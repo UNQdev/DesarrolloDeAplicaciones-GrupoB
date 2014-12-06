@@ -55,7 +55,7 @@
             <p><strong>Filter:</strong> {{paymentsTable.filter()|json}}
 
             <table ng-table="paymentsTable" show-filter="true" class="table table-condensed" >
-                <tr ng-repeat="payment in $scope.payments">
+                <tr ng-repeat="payment in payments">
                     <td data-title="'Date'" sortable="'dateToString'" filter="{ 'dateToString': 'text' }" 
                         class="col-md-2 text-center"> {{payment.dateToString}}
                     </td>
@@ -83,40 +83,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
-        
-        <div>
-            <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
-            <button ng-click="tableParams.filter({})" class="btn btn-default pull-right">Clear filter</button>
-            <p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
-            <p><strong>Filter:</strong> {{tableParams.filter()|json}}
-
-
-            <table ng-table="tableParams" show-filter="true" class="table">
-                <tr ng-repeat="user in $data">
-                    <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
-                        {{user.name}}
-                    </td>
-                    <td data-title="'Age'" sortable="'age'" filter="{ 'age': 'text' }">
-                        {{user.age}}
-                    </td>
-                    <td data-title="'Eyes Colour'" sortable="'eyes'" filter="{ 'eyes': 'text' }">
-                        {{user.eyes}}
-                    </td>
-                    <td data-title="'Actions'">
-                        <div class="buttons" ng-show="!rowform.$visible">
-                            <button class="btn btn-primary" ng-click="rowform.$show()">
-                                <i class="fa fa-pencil-square-o"></i>
-                            </button>
-                            <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(category.id)">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        
+        </div>        
     </div>
 </div>
 <!-- /.container-fluid -->
