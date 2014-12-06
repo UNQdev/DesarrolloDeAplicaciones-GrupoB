@@ -173,4 +173,61 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
                     * params.count(), params.page() * params.count()));
         }
     });
+
+
+
+    /*
+     *  PAGINACION
+     */
+    $scope.filteredPayments = [];
+    $scope.currentPage = 1;
+    $scope.itemsOnPage = 1;
+    $scope.setItemsOnPage = function(value){
+        $scope.itemsOnPage = value;
+    }
+    $scope.totalPayments = function(){
+        return $scope.payments.length;
+    }
+    $scope.pageQtty = function () {
+        return Math.ceil($scope.payments.length / $scope.itemsOnPage);
+    };
+    $scope.$watch('currentPage + itemsOnPage', function() {
+        var begin = (($scope.currentPage - 1) * $scope.itemsOnPage);
+        var end = begin + $scope.itemsOnPage; 
+        $scope.filteredPayments = $scope.payments.slice(begin, end);
+    });
+
+
+
+    /*
+     *  INTERNACIONALIZACION
+     */
+    $scope.lang = 'en-US';
+    $scope.language = 'English';
+
+    $scope.$watch('lang', function (val, old) {
+        switch (val) {
+            case 'en-US':
+                $scope.language = 'English';
+                break;
+            case 'es':
+                $scope.language = 'Spanish';
+                break;
+        }
+    });
+
+    $scope.setLanguage = function (lang) {
+        $scope.lang = lang;
+        $translate.use(lang);
+        console.log(lang);
+    };
+
+
+
+    /*
+     *  EXTRAS
+     */    
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
 }
