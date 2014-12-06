@@ -2,56 +2,72 @@
 
 /**
  * @ngdoc overview
- * @name app
- * @description # app
+ * @name feag
+ * @description # feag
  * 
  * Main module of the application.
  */
-var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies', 'ngResource', 'pascalprecht.translate', 
-		'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid', 'xeditable', 'ui.bootstrap', 'ngTable' , 'dialogs.main','dialogs.default-translations',
-        'ng-currency']);
+var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies', 
+                                    'ngResource', 'pascalprecht.translate',
+                                    'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid',
+                                    'xeditable', 'ui.bootstrap', 'ngTable',
+                                    'dialogs.main','dialogs.default-translations','ng-currency' ]);
 
-feag.config([ '$routeProvider', '$locationProvider',
-		function($routeProvider, $locationProvider) {
-			$routeProvider
 
-        
-			/** Operations **/
+feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
+
 			.when('/operations', {
 				templateUrl : 'views/operationsCRUD.html',
-                controller : 'operationsCtrl'
+                controller : 'operationsCtrl',
+                resolve: {
+                    resolvedOperations: ['resolverService', function(resolverService) {
+                        return resolverService.getOperations();
+                    }
+                ]}
             })
-			/** Categories **/
+            
 			.when('/categories', {
 				templateUrl : 'views/categoriesCRUD.html',
-				controller : 'categoriesCtrl'
+				controller : 'categoriesCtrl',
+				resolve : {
+                    resolvedCategories : ['resolverService', function(resolverService) {
+                        return resolverService.getCategories();
+                    }
+                ]}
 			})
 			
-			/** Subcategories **/
-			.when('/subcategories/:categoryId', {
+            .when('/subcategories/:categoryId', {
 				templateUrl : 'views/subcategoriesCRUD.html',
-				controller : 'subcategoriesCtrl'
+				controller : 'subcategoriesCtrl',
+                resolve : {
+                    resolvedSubCategories : ['resolverService', '$route', function(resolverService, $route) {
+                        console.log($route);
+                        var id = $route.current.params.categoryId;
+                        console.log('me traje esta id ' + id);
+                        return resolverService.getSubCategories(id);
+                    }
+                ]}
 			})
 			
-            .when('/paymentsCRUD', {
+            .when('/payments', {
                 templateUrl : 'views/paymentsCRUD.html',
-                controller : 'paymentsCtrl'
+                controller : 'paymentsCtrl',
+                resolve : {
+                    resolvedPayments : ['resolverService', function(resolverService) {
+                        return resolverService.getPayments();
+                    }
+                ]}
             })
 
-            
-			// INVOICES
 			.when('/invoices', {
-				templateUrl : 'views/invoices.html',
-				controller : 'InvoiceControllerList'
-			}).when('/newInvoice', {
-				templateUrl : 'views/invoices.html',
-				controller : 'InvoiceControllerNew'
-			}).when('/editInvoice/:invoiceId', {
-				templateUrl : 'views/invoices.html',
-				controller : 'InvoiceControllerEdit'
-			}).when('/deleteInvoice/:invoiceId', {
-				controller : 'InvoiceControllerDelete'
-			})
+				templateUrl : 'views/invoicesCRUD.html',
+				controller : 'invoicesCtrl',
+                resolve : {
+                    resolvedInvoices : ['resolverService', function(resolverService) {
+                        return resolverService.getInvoices();
+                    }
+                ]}
+            })
 			
             /** Home **/
 			.otherwise({
@@ -59,9 +75,57 @@ feag.config([ '$routeProvider', '$locationProvider',
 			    templateUrl : 'views/home.html',
 				controller : 'homeCtrl'
 			});
+}]);
+                  
+feag.service('resolverService', ['$http', function($http) {
+  var restWebService = "http://localhost:8081/backend_api/rest/";
 
-		} ]);
+  var result = {
+      getOperations: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'operationService/operations' })
+          .success(function(data, status, headers, config) {
+              console.log('get operation resolverService ' + data);
+              return data;
+          });
+          return promise;
+      },
+      getCategories: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'categoryService/categories' })
+          .success(function(data, status, headers, config) {
+              console.log('get category resolverService ' + data);
+              return data;
+          });
+          return promise;
+      },
+      getSubCategories: function(id) {
+          var promise = $http({ method: 'GET', url: restWebService + 'subcategoryService/byCategoryId/' + id })
+          .success(function(data, status, headers, config) {
+              console.log('get subcategory resolverService ' + data);
+              return data;
+          });
+          return promise;
+      },
+      getPayments: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'paymentService/payments' })
+          .success(function(data, status, headers, config) {
+              console.log('get payment resolverService ' + data);
+              return data;
+          });
+          return promise;
+      },
+      getInvoices: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'invoiceService/invoices' })
+          .success(function(data, status, headers, config) {
+              console.log('get invoice resolverService ' + data);
+              return data;
+          });
+          return promise;
+      }
+  }
+  return result;
+}]);
 
+                      
 feag.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$translateProvider){
 	dialogsProvider.useBackdrop('static');
 	dialogsProvider.useEscClose(false);
@@ -86,9 +150,9 @@ feag.config(['dialogsProvider','$translateProvider',function(dialogsProvider,$tr
 	});
 
 	$translateProvider.preferredLanguage('en-US');
-}])
+}]);
 
 feag.run(function(editableOptions) {
 	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2',
-									// 'default'
+								   // 'default'
 });

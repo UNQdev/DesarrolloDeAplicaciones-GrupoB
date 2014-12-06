@@ -26,6 +26,12 @@
 				<param name="enumClass">ar.edu.unq.desapp.grupob.model.AccountType</param>
 			</type>
 		</property>
+		
+		<property name="cardType">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">ar.edu.unq.desapp.grupob.model.CardType</param>
+			</type>
+		</property>
 
 		<property name="date"
 			type="org.joda.time.contrib.hibernate.PersistentDateTime"></property>

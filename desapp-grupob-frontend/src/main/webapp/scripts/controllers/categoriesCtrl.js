@@ -1,112 +1,29 @@
-feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs) {
-    
+function categoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, resolvedCategories){
+
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
-
-    //Integrar globalmente en el app.js
-    $scope.lang = 'en-US';
-    $scope.language = 'English';
-
-    //-- Listeners & Watchers --// Integrar globalmente en el app.js
-    $scope.$watch('lang', function (val, old) {
-        switch (val) {
-        case 'en-US':
-            $scope.language = 'English';
-            break;
-        case 'es':
-            $scope.language = 'Spanish';
-            break;
-        }
-    });
-
-    $scope.resetNewCategoryName = function () {
-        $scope.newCategory = {
-            name: ''
-        }
-    };
-
-    //-- Methods --// Integrar globalmente en el app.js
-    $scope.setLanguage = function (lang) {
-        $scope.lang = lang;
-        $translate.use(lang);
-        console.log(lang);
-    };
-
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
-
-    // Get all categories	  
-    function getAll() {
+    
+    console.log(resolvedCategories);
+    $scope.categories = resolvedCategories.data;
+    console.log($scope.categories);
+    
+    
+    /*
+     *  CATEGORIES CRUD
+     */
+    function refreshElements() {
+        var d = $q.defer();
         $http.get(restWebService + "categoryService/categories")
-            .success(function (response) {
-                $scope.categories = response;
-            }).error(function () {
-                console.log("Error al listar categorias");
-            });
-    }
-
-    //Initial call to render list
-    getAll();
-
-    // By perform remote validation, | if the input name already exists in db.
-    // For that define validation method returning $q promise. 
-    // If promise resolves to string validation failed.
-    $scope.checkCreationName = function (data) {
-        var d = $q.defer();
-        if (data == undefined) {
-            d.reject('Input a name...');
-        } else {
-            $http.get(restWebService + "categoryService/byName/" + data)
-                .success(function (data, status, header, config) {
-                    data = data || {};
-                    if (status == 200) {
-                        d.resolve();
-                    } else {
-                        d.resolve();
-                    }
-                }).error(function (data, status, header, config) {
-                    $scope.alerts = [];
-                    $scope.alerts.push({
-                        type: 'danger',
-                        msg: 'Error: ' + data
-                    });
-                    d.reject();
-                });
-        }
-        return d.promise;
-    };
-
-    $scope.checkEditionName = function (data) {
-        var d = $q.defer();
-        if (data == undefined) {
-            d.reject('Input a name...');
-        } else {
-            $http.get(restWebService + "categoryService/byName/" + data)
-                .success(function (data, status, header, config) {
-                    data = data || {};
-                    if (status == 200) {
-                        d.resolve();
-                    } else {
-                        d.resolve();
-                    }
-                }).error(function (data, status, header, config) {
-                    d.reject('Error: ' + data);
-                });
-        }
-        return d.promise;
-    };
-
-    $scope.launchConfirmDeleteDialog = function (id) {
-        var dlg = dialogs.confirm();
-        dlg.result.then(function (btn) {
-            $scope.removeCategory(id);
-        }, function (btn) {
-            console.log("Delete cancelled");
+        .success(function (response) {
+            $scope.categories = response;
+            d.resolve();
+        }).error(function () {
+            console.log("Error al listar categorias");
+            d.reject();
         });
-    };
-
-    // add category
+        return d.promise;
+    }
+    
     $scope.saveCategory = function (data) {
         $http.post(restWebService + 'categoryService/save', data).success(
             function (data, status, headers, config) {
@@ -117,14 +34,13 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
                         msg: 'Saved!'
                     });
                     console.log("Save Category OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             console.log("An Error occurred while trying to store a category, with name: " + data.name);
         });
     };
 
-    // update category
     $scope.updateCategory = function (data, id) {
         angular.extend(data, {
             id: id
@@ -139,14 +55,13 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
                         msg: 'Updated!'
                     });
                     console.log("Update Category OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             console.log("An Error occurred while trying to update a category: " + id);
         });
     };
 
-    // delete category
     $scope.removeCategory = function (id) {
         $http.delete(restWebService + 'categoryService/' + id).success(
             function (data, status, headers, config) {
@@ -157,7 +72,7 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
                         msg: 'Deleted!'
                     });
                     console.log("Delete Category OK");
-                    getAll(); //refresh table with new state
+                    refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             $scope.alerts = [];
@@ -168,4 +83,128 @@ feag.controller('categoriesCtrl', function ($scope, $filter, $http, $location, $
             console.log("An Error occurred while trying to delete a category: " + id);
         });
     };
-});
+
+
+
+    /*
+     *  PAGINACION
+     */
+    $scope.filteredCategories = [];
+    $scope.currentPage = 1;
+    $scope.itemsOnPage = 1;
+    $scope.setItemsOnPage = function(value){
+        $scope.itemsOnPage = value;
+    }
+    $scope.totalCategories = function(){
+        return $scope.categories.length;
+    }
+    $scope.pageQtty = function () {
+        return Math.ceil($scope.categories.length / $scope.itemsOnPage);
+    };
+    $scope.$watch('currentPage + itemsOnPage', function() {
+        var begin = (($scope.currentPage - 1) * $scope.itemsOnPage);
+        var end = begin + $scope.itemsOnPage; 
+        $scope.filteredCategories = $scope.categories.slice(begin, end);
+    });
+
+
+
+    /*
+     *  EDITION UTILS
+     */
+    $scope.checkCreationName = function (data) {
+        var d = $q.defer();
+        if (data == undefined) {
+            d.reject('Input a name...');
+        } else {
+            $http.get(restWebService + "categoryService/byName/" + data)
+            .success(function (data, status, header, config) {
+                data = data || {};
+                if (status == 200) {
+                    d.resolve();
+                } else {
+                    d.resolve();
+                }
+            }).error(function (data, status, header, config) {
+                $scope.alerts = [];
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: 'Error: ' + data
+                });
+                d.reject();
+            });
+        }
+        return d.promise;
+    };
+
+    $scope.checkEditionName = function (data) {
+        var d = $q.defer();
+        if (data == undefined) {
+            d.reject('Input a name...');
+        } else {
+            $http.get(restWebService + "categoryService/byName/" + data)
+            .success(function (data, status, header, config) {
+                data = data || {};
+                if (status == 200) {
+                    d.resolve();
+                } else {
+                    d.resolve();
+                }
+            }).error(function (data, status, header, config) {
+                d.reject('Error: ' + data);
+            });
+        }
+        return d.promise;
+    };
+
+    $scope.launchConfirmDeleteDialog = function (id) {
+        var dlg = dialogs.confirm();
+        dlg.result.then(function (btn) {
+            $scope.removeCategory(id);
+        }, function (btn) {
+            console.log("Delete cancelled");
+        });
+    };
+
+
+
+    /*
+     *  INTERNACIONALIZACION
+     */    
+    $scope.lang = 'en-US';
+    $scope.language = 'English';
+
+    $scope.$watch('lang', function (val, old) {
+        switch (val) {
+            case 'en-US':
+                $scope.language = 'English';
+                break;
+            case 'es':
+                $scope.language = 'Spanish';
+                break;
+        }
+    });
+    
+    $scope.setLanguage = function (lang) {
+        $scope.lang = lang;
+        $translate.use(lang);
+        console.log(lang);
+    };
+
+
+
+    /*
+     *  EXTRAS
+     */    
+    $scope.resetNewCategoryName = function () {
+        $scope.newCategory = {
+            name: ''
+        }
+    };
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+    
+}

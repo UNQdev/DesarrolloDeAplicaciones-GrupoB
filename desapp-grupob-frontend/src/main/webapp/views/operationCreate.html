@@ -38,9 +38,9 @@
             <div class="col-md-12">
                 <div class="form-group col-md-6">
                     <legend>Category</legend>
-                    <small ng-show="!operation.category" class="error" >requiered (*)</small>
-                    <select required class="form-control" name="categoryName" ng-change="loadSubcategories(operation.category)" 
-                            ng-model="operation.category" ng-options="cat.id as cat.name for cat in categories" tabindex="3">
+                    <small ng-show="!categoryId" class="error" >requiered (*)</small>
+                    <select required class="form-control" name="categoryName" ng-change="loadSubcategories(categoryId)" 
+                            ng-model="categoryId" ng-options="cat.id as cat.name for cat in categories" tabindex="3">
                         <option value="">seleccionar categoria</option>
                     </select>    
                 </div>

@@ -1,35 +1,35 @@
-function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs, resolvedPayments) {
+function invoicesCtrl($scope, $filter, ngTableParams, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs, resolvedInvoices) {
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
 
-    console.log(resolvedPayments);
-    $scope.payments = resolvedPayments.data;
-    console.log($scope.payments);
-    
+    console.log(resolvedInvoices);
+    $scope.invoices = resolvedInvoices.data;
+    console.log($scope.invoices);
+
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
     };
-    
+
     // Get all categories	  
     function refreshElements() {
         var d = $q.defer();
-        $http.get(restWebService + "paymentService/payments")
+        $http.get(restWebService + "invoiceService/invoices")
         .success(function (response) {
-            $scope.payments = response;
+            $scope.invoices = response;
             d.resolve();
         }).error(function () {
-            console.log("Error al listar pagos");
+            console.log("Error al listar comprobantes");
             d.reject();
         });
     }
 
-    $scope.checkPaymentByNumber = function (data) {
+    $scope.checkCreation = function (data) {
         var d = $q.defer();
         if (data == undefined) {
-            d.reject('Input a invoice number...');
+            d.reject('Input an invoice number...');
         } else {
-            $http.get(restWebService + "paymentService/byNumber/" + data)
+            $http.get(restWebService + "invoiceService/byVendor" + data)
             .success(function (data, status, header, config) {
                 data = data || {};
                 if ( status == 200 ) {
@@ -41,32 +41,7 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
                 $scope.alerts = [];
                 $scope.alerts.push({
                     type: 'danger',
-                    msg: 'El pago ya fue procesado'
-                });
-                d.reject();
-            });
-        }
-        return d.promise;
-    };
-
-    $scope.checkPaymentByVendor = function (data) {
-        var d = $q.defer();
-        if (data == undefined) {
-            d.reject('Input a vendor name...');
-        } else {
-            $http.get(restWebService + "paymentService/byVendor/" + data)
-            .success(function (res) {
-                res = res || {};
-                if (res.status === 'ok') {
-                    d.resolve()
-                } else {
-                    d.resolve(res.msg)
-                }
-            }).error(function (e) {
-                $scope.alerts = [];
-                $scope.alerts.push({
-                    type: 'danger',
-                    msg: 'El pago ya fue procesado'
+                    msg: 'El comprobante ya fue procesado'
                 });
                 d.reject();
             });
@@ -77,35 +52,35 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
     $scope.launchConfirmDeleteDialog = function (id) {
         var dlg = dialogs.confirm();
         dlg.result.then(function (btn) {
-            $scope.removePayment(id);
+            $scope.removeInvoice(id);
         }, function (btn) {
             console.log("Delete cancelled");
         });
     };
 
-    $scope.savePayment = function (data) {
-        $http.post(restWebService + 'paymentService/save', data)
+    $scope.saveInvoice = function (data) {
+        $http.post(restWebService + 'invoiceService/save', data)
         .success( function (data, status, headers, config) {
-                if (status == 201) {
-                    $scope.alerts = [];
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: 'Saved!'
-                    });
-                    console.log("Save Payment OK");
-                    refreshElements(); //refresh table with new state
-                }
-            }).error(function (data, status, headers, config) {
-            console.log("An Error occurred while trying to store a payment");
+            if (status == 201) {
+                $scope.alerts = [];
+                $scope.alerts.push({
+                    type: 'success',
+                    msg: 'Saved!'
+                });
+                console.log("Save Invoice OK");
+                refreshElements(); //refresh table with new state
+            }
+        }).error(function (data, status, headers, config) {
+            console.log("An Error occurred while trying to store a invoice");
         });
     };
 
-    $scope.updatePayment = function (data, id) {
+    $scope.updateInvoice = function (data, id) {
         angular.extend(data, {
             id: id
         });
         var jsonCategory = angular.toJson(data);
-        $http.put(restWebService + 'paymentService/' + id, jsonCategory).success(
+        $http.put(restWebService + 'invoiceService/' + id, jsonCategory).success(
             function (data, status, headers, config) {
                 console.log("status del success de mkUpdate: " + status);
                 if (status == 200) {
@@ -118,12 +93,12 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
                     refreshElements(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
-            console.log("An Error occurred while trying to update a payment: " + id);
+            console.log("An Error occurred while trying to update a invoice: " + id);
         });
     };
 
-    $scope.removePayment = function (id) {
-        $http.delete(restWebService + 'paymentService/' + id).success(
+    $scope.removeInvoice = function (id) {
+        $http.delete(restWebService + 'invoiceService/' + id).success(
             function (data, status, headers, config) {
                 if (status == 204) {
                     $scope.alerts = [];
@@ -131,8 +106,8 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
                         type: 'danger',
                         msg: 'Deleted!'
                     });
-                    console.log("Delete Payment OK");
-                    refreshElements(); //refresh table with new state
+                    console.log("Delete Invoice OK");
+                    getAll(); //refresh table with new state
                 }
             }).error(function (data, status, headers, config) {
             $scope.alerts = [];
@@ -140,37 +115,38 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
                 type: 'danger',
                 msg: data
             });
-            console.log("An Error occurred while trying to delete a payment: " + id);
+            console.log("An Error occurred while trying to delete a invoice: " + id);
         });
     };
-    
-    
+
+
 
     /*
-     *  PAYMENTS TABLE
+     *  INVOICE TABLE
      */    
-    $scope.paymentsTable = new ngTableParams({
+    $scope.invoicesTable = new ngTableParams({
         page: 1,            // show first page
         count: 10,          // count per page
         filter: {
-            
+
         },
         sorting: {
             dateToString: 'asc'        // initial sorting
         }
     }, {
         total: function () {
-            return $scope.payments.length;
+            return $scope.invoice.length;
         },
         getData: function($defer, params) {
+            getAll();
             var filteredData = params.filter() ?
-                $filter('filter')($scope.payments, params.filter()) : $scope.payments;
+                $filter('filter')($scope.invoice, params.filter()) : $scope.invoice;
             var orderedData = params.sorting() ?
-                $filter('orderBy')(filteredData, params.orderBy()) : $scope.payments;
+                $filter('orderBy')(filteredData, params.orderBy()) : $scope.invoice;
 
             params.total(orderedData.length); // set total for recalc pagination
             $defer.resolve(orderedData.slice((params.page() - 1)
-                    * params.count(), params.page() * params.count()));
+                                             * params.count(), params.page() * params.count()));
         }
     });
 }

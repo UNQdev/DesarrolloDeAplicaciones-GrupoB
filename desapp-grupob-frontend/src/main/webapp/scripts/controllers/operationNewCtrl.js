@@ -6,13 +6,14 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     
     $scope.operation = {};
     
+    //usar una funcion para que dependiendo del momento del dia se setee
     $scope.operation.shift = 'Afternoon';
     
     $scope.turnos = [ 'Afternoon', 'Beforenoon'];
     
     $scope.cuentas = [ 'Cash', 'Bank', 'Current'];
     
-        $scope.operation.accountType = 'Cash' ;
+    $scope.operation.accountType = 'Cash' ;
     
     $scope.tarjetas = [ 'Debit', 'Credit'];
     
@@ -31,7 +32,7 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     };
     
     $scope.today = function () {
-        $scope.date = new Date();
+        $scope. date = new Date();
     };
 
     $scope.today();
@@ -45,20 +46,30 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     $scope.save = function() {
         console.log("amount value on save "+$scope.operation.amount);
 		if ($scope.operation.amount != NaN) {
-            console.log("antes de convertir a json: "+$scope.operation);
+           
+            $http.get(restWebService + "categoryService/byId/" +$scope.categoryId)
+                .success(function(response) {
+                    $scope.operation.category = response;
+                })
+                .error(function() {
+            });
+            
+            console.log("categoria que traigo del backend"+ $scope.operation.category);
+            angular.extend($scope.operation, {
+                    date: $scope.date
+            });
             var jsonOperation = angular.toJson($scope.operation);
             console.log("despues de convertir a json: "+jsonOperation);
-            console.log("$modalInstance state: "+$modalInstance );
-            $modalInstance.close();
-/*		$http.post('/Tpl/rest/books', jsonBook).success(
+            console.log("http post: ...");
+            $http.post(restWebService +'operationService/save', jsonOperation).success(
 				function(data, status, headers, config) {
-
-					if (status == 201) {
-						$location.path("/");
+					if (status == 200) {
+						console.log("contra todos los pronosticos, anda!");
+                        $modalInstance.close();
 					}
 				}).error(function(data, status, headers, config) {
-			console.log("An Error occurred while trying to store a book");
-		});*/
+			         console.log("Error al crear operacion");
+		      });
         }
        else {
            $scope.alerts = [];
@@ -73,12 +84,27 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
         $modalInstance.dismiss();
     }
     
+/*    function setCategory () {
+        var d = $q.defer();
+        $http.get(restWebService + "categoryService/byId/" +$scope.categoryId)
+        .success(function(response) {
+            console.log("set category spected operation.category undefined"+$scope.operation.category);
+            $scope.operation.category = response;
+            console.log("set category spected operation.category"+$scope.operation.category.name);
+           // $scope.categorySelected = true;
+            d.resolve();
+        })
+        .error(function() {
+            d.reject();
+        });
+    }*/
+    
     function loadCategories () {
         var d = $q.defer();
         $http.get(restWebService + "categoryService/categories")
         .success(function(response) {
             $scope.categories = response;
-            $scope.categorySelected = true;
+           // $scope.categorySelected = true;
             d.resolve();
         })
         .error(function() {

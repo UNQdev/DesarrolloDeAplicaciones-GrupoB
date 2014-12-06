@@ -20,6 +20,8 @@ public class Operation extends Entity {
     private SubCategory subcategory;
     
     private AccountType accountType;
+    
+    private CardType cardType;
 
     /*
      * CONSTRUCTORS
@@ -107,6 +109,14 @@ public class Operation extends Entity {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
     }
 
 }

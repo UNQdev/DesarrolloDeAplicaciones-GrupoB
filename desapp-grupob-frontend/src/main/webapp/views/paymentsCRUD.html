@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-app="feag" ng-controller="paymentsCtrl">
+<div class="container-fluid" ng-app="feag">
 
     <div class="row">
         <!-- Page Heading -->
@@ -48,101 +48,42 @@
         <div class="col-md-12 ">
             <br/>
 
-        <table class="table-responsive" ng-table="tableParams" show-filter="true" >
-            <tr ng-repeat="payment in payments">
-                <td data-title="'Date'" sortable="'dateToString'" filter="{ 'dateToString': 'text' }">
-                    {{payment.dateToString}}
-                </td>
-                <td data-title="'Vendor'" sortable="'vendor'" filter="{ 'vendor': 'text' }">
-                    {{payment.invoice.vendor.name}}
-                </td>
-                <td data-title="'Invoice N°'" sortable="'number'" filter="{ 'number': 'text' }">
-                    N° {{payment.invoice.number}}
-                </td>
-                <td data-title="'Invoice SubTotal'" sortable="'subtotal'" filter="{ 'total': 'text' }">
-                    {{payment.invoice.subtotal | currency}}
-                </td>
-                <td data-title="'Invoice Total'" sortable="'total'" filter="{ 'total': 'text' }">
-                    {{payment.invoice.total | currency}
-                </td>
-            </tr>
-        </table>
-            
-           <!-- <div class="table-responsive">
-                <table ng-table="tableParams" show-filter="true" class="table">
-                    <tr ng-repeat="payment in payments">
-                        <td data-title="'Vendor Name'" sortable="'name'" filter="{ 'name': 'text' }">
-                            {{payment.vendor.name}}
-                        </td>
-                        <td data-title="'Invoice Number'" sortable="'age'" filter="{ 'number': 'text' }">
-                            {{payment.invoice.number}}
-                        </td>
-                        <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
-                            {{payment.vendor.name}}
-                        </td>
-                        <td data-title="'Age'" sortable="'age'" filter="{ 'number': 'text' }">
-                            {{payment.invoice.number}}
-                        </td>
-                        <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
-                            {{payment.vendor.name}}
-                        </td>
-                        <td data-title="'Age'" sortable="'age'" filter="{ 'number': 'text' }">
-                            {{payment.invoice.number}}
-                        </td>
-                        <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
-                            {{payment.vendor.name}}
-                        </td>
-                        <td data-title="'Age'" sortable="'age'" filter="{ 'number': 'text' }">
-                            {{payment.invoice.number}}
-                        </td>
-                    </tr>
-                </table>-->
-                
-                
-                <!-- <table class="table table-hover table-striped">
-                    <tr style="font-weight: bold">
-                        <td class="col-md-3"> Name</td>
-                        <td class="col-md-3"> Subcategories</td>
-                        <td class="col-md-3"> Actions</td>
-                    </tr>
-                    <tr ng-repeat="category in categories | orderBy:'id':false | filter:byName">
-                        <td>
-                            <span editable-text="category.name" e-name="name" 
-                                  e-form="rowform" onbeforesave="checkEditionName($data)" e-required> {{ category.name }} </span>
-                        </td>
-                        <td>
-                            <span class="dropdown" dropdown ng-show="category.subcategories">
-                                <a href class="dropdown-toggle" dropdown-toggle> view list </a>
-                                <ul class="dropdown-menu">
-                                    <li ng-repeat="sub in category.subcategories"> {{sub.name}} </li>
-                                </ul>
-                            </span>
-                        </td>
-                        <td style="white-space: nowrap">
-                            <form editable-form name="rowform" onbeforesave="updateCategory($data, category.id)" 
-                                  ng-show="rowform.$visible" class="form-buttons form-inline">
-                                <button type="submit" ng-disabled="rowform.$waiting" 
-                                        class="btn btn-primary"> save </button>
-                                <button type="button" ng-disabled="rowform.$waiting" 
-                                        ng-click="rowform.$cancel()" class="btn btn-default"> cancel </button>
-                            </form>
-                            <div class="buttons" ng-show="!rowform.$visible">
-                                <button class="btn btn-primary" ng-click="rowform.$show()">
-                                    <i class="fa fa-pencil-square-o"></i>
-                                </button>
-                                <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(category.id)">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                                <a class="btn btn-link" href="#/subcategoriesCRUD/{{category.id}}">
-                                    <i class="fa fa-cog"> Edit Subcategories</i>
-                            </div>
-                        </td>
-                    </tr>
-                </table> -->
-                
-            </div>
-        </div>
+
+            <button ng-click="paymentsTable.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+            <button ng-click="paymentsTable.filter({})" class="btn btn-default pull-right">Clear filter</button>
+            <p><strong>Sorting:</strong> {{paymentsTable.sorting()|json}}
+            <p><strong>Filter:</strong> {{paymentsTable.filter()|json}}
+
+            <table ng-table="paymentsTable" show-filter="true" class="table table-condensed" >
+                <tr ng-repeat="payment in payments">
+                    <td data-title="'Date'" sortable="'dateToString'" filter="{ 'dateToString': 'text' }" 
+                        class="col-md-2 text-center"> {{payment.dateToString}}
+                    </td>
+                    <td data-title="'Vendor'" sortable="'vendorName'" filter="{ 'vendorName': 'text' }" 
+                        class="col-md-2 text-center"> {{payment.vendorName}}
+                    </td>
+                    <td data-title="'Invoice N°'" sortable="'invoiceNumber'" filter="{ 'invoiceNumber': 'text' }"
+                        class="col-md-2 text-right"> {{payment.invoiceNumber}}
+                    </td>
+                    <td data-title="'Concept'" sortable="'invoiceDescription'" filter="{ 'invoiceDescription': 'text' }" 
+                        class="col-md-4 text-center"> {{payment.invoiceDescription}}
+                    </td>
+                    <td data-title="'Total'" sortable="'total'" filter="{ 'total': 'text' }" 
+                        class="col-md- text-right"> {{payment.total | currency}}
+                    </td>
+                    <td data-title="'Actions'" class="col-md-2">
+                        <div class="buttons" ng-show="!rowform.$visible">
+                            <button class="btn btn-primary" ng-click="rowform.$show()">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </button>
+                            <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(payment.id)">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>        
     </div>
-<!-- /.container-fluid -->
 </div>
-<!-- /#page-wrapper -->
+<!-- /.container-fluid -->
