@@ -35,21 +35,80 @@
             </button>
         </div>
         
-        <!-- SEARCH BOX -->
-        <!--<div class="col-md-4">
-            <div class="input-group">
-                <input class="form-control" type="search" placeholder="Search by vendor name" ng-model="byName">
-                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+            <!-- SEARCH BOX -->
+            <div class="col-md-4 pull-right">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Search by name" ng-model="byName">
+                    <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                </div>
             </div>
-        </div>-->
-        <!-- ./SEARCH BOX -->
+            <!-- ./SEARCH BOX -->
     </div>
     <div class="row">
         <div class="col-md-12 ">
             <br/>
 
-
-            <button ng-click="paymentsTable.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <tr style="font-weight: bold">
+                        <td class="col-md-2"> Vendor</td>
+                        <td class="col-md-2"> Date</td>
+                        <td class="col-md-2"> Doc. Number</td>
+                        <td class="col-md-4"> Description</td>
+                        <td class="col-md-1"> Total</td>
+                        <td class="col-md-2"> Actions</td>
+                    </tr>
+                    <tr ng-repeat="payment in filteredPayments | orderBy:'id':false">
+                        <td>
+                            <span editable-text="payment.vendorName" 
+                                  e-name="name" e-form="rowform" 
+                                  onbeforesave="checkVendorName($data, payment.id)" e-required> {{ payment.vendorName }} </span>
+                        </td>
+                        <td>
+                            <span editable-text="payment.dateToString" 
+                                  e-name="name" e-form="rowform" 
+                                  onbeforesave="checkDate($data, payment.id)" e-required> {{ payment.dateToString }} </span>
+                        </td>
+                        <td>
+                            <span editable-text="payment.number" 
+                                  e-name="name" e-form="rowform" 
+                                  onbeforesave="checkDocNumber($data, payment.id)" e-required> {{ payment.number }} </span>
+                        </td>
+                        <td>
+                            <span editable-text="payment.description" 
+                                  e-name="name" e-form="rowform" 
+                                  onbeforesave="checkDescription($data, payment.id)" e-required> {{ payment.description }} </span>
+                        </td>
+                        <td>
+                            <span editable-text="payment.total" 
+                                  e-name="name" e-form="rowform" 
+                                  onbeforesave="checkTotal($data, payment.id)" e-required> {{ payment.total }} </span>
+                        </td>
+                        
+                        <td style="white-space: nowrap">
+                            <!-- form -->
+                            <form editable-form name="rowform" onbeforesave="updatePayment($data, payment.id)" 
+                                  ng-show="rowform.$visible" class="form-buttons form-inline">
+                                <button type="submit" ng-disabled="rowform.$waiting" 
+                                        class="btn btn-primary"> save </button>
+                                <button type="button" ng-disabled="rowform.$waiting" 
+                                        ng-click="rowform.$cancel()" class="btn btn-default"> cancel </button>
+                            </form>
+                            <div class="buttons" ng-show="!rowform.$visible">
+                                <button class="btn btn-primary" ng-click="rowform.$show()">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                                <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(payment.id)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            
+            
+            
+            <!--<button ng-click="paymentsTable.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
             <button ng-click="paymentsTable.filter({})" class="btn btn-default pull-right">Clear filter</button>
             <p><strong>Sorting:</strong> {{paymentsTable.sorting()|json}}
             <p><strong>Filter:</strong> {{paymentsTable.filter()|json}}
@@ -62,11 +121,11 @@
                     <td data-title="'Vendor'" sortable="'vendorName'" filter="{ 'vendorName': 'text' }" 
                         class="col-md-2 text-center"> {{payment.vendorName}}
                     </td>
-                    <td data-title="'Invoice N°'" sortable="'invoiceNumber'" filter="{ 'invoiceNumber': 'text' }"
-                        class="col-md-2 text-right"> {{payment.invoiceNumber}}
+                    <td data-title="'payment N°'" sortable="'paymentNumber'" filter="{ 'paymentNumber': 'text' }"
+                        class="col-md-2 text-right"> {{payment.paymentNumber}}
                     </td>
-                    <td data-title="'Concept'" sortable="'invoiceDescription'" filter="{ 'invoiceDescription': 'text' }" 
-                        class="col-md-4 text-center"> {{payment.invoiceDescription}}
+                    <td data-title="'Concept'" sortable="'paymentDescription'" filter="{ 'paymentDescription': 'text' }" 
+                        class="col-md-4 text-center"> {{payment.paymentDescription}}
                     </td>
                     <td data-title="'Total'" sortable="'total'" filter="{ 'total': 'text' }" 
                         class="col-md- text-right"> {{payment.total | currency}}
@@ -82,7 +141,16 @@
                         </div>
                     </td>
                 </tr>
-            </table>
+            </table>-->
+            
+            
+            
+            <br>
+            <pagination ng-model="currentPage"
+                        total-items="totalPayments()" items-per-page="itemsOnPage" 
+                        max-size="pageQtty()" 
+                        class="pagination-md pull-left" boundary-links="true">
+            </pagination>            
         </div>        
     </div>
 </div>

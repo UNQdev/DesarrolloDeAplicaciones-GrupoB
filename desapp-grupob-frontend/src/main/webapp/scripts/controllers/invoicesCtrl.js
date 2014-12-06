@@ -7,11 +7,11 @@ function invoicesCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
     $scope.invoices = resolvedInvoices.data;
     console.log($scope.invoices);
 
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
 
-    // Get all categories	  
+
+    /*
+     *  INVOICES CRUD
+     */
     function refreshElements() {
         var d = $q.defer();
         $http.get(restWebService + "invoiceService/invoices")
@@ -23,41 +23,7 @@ function invoicesCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
             d.reject();
         });
     }
-
-    $scope.checkCreation = function (data) {
-        var d = $q.defer();
-        if (data == undefined) {
-            d.reject('Input an invoice number...');
-        } else {
-            $http.get(restWebService + "invoiceService/byVendor" + data)
-            .success(function (data, status, header, config) {
-                data = data || {};
-                if ( status == 200 ) {
-                    d.resolve();
-                } else {
-                    d.resolve();
-                }
-            }).error(function (e) {
-                $scope.alerts = [];
-                $scope.alerts.push({
-                    type: 'danger',
-                    msg: 'El comprobante ya fue procesado'
-                });
-                d.reject();
-            });
-        }
-        return d.promise;
-    };
-
-    $scope.launchConfirmDeleteDialog = function (id) {
-        var dlg = dialogs.confirm();
-        dlg.result.then(function (btn) {
-            $scope.removeInvoice(id);
-        }, function (btn) {
-            console.log("Delete cancelled");
-        });
-    };
-
+    
     $scope.saveInvoice = function (data) {
         $http.post(restWebService + 'invoiceService/save', data)
         .success( function (data, status, headers, config) {
@@ -122,6 +88,45 @@ function invoicesCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
 
 
     /*
+     *  EDITION UTILS
+     */
+    $scope.checkCreation = function (data) {
+        var d = $q.defer();
+        if (data == undefined) {
+            d.reject('Input an invoice number...');
+        } else {
+            $http.get(restWebService + "invoiceService/byVendor" + data)
+            .success(function (data, status, header, config) {
+                data = data || {};
+                if ( status == 200 ) {
+                    d.resolve();
+                } else {
+                    d.resolve();
+                }
+            }).error(function (e) {
+                $scope.alerts = [];
+                $scope.alerts.push({
+                    type: 'danger',
+                    msg: 'El comprobante ya fue procesado'
+                });
+                d.reject();
+            });
+        }
+        return d.promise;
+    };
+
+    $scope.launchConfirmDeleteDialog = function (id) {
+        var dlg = dialogs.confirm();
+        dlg.result.then(function (btn) {
+            $scope.removeInvoice(id);
+        }, function (btn) {
+            console.log("Delete cancelled");
+        });
+    };
+
+
+
+    /*
      *  INVOICE TABLE
      */    
     $scope.invoicesTable = new ngTableParams({
@@ -135,18 +140,76 @@ function invoicesCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
         }
     }, {
         total: function () {
-            return $scope.invoice.length;
+            return $scope.invoices.length;
         },
         getData: function($defer, params) {
             getAll();
             var filteredData = params.filter() ?
-                $filter('filter')($scope.invoice, params.filter()) : $scope.invoice;
+                $filter('filter')($scope.invoices, params.filter()) : $scope.invoices;
             var orderedData = params.sorting() ?
-                $filter('orderBy')(filteredData, params.orderBy()) : $scope.invoice;
+                $filter('orderBy')(filteredData, params.orderBy()) : $scope.invoices;
 
             params.total(orderedData.length); // set total for recalc pagination
             $defer.resolve(orderedData.slice((params.page() - 1)
                                              * params.count(), params.page() * params.count()));
         }
     });
+    
+    
+    /*
+     *  PAGINACION
+     */
+    $scope.filteredInvoices = [];
+    $scope.currentPage = 1;
+    $scope.itemsOnPage = 1;
+    $scope.setItemsOnPage = function(value){
+        $scope.itemsOnPage = value;
+    }
+    $scope.totalInvoices = function(){
+        return $scope.invoices.length;
+    }
+    $scope.pageQtty = function () {
+        return Math.ceil($scope.invoices.length / $scope.itemsOnPage);
+    };
+    $scope.$watch('currentPage + itemsOnPage', function() {
+        var begin = (($scope.currentPage - 1) * $scope.itemsOnPage);
+        var end = begin + $scope.itemsOnPage; 
+        $scope.filteredInvoices = $scope.invoices.slice(begin, end);
+    });
+
+
+
+    /*
+     *  INTERNACIONALIZACION
+     */
+    $scope.lang = 'en-US';
+    $scope.language = 'English';
+
+    $scope.$watch('lang', function (val, old) {
+        switch (val) {
+            case 'en-US':
+                $scope.language = 'English';
+                break;
+            case 'es':
+                $scope.language = 'Spanish';
+                break;
+        }
+    });
+
+    $scope.setLanguage = function (lang) {
+        $scope.lang = lang;
+        $translate.use(lang);
+        console.log(lang);
+    };
+
+
+
+    /*
+     *  EXTRAS
+     */    
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+
 }

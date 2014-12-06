@@ -83,7 +83,7 @@
                         <td class="col-md-3"> Name</td>
                         <td class="col-md-3"> Actions</td>
                     </tr>
-                    <tr ng-repeat="subcategory in subcategories | orderBy:'id':false | filter:byName">
+                    <tr ng-repeat="subcategory in filteredSubCategories | orderBy:'id':false | filter:byName">
                         <td>
                             <!-- editable category name (text with validation) -->
                             <span editable-text="subcategory.name" e-name="name" 

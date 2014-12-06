@@ -7,7 +7,7 @@ function subcategoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, 
     $scope.subcategories = resolvedSubCategories.data;
     console.log($scope.subcategories);
     
-    // SubCategories Father Name
+    // SubCategories Father's Name
     function loadSourceCategory() {
         $http.get(restWebService + 'categoryService/byId/' + $routeParams.categoryId)
         .success(function (response) {
