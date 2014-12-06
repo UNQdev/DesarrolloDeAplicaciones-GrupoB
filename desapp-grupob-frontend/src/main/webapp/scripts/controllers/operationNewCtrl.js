@@ -1,49 +1,40 @@
-feag.controller('operationNewCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, $modal) {
+function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, $modal, 
+                           $modalInstance) {
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
     
+    $scope.operation = {};
+    
+    $scope.operation.shift = 'Afternoon';
+    
+    $scope.turnos = [ 'Afternoon', 'Beforenoon'];
+    
+    $scope.cuentas = [ 'Cash', 'Bank', 'Current'];
+    
+        $scope.operation.accountType = 'Cash' ;
+    
+    $scope.tarjetas = [ 'Debit', 'Credit'];
+    
+    $scope.operation.cardType = 'Debit';
+    
+    $scope.paymentsMethods =  [ 'Incoming', 'Outcoming'];
+    
+    $scope.operation.type = 'Incoming';
+    
     $scope.clear = function () {
         $scope.date = null;
     };
-
-    $scope.turnos = [{
-        name: "Afternoon"
-    }, {
-        name: "Beforenoon"
-    }];
     
-    $scope.cuentas = [{
-        name: "Cash"
-    }, {
-        name: "Bank"
-    }, {
-        name: "Current"    
-    }];
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
     
-    $scope.tarjetas = [{
-        name: "Debit"  
-    }, {
-        name: "Credit" 
-    }];
-    
-    $scope.tiposDeOperacion = [{
-        name: "Incoming"  
-    }, {
-        name: "Outcoming" 
-    }];
-
     $scope.today = function () {
         $scope.date = new Date();
     };
 
     $scope.today();
-
-    $scope.reset = function() {
-		$scope.operation = {};
-	};
-
-	//$scope.reset();
     
     $scope.open = function ($event) {
         $event.preventDefault();
@@ -51,17 +42,14 @@ feag.controller('operationNewCtrl', function ($scope, $filter, $http, $location,
         $scope.opened = true;
     };
     
-    $scope.save = function(aOperation) {
-		$scope.trySubmit = true;
-		
-		if ($scope.operationForm.$invalid) {
-			return false;
-		}		
-		
-        console.log("antes de convertir a json: "+aOperation);
-		var jsonOperation = angular.toJson(aOperation);
-        
-        console.log("despues de convertir a json: "+jsonOperation);
+    $scope.save = function() {
+        console.log("amount value on save "+$scope.operation.amount);
+		if ($scope.operation.amount != NaN) {
+            console.log("antes de convertir a json: "+$scope.operation);
+            var jsonOperation = angular.toJson($scope.operation);
+            console.log("despues de convertir a json: "+jsonOperation);
+            console.log("$modalInstance state: "+$modalInstance );
+            $modalInstance.close();
 /*		$http.post('/Tpl/rest/books', jsonBook).success(
 				function(data, status, headers, config) {
 
@@ -71,7 +59,19 @@ feag.controller('operationNewCtrl', function ($scope, $filter, $http, $location,
 				}).error(function(data, status, headers, config) {
 			console.log("An Error occurred while trying to store a book");
 		});*/
+        }
+       else {
+           $scope.alerts = [];
+           $scope.alerts.push({
+                type: 'danger',
+                msg: 'Ingrese un monto valido'
+           });
+       }
 	};
+    
+    $scope.closeModal = function () {
+        $modalInstance.dismiss();
+    }
     
     function loadCategories () {
         var d = $q.defer();
@@ -90,26 +90,23 @@ feag.controller('operationNewCtrl', function ($scope, $filter, $http, $location,
     loadCategories ();
     
     $scope.loadSubcategories = function(catId) {
-        console.log(catId);
         $http.get(restWebService + "subcategoryService/byCategoryId/" + catId)
         .success(function(response) {   
             $scope.subcategories = response;
-            console.log($scope.subcategories);
         })
         .error(function() {
         });
     };
 
     $scope.selectedType = function (accountType) {
-        console.log(accountType);
         if (accountType == "Bank") {
             $scope.showBankOptions = true;
         }
         else {
             $scope.showBankOptions = false;
         }
-        console.log($scope.showBankOptions);
+        console.log("compare return value: "+$scope.showBankOptions);
     };    
 
     
-});
+};

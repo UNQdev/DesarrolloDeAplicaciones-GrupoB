@@ -1,8 +1,12 @@
-feag.controller('operationsCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, $modal) {
+function operationsCtrl ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $routeParams, $timeout, $translate, dialogs, $modal) {
     
 
 	// Variables
    var restWebService = "http://localhost:8081/backend_api/rest/";
+    
+   $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+   };    
 	
    function loadOperations () {
         $http.get(restWebService + "operationService/operations")
@@ -17,13 +21,25 @@ feag.controller('operationsCtrl', function ($scope, $filter, $http, $location, $
 	
     loadOperations ();
     
+    $scope.successfull = function () {
+        console.log("OK saved!");
+        $scope.alerts = [];
+           $scope.alerts.push({
+                type: 'success',
+                msg: 'Saved!'
+           });
+        loadOperations ();
+    }
+    
     $scope.loadModalCreate = function () {
-        $modal.open({
+        var modalInstance = $modal.open({
             templateUrl: 'views/operationCreate.html',
+            controller: 'operationNewCtrl',
             backdrop: false,
             size: 'lg',
             scope: $scope
         });
+        modalInstance.result.then($scope.successfull);
     }
     
-});
+};

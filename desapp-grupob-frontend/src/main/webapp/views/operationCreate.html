@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-app="feag" ng-controller="operationNewCtrl">
+<div class="container-fluid" ng-app="feag">
 
     <div class="row">
         <!-- Page Heading -->
@@ -9,54 +9,48 @@
         </div>
     </div>
 
-    <form id="operationForm" name="operationForm" ng-class="{submitted:trySubmit}" novalidate>
+    <form id="operationForm" name="operationForm" class="form" novalidate>
         <fieldset>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group col-md-6">
-                    <label>Fecha</label>
+                    <legend>Fecha</legend>
+                     <small ng-show="!date" class="error" >requiered (*)</small>
                     <p class="input-group">
-                        <input type="text" class="form-control" name="operation.date" datepicker-popup="yyyy/MM/dd" ng-model="date" is-open="opened" 
-                               date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" tabindex="1" />
+                        <input type="text" class="form-control" name="date" datepicker-popup="yyyy/MM/dd" 
+                               ng-model="date" is-open="opened" required close-text="Close" tabindex="1" />
                         <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                     </p>
                 </div>
-
                 <div class="form-group col-md-4 col-md-offset-1">
-                    <label>Turno</label>
-                    <div class="radio" ng-repeat="turno in turnos">
-                        <label>
-                            <input required type="radio" name="optionsShift" id="{{tuno.name}}" ng-model="operation.shift" value="{{turno.name}}" 
-                                   tabindex="2" ng-required="true">{{turno.name}}
-                        </label>
-                    </div>
-                    <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.optionsShift.$error.required">
-                        Este campo es <strong>obligatorio</strong> </div>	    
-                </div>
+                    <legend>Turno</legend> 
+                    <small ng-show="!operation.shift" class="error" >requiered (*)</small>
+                    <label class="radio controls" ng-repeat="turno in turnos">
+                        <input type="radio" ng-model="operation.shift" name="optionsShift" value="{{turno}}" ng-required="true" tabindex="2">                                   {{turno}}
+                    </label>
+                </div>  
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group col-md-6">
-                    <label for="categoryName">Category</label>
-                    <select  ng-required="true" class="form-control" name="optionsCategories" ng-change="loadSubcategories(operation.category)" 
+                    <legend>Category</legend>
+                    <small ng-show="!operation.category" class="error" >requiered (*)</small>
+                    <select required class="form-control" name="categoryName" ng-change="loadSubcategories(operation.category)" 
                             ng-model="operation.category" ng-options="cat.id as cat.name for cat in categories" tabindex="3">
                         <option value="">seleccionar categoria</option>
-                    </select>
-                    <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.optionsCategories.$error.required">
-                        Este campo es <strong>obligatorio</strong> </div>	    
+                    </select>    
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="subcategoryName">SubCategory</label>
-                    <select  ng-required="true" class="form-control" name="optionsSubcategories" 
+                    <legend for="subcategoryName">SubCategory</legend>
+                    <small ng-show="!operation.subcategory" class="error" >requiered (*)</small>
+                    <select required class="form-control" name="optionsSubcategories" 
                             ng-options="subcat.id as subcat.name for subcat in subcategories" ng-model="operation.subcategory" tabindex="4">
                         <option value="">seleccionar subcategoria</option>
                     </select>
-                    <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.optionsSubcategories.$error.required">
-                        Este campo es <strong>obligatorio</strong> </div>	
                 </div>
             </div>
         </div>
@@ -64,66 +58,64 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group col-md-6">
-                    <label>Concept</label>
-                    <textarea rows="3" type="text" class="form-control noResize" placeholder="Ingresar concepto" 
-                              ng-model="operation.concept" tabindex="5" ng-required="true" name="description"></textarea>
-                    <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.description.$error.required">
-                        Este campo es <strong>obligatorio</strong> </div>	    
+                    <legend>Concept</legend>
+                    <small ng-show="!operation.concept" class="error" >requiered (*)</small>
+                    <textarea rows="3" type="text" class="form-control" placeholder="Ingresar concepto" 
+                              ng-model="operation.concept" tabindex="5" required name="description"></textarea>    
                 </div>
-                <div class="form-group col-md-2 col-md-offset-1">
-                    <label>Cuenta</label>
-                    <div class="radio" ng-repeat="cuenta in cuentas">
+                <div class="form-group col-md-3">
+                    <legend>Cuenta</legend>
+                    <small ng-show="!operation.accountType" class="error" >requiered (*)</small>
+                    <label class="radio controls" ng-repeat="cuenta in cuentas">
                         <label>
-                            <input ng-required="true" type="radio" name="optionsAccounts" ng-click="selectedType(operation.accountType)"
-                                   id="{{cuenta.name}}" ng-model="operation.accountType" value="{{cuenta.name}}" tabindex="6">{{cuenta.name}}
+                            <input required type="radio" name="optionsAccounts" ng-click="selectedType(cuenta)"
+                                   ng-model="operation.accountType" value="{{cuenta}}" tabindex="6">{{cuenta}}
                         </label>
-                        <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.optionsAccounts.$error.required">
-                            Este campo es <strong>obligatorio</strong> </div>	
-                    </div>
                 </div>
-                <div class="form-group col-md-2" ng-show="showBankOptions">
-                    <label>Tarjeta</label>
-                    <div class="radio" ng-repeat="tarjeta in tarjetas">
+                <div class="form-group col-md-3" ng-show="showBankOptions">
+                    <legend>Tarjeta</legend>
+                    <small ng-show="!operation.bankType" class="error" >requiered (*)</small>
+                    <label class="radio controls" ng-repeat="tarjeta in tarjetas">
                         <label>
-                            <input ng-required="true" type="radio" name="optionsBank" id="{{tarjeta.name}}" ng-model="operation.bankType" 
-                                   value="{{tarjeta.name}}" tabindex="7">{{tarjeta.name}}
+                           <input type="radio" name="optionsBank" id="{{tarjeta}" ng-model="operation.bankType" 
+                                   value="{{tarjeta}}" tabindex="7">{{tarjeta}}
                         </label>
-                        <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.optionsBank.$error.required">
-                            Este campo es <strong>obligatorio</strong> </div>	
-                    </div>
                 </div>
-            </div>    
-        </div>
+            </div>
+        </div> 
         
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group col-md-4">
-                    
-                    <h4>Tipo de operacion</h4>
-                    <div class="radio-inline" ng-repeat="tipo in tiposDeOperacion">
+                <div class="form-group col-md-6">
+                    <legend>Tipo de operacion</legend>
+                    <small ng-show="!operation.type" class="error" >requiered (*)</small>
+                    <label class="radio controls" ng-repeat="pm in paymentsMethods">
                         <label>
-                            <input ng-required="true" type="radio" name="optionsType"
-                                   id="{{tipo.name}}" ng-model="operation.type" value="{{tipo.name}}" tabindex="8">{{tipo.name}}
+                           <input required type="radio" name="optionsType"
+                                   ng-model="operation.type" value="{{pm}}" tabindex="8">{{pm}}
                         </label>
-                    <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.optionsType.$error.required">
-                        Este campo es <strong>obligatorio</strong> </div>	
-                    </div>
                 </div>
-                    
-                <div class="form-group col-md-4">
-                    <h3>Monto</h3>
-                    <input  ng-required="true" name="monto" type="text" class="form-control" placeholder="Ingrese monto" ng-model="operation.amount">
-                    <div class="alert alert-danger" role="alert" ng-show="trySubmit && operationForm.monto.$error.required">
-                        Este campo es <strong>obligatorio</strong> </div>	
+                <div class="form-group col-md-6">
+                    <legend>Monto</legend>
+                    <small ng-show="!operation.amount" class="error" >requiered (*)</small>
+                    <input name="monto" type="text" placeholder="Ingrese monto" ng-model="operation.amount"
+                           ng-requiered="true" ng-currency min="0.01" tabindex="9">
+                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"> {{alert.msg}} </alert>
+                </br>
+                </br> 
                 </div>
+
                 <!-- BOTONES -->
-                <div class="col-md-4">
-                    <button data-ng-click="save(operation)" type="submit" class="btn btn-success">Guardar</button>
-                    <button type="button" class="btn btn-default pull-down" ng-click="">Cancelar</button>
-                    <button type="button" class="btn btn-default"ng-click="reset()">Limpiar</button>
+                <div class="col-md-3 col-md-offset-3" >
+                    <button ng-disabled="operationForm.$invalid || (operation.amount == null)" ng-click="save()" type="submit" 
+                            class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn" ng-click="closeModal()" >Cancel</button>
                 </div>
+               
             </div>
         </div>
-    </fieldset>
+        </fieldset>
     </form>
+    </br>
+    </br>          
 </div>
