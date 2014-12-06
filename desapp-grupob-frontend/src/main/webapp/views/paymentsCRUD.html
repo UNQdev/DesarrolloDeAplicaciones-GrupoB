@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-app="feag" ng-controller="paymentsCtrl">
+<div class="container-fluid" ng-app="feag">
 
     <div class="row">
         <!-- Page Heading -->
@@ -55,7 +55,7 @@
             <p><strong>Filter:</strong> {{paymentsTable.filter()|json}}
 
             <table ng-table="paymentsTable" show-filter="true" class="table table-condensed" >
-                <tr ng-repeat="payment in payments">
+                <tr ng-repeat="payment in $scope.payments">
                     <td data-title="'Date'" sortable="'dateToString'" filter="{ 'dateToString': 'text' }" 
                         class="col-md-2 text-center"> {{payment.dateToString}}
                     </td>

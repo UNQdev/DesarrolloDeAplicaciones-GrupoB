@@ -5,6 +5,7 @@ function categoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, $ro
     
     console.log(resolvedCategories);
     $scope.categories = resolvedCategories.data;
+    console.log($scope.categories);
     
     
     /*
@@ -105,9 +106,9 @@ function categoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, $ro
         var end = begin + $scope.itemsOnPage; 
         $scope.filteredCategories = $scope.categories.slice(begin, end);
     });
-    
-    
-    
+
+
+
     /*
      *  EDITION UTILS
      */
@@ -183,17 +184,22 @@ function categoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, $ro
                 break;
         }
     });
-
-    $scope.resetNewCategoryName = function () {
-        $scope.newCategory = {
-            name: ''
-        }
-    };
-
+    
     $scope.setLanguage = function (lang) {
         $scope.lang = lang;
         $translate.use(lang);
         console.log(lang);
+    };
+
+
+
+    /*
+     *  EXTRAS
+     */    
+    $scope.resetNewCategoryName = function () {
+        $scope.newCategory = {
+            name: ''
+        }
     };
 
     $scope.closeAlert = function (index) {

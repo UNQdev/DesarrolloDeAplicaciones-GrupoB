@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-app="feag" ng-controller="subcategoriesCtrl">
+<div class="container-fluid" ng-app="feag">
 
     <div class="row">
         <!-- Page Heading -->
@@ -13,7 +13,7 @@
                 </li>
                 <li>
                     <i class="fa fa-file"></i>
-                    <a ng-href="#/categoriesCRUD"> Categories</a>  
+                    <a ng-href="#/categories"> Categories</a>  
                 </li>
                 <li class="active">
                     <i class="fa fa-file"> SubCategories from {{categoryName}}</i>
@@ -65,7 +65,7 @@
                 <!-- ./SUBMIT - CANCEL BUTTONS -->
             </form>
         </div>
-        <!-- SEARCH BOX -->
+         <!--SEARCH BOX -->
         <div class="col-md-4">
             <div class="input-group">
                 <input class="form-control" type="search" placeholder="Search by name" ng-model="byName">
@@ -109,6 +109,12 @@
                         </td>
                     </tr>
                 </table>
+                <br>
+                <pagination ng-model="currentPage"
+                            total-items="totalSubCategories()" items-per-page="itemsOnPage" 
+                            max-size="pageQtty()" 
+                            class="pagination-md pull-left" boundary-links="true">
+                </pagination>
             </div>
         </div>
     </div>

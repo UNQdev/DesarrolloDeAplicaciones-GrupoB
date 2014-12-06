@@ -21,50 +21,53 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
 				templateUrl : 'views/operationsCRUD.html',
                 controller : 'operationsCtrl',
                 resolve: {
-                    resolvedOperations: function(resolverService) {
+                    resolvedOperations: ['resolverService', function(resolverService) {
                         return resolverService.getOperations();
                     }
-                }
+                ]}
             })
             
 			.when('/categories', {
 				templateUrl : 'views/categoriesCRUD.html',
 				controller : 'categoriesCtrl',
-				resolve: {
-                    resolvedCategories: ['resolverService', function(resolverService) {
+				resolve : {
+                    resolvedCategories : ['resolverService', function(resolverService) {
                         return resolverService.getCategories();
                     }
                 ]}
 			})
 			
-			.when('/subcategories/:categoryId', {
+            .when('/subcategories/:categoryId', {
 				templateUrl : 'views/subcategoriesCRUD.html',
 				controller : 'subcategoriesCtrl',
-                resolve: {
-                    resolvedSubCategories: function(resolverService) {
-                        return resolverService.getSubCategories();
+                resolve : {
+                    resolvedSubCategories : ['resolverService', '$route', function(resolverService, $route) {
+                        console.log($route);
+                        var id = $route.current.params.categoryId;
+                        console.log('me traje esta id ' + id);
+                        return resolverService.getSubCategories(id);
                     }
-                }
+                ]}
 			})
 			
             .when('/payments', {
                 templateUrl : 'views/paymentsCRUD.html',
                 controller : 'paymentsCtrl',
-                resolve: {
-                    resolvedPayments: function(resolverService) {
+                resolve : {
+                    resolvedPayments : ['resolverService', function(resolverService) {
                         return resolverService.getPayments();
                     }
-                }
+                ]}
             })
 
 			.when('/invoices', {
-				templateUrl : 'views/invoices.html',
-				controller : 'InvoiceControllerList',
-                resolve: {
-                    resolvedInvoices: function(resolverService) {
+				templateUrl : 'views/invoicesCRUD.html',
+				controller : 'invoicesCtrl',
+                resolve : {
+                    resolvedInvoices : ['resolverService', function(resolverService) {
                         return resolverService.getInvoices();
                     }
-                }
+                ]}
             })
 			
             /** Home **/
@@ -75,14 +78,14 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
 			});
 }]);
                   
-feag.factory('resolverService', ['$http', function($http) {
+feag.service('resolverService', ['$http', function($http) {
   var restWebService = "http://localhost:8081/backend_api/rest/";
 
   var result = {
       getOperations: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'operationService/operations' })
           .success(function(data, status, headers, config) {
-              console.log(data);
+              console.log('get operation resolverService ' + data);
               return data;
           });
           return promise;
@@ -90,15 +93,15 @@ feag.factory('resolverService', ['$http', function($http) {
       getCategories: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'categoryService/categories' })
           .success(function(data, status, headers, config) {
-              console.log(data);
+              console.log('get category resolverService ' + data);
               return data;
           });
           return promise;
       },
-      getSubCategories: function() {
-          var promise = $http({ method: 'GET', url: restWebService + 'subcategoryService/subcategories' })
+      getSubCategories: function(id) {
+          var promise = $http({ method: 'GET', url: restWebService + 'subcategoryService/byCategoryId/' + id })
           .success(function(data, status, headers, config) {
-              console.log(data);
+              console.log('get subcategory resolverService ' + data);
               return data;
           });
           return promise;
@@ -106,7 +109,7 @@ feag.factory('resolverService', ['$http', function($http) {
       getPayments: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'paymentService/payments' })
           .success(function(data, status, headers, config) {
-              console.log(data);
+              console.log('get payment resolverService ' + data);
               return data;
           });
           return promise;
@@ -114,7 +117,7 @@ feag.factory('resolverService', ['$http', function($http) {
       getInvoices: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'invoiceService/invoices' })
           .success(function(data, status, headers, config) {
-              console.log(data);
+              console.log('get invoice resolverService ' + data);
               return data;
           });
           return promise;
@@ -154,15 +157,3 @@ feag.run(function(editableOptions) {
 	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2',
 								   // 'default'
 });
-
-feag.run(function($rootScope) {
-    $rootScope.categories = function() {
-        var promise = $http({ method: 'GET', url: restWebService + 'categoryService/categories' })
-        .success(function(data, status, headers, config) {
-            console.log(data);
-            return data;
-        });
-        return promise;
-    }
-});
-         
