@@ -28,7 +28,7 @@ public class OperationBuilder {
     private Category category;
     private SubCategory subcategory;
     private AccountType accountType;
-    private CardType cardType;
+    private CardType cardType = null;
 
     // Constructor method
     public Operation build() {
@@ -37,7 +37,7 @@ public class OperationBuilder {
         		date, amount,
         		concept, 
                 category, subcategory,
-                accountType, cardType);
+                accountType);
         return operation;
     }
 

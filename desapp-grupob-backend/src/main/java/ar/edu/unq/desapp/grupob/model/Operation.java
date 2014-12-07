@@ -21,7 +21,7 @@ public class Operation extends Entity {
     
     private AccountType accountType;
     
-    private CardType cardType;
+    private CardType cardType = null;
 
     /*
      * CONSTRUCTORS
@@ -34,7 +34,7 @@ public class Operation extends Entity {
             double amount,
             String concept,
             Category category, SubCategory subcategory,
-            AccountType account, CardType cardType) {
+            AccountType account) {
         this.setType(type);
         this.setShift(shift);
         this.setDate(date);
