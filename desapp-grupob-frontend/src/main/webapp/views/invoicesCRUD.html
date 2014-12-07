@@ -55,7 +55,7 @@
                                   onbeforesave="checkVendorName($data, invoice.id)" e-required> {{ invoice.vendorName }} </span>
                         </td>
                         <td>
-                            <span editable-text="invoice.date" 
+                            <span editable-text="invoice.dateToString" 
                                   e-name="name" e-form="rowform" 
                                   onbeforesave="checkDate($data, invoice.id)" e-required> {{ invoice.dateToString }} </span>
                         </td>
