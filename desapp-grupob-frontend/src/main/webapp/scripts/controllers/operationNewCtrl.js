@@ -4,10 +4,21 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
     
+    $scope.alerts = [];
+    
     $scope.operation = {};
     
-    //usar una funcion para que dependiendo del momento del dia se setee
-    $scope.operation.shift = 'Afternoon';
+    function setShift () {
+        var date = new Date();
+        if (date.getHours > 12) {
+            $scope.operation.shift = 'Afternoon';
+        }
+        else {
+            $scope.operation.shift = 'Beforenoon';
+        }
+    }
+    
+    setShift ();
     
     $scope.turnos = [ 'Afternoon', 'Beforenoon'];
     
@@ -16,9 +27,7 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     $scope.operation.accountType = 'Cash' ;
     
     $scope.tarjetas = [ 'Debit', 'Credit'];
-    
-    $scope.operation.cardType = 'Debit';
-    
+
     $scope.paymentsMethods =  [ 'Incoming', 'Outcoming'];
     
     $scope.operation.type = 'Incoming';
@@ -32,7 +41,7 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     };
     
     $scope.today = function () {
-        $scope. date = new Date();
+        $scope.date = new Date();
     };
 
     $scope.today();
@@ -44,35 +53,25 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     };
     
     $scope.save = function() {
-        console.log("amount value on save "+$scope.operation.amount);
 		if ($scope.operation.amount != NaN) {
-           
-            $http.get(restWebService + "categoryService/byId/" +$scope.categoryId)
-                .success(function(response) {
-                    $scope.operation.category = response;
-                })
-                .error(function() {
-            });
-            
-            console.log("categoria que traigo del backend"+ $scope.operation.category);
             angular.extend($scope.operation, {
                     date: $scope.date
             });
             var jsonOperation = angular.toJson($scope.operation);
-            console.log("despues de convertir a json: "+jsonOperation);
-            console.log("http post: ...");
             $http.post(restWebService +'operationService/save', jsonOperation).success(
 				function(data, status, headers, config) {
 					if (status == 200) {
-						console.log("contra todos los pronosticos, anda!");
                         $modalInstance.close();
 					}
 				}).error(function(data, status, headers, config) {
 			         console.log("Error al crear operacion");
+                     $scope.alerts.push({
+                        type: 'danger',
+                        msg: data
+                    });
 		      });
         }
        else {
-           $scope.alerts = [];
            $scope.alerts.push({
                 type: 'danger',
                 msg: 'Ingrese un monto valido'
@@ -84,27 +83,11 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
         $modalInstance.dismiss();
     }
     
-/*    function setCategory () {
-        var d = $q.defer();
-        $http.get(restWebService + "categoryService/byId/" +$scope.categoryId)
-        .success(function(response) {
-            console.log("set category spected operation.category undefined"+$scope.operation.category);
-            $scope.operation.category = response;
-            console.log("set category spected operation.category"+$scope.operation.category.name);
-           // $scope.categorySelected = true;
-            d.resolve();
-        })
-        .error(function() {
-            d.reject();
-        });
-    }*/
-    
     function loadCategories () {
         var d = $q.defer();
-        $http.get(restWebService + "categoryService/categories")
+        $http.get(restWebService + "categoryService/categoriesForNewOperation")
         .success(function(response) {
             $scope.categories = response;
-           // $scope.categorySelected = true;
             d.resolve();
         })
         .error(function() {
@@ -131,7 +114,6 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
         else {
             $scope.showBankOptions = false;
         }
-        console.log("compare return value: "+$scope.showBankOptions);
     };    
 
     

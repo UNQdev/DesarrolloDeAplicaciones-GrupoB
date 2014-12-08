@@ -78,6 +78,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<bean id="operationRest" class="ar.edu.unq.desapp.grupob.web.rest.OperationRest">
 		<property name="operationService" ref="services.operations" />
+		<property name="subCategoryService" ref="services.subcategories" />
+		<property name="categoryService" ref="services.categories" />
+		<property name="accountService" ref="services.accounts" />
 	</bean>
 
 	<bean id="invoiceRest" class="ar.edu.unq.desapp.grupob.web.rest.InvoiceRest">

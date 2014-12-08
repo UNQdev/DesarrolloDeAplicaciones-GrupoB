@@ -21,7 +21,7 @@ public class FakeDataRest {
 
     @GET
     @Path("/initialize-db")
-    public void dbInit() {
+    public void dbInit() throws Exception {
         
         // Accounts
         CashAccount cash = new CashAccount();

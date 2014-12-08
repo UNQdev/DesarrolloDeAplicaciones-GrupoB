@@ -1,4 +1,4 @@
-feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs) {
+function homeCtrl ($scope, $filter, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs) {
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
@@ -14,6 +14,7 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
         
         $http.get(restWebService + "accountService/byId/2")
         .success(function (response) {
+            $scope.bank_account_amount = response.accountBalance;
             $scope.bank_account_available = response.available;
             $scope.bank_account_unconsolidated = response.unConsolidatedAmount;
         }).error(function () {
@@ -60,4 +61,4 @@ feag.controller('homeCtrl', function ($scope, $filter, $http, $location, $route,
         });
     }
     
-});
+};

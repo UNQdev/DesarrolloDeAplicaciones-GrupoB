@@ -161,7 +161,7 @@ function invoicesCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
      */
     $scope.filteredInvoices = [];
     $scope.currentPage = 1;
-    $scope.itemsOnPage = 1;
+    $scope.itemsOnPage = 5;
     $scope.setItemsOnPage = function(value){
         $scope.itemsOnPage = value;
     }

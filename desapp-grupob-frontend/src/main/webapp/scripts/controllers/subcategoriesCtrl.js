@@ -162,7 +162,7 @@ function subcategoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, 
      */
     $scope.filteredSubCategories = [];
     $scope.currentPage = 1;
-    $scope.itemsOnPage = 1;
+    $scope.itemsOnPage = 5;
     $scope.setItemsOnPage = function(value){
         $scope.itemsOnPage = value;
     }

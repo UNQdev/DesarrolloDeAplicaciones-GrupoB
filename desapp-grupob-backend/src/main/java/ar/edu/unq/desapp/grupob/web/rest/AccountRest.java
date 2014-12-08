@@ -32,9 +32,6 @@ public class AccountRest {
 
     private static final int HTTP_OK = 200;
 
-    private static final int HTTP_DELETE = 204;
-
-    
     @Autowired
     private AccountService accountService;
     

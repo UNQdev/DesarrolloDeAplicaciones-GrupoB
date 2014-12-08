@@ -91,7 +91,7 @@ function categoriesCtrl($scope, $filter, $http, $location, $route, $q, $log, $ro
      */
     $scope.filteredCategories = [];
     $scope.currentPage = 1;
-    $scope.itemsOnPage = 1;
+    $scope.itemsOnPage = 5;
     $scope.setItemsOnPage = function(value){
         $scope.itemsOnPage = value;
     }

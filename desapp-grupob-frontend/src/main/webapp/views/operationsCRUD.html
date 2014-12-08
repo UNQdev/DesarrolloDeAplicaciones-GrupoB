@@ -4,14 +4,15 @@
         <!-- Page Heading -->
         <div class="col-lg-12">
             <h1 class="page-header">
-        Operations <small>ABM</small>
-    </h1>
+            Operations <small>ABM</small></h1>
             <ol class="breadcrumb">
                 <li>
                     <i class="fa fa-dashboard"></i> 
                     <a href="index.html"> Home </a> 
                 </li>
                 <li class="active"> <i class="fa fa-file"></i> Operations</li>
+                <button class="btn btn-xs btn-success pull-right" ng-csv="exportOperations()" filename="operations.csv">
+                    <i class="fa fa-file-excel-o"></i>Export to csv </button>
             </ol>
         </div>
     </div>
@@ -27,9 +28,18 @@
         <!-- new category button -->
         <div class="col-md-4">
             <!-- button to show form -->
-            <button type="button" class="btn btn-success" ng-click="loadModalCreate()" popover="Add a new operation..." popover-trigger="mouseenter"                              popover-placement="right"><i class="fa fa-plus"></i>
+            <button type="button" class="btn btn-success" ng-click="loadModalCreate()" popover="Add a new operation..." 
+                    popover-trigger="mouseenter" popover-placement="right"><i class="fa fa-plus"></i>
             </button>
         </div>
+        <!-- SEARCH BOX -->
+        <div class="col-md-4 col-md-offset-4">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search by cencept" ng-model="byConcept">
+                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+            </div>
+        </div>
+        <!-- ./SEARCH BOX -->
     </div>
     <div class="row">
         <div class="col-md-12 ">
@@ -47,8 +57,9 @@
 
                         <td class="col-md-2 text-center">Amount</td>
                         <td class="col-md-1 text-center">Account</td>
+                        <td class="col-md-1 text-center">Actions</td>
                     </tr>
-                    <tr ng-repeat="operation in operations | orderBy:'date':true">
+                    <tr ng-repeat="operation in filteredOperations | orderBy:'dateToString':true | filter:{concept:byConcept}">
                         <td>
                             <span type="date" class="text-center"> {{ operation.dateToString | date:'fullDate' }} </span>
                         </td>
@@ -59,19 +70,59 @@
                             <span type="text"> {{ operation.subcategory.name }} </span>
                         </td>
                         <td>
-                            <span type="text"> {{ operation.concept }} </span>
+                            <span  editable-text="operation.concept" e-name="concept" 
+                                  e-form="rowform" e-required> {{ operation.concept }} </span>
                         </td>
                         <td>
-                            <span type="text"> {{ operation.shift }} </span>
+                            <span editable-select="operation.shift" e-name="shift" e-form="rowform" e-ng-options="t.value as t.text for t in turnos">
+                                {{ operation.shift }}
+                            </span>
+                        </td>
+                        <td ng-class="{ negative: operation.realAmount < 0 }">
+                            <span type="text" class="text-right">{{ operation.realAmount | currency}} </span>
                         </td>
                         <td>
-                            <span type="text">$ {{ operation.realAmount }} </span>
+                            <span type="text"> {{ operation.accountType }} {{operation.cardType}}</span>
                         </td>
-                        <td>
-                            <span type="text"> {{ operation.accountType }} </span>
+                        <td style="white-space: nowrap">
+                            <!-- form -->
+                            <form editable-form name="rowform" onbeforesave="updateOperation($data, operation.id)" 
+                                  ng-show="rowform.$visible" class="form-buttons form-inline">
+                                <button type="submit" ng-disabled="rowform.$waiting" 
+                                        class="btn btn-primary"> save </button>
+                                <button type="button" ng-disabled="rowform.$waiting" 
+                                        ng-click="rowform.$cancel()" class="btn btn-default"> cancel </button>
+                            </form>
+                            <div class="buttons" ng-show="!rowform.$visible">
+                                <button class="btn btn-primary" ng-click="rowform.$show()">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+
+                            </div>
                         </td>
                     </tr>
                 </table>
+                <ul class="pager ng-cloak">
+                    <li> 
+                        <div class="btn-group">
+                            <button type="button" ng-class="{'active': itemsOnPage == 2}" 
+                                    ng-click="setItemsOnPage(2)" class="btn btn-default">2</button>
+                            <button type="button" ng-class="{'active': itemsOnPage == 5}" 
+                                    ng-click="setItemsOnPage(5)" class="btn btn-default">5</button>
+                            <button type="button" ng-class="{'active': itemsOnPage == 10}" 
+                                    ng-click="setItemsOnPage(10)" class="btn btn-default">10</button>
+                            <button type="button" ng-class="{'active': itemsOnPage == 15}" 
+                                    ng-click="setItemsOnPage(15)" class="btn btn-default">15</button>
+                            <button type="button" ng-class="{'active': itemsOnPage == 20}" 
+                                    ng-click="setItemsOnPage(20)" class="btn btn-default">20</button>
+                        </div>
+                    </li>
+                </ul>
+                <pagination ng-model="currentPage"
+                            total-items="totalOperations()" items-per-page="itemsOnPage" 
+                            max-size="pageQtty()" 
+                            class="pagination-md pull-left" boundary-links="true">
+                </pagination>
             </div>
         </div>
     </div>

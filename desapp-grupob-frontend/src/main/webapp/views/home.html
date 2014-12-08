@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-app="feag" ng-controller="homeCtrl">
+<div class="container-fluid" ng-app="feag">
 
     <!-- Page Heading -->
     <div class="row">
@@ -18,7 +18,7 @@
                                     <i class="fa fa-usd fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">$ {{ cash_account_amount }}</div>
+                                    <div class="huge">{{ cash_account_amount | currency}}</div>
                                 </div>
                             </div>
                         </div>
@@ -42,9 +42,10 @@
                                     <i class="fa fa-university fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">$ {{ bank_account_available }}</div>
+                                    <div class="huge">{{ bank_account_amount | currency }}</div>
                                     </br>
-                                <div class="medium text-center">$ {{ bank_account_unconsolidated }} to be accrued</div>
+                                <div class="medium text-center">{{ bank_account_available | currency }} available</div>
+                                <div class="medium text-center">{{ bank_account_unconsolidated | currency }} to be accrued</div>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +69,7 @@
                                     <i class="fa fa-money fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">$ {{ current_account_amount }}</div>
+                                    <div class="huge">{{ current_account_amount | currency}}</div>
                                 </div>
                             </div>
                         </div>
@@ -125,11 +126,11 @@
                                             <td>
                                                 <span type="text"> {{ operation.shift }} </span>
                                             </td>
-                                            <td>
-                                                <span type="text">$ {{ operation.realAmount }} </span>
+                                            <td ng-class="{ negative: operation.realAmount < 0 }">
+                                                <span type="text" class="money">{{ operation.realAmount | currency}} </span>
                                             </td>
                                             <td>
-                                                <span type="text"> {{ operation.account }} </span>
+                                                <span type="text"> {{ operation.accountType }} </span>
                                             </td>
                                         </tr>
                                     </table>

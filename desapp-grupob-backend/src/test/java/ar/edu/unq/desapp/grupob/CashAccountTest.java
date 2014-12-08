@@ -19,7 +19,7 @@ public class CashAccountTest {
     }
 
     @Test
-    public void testCashAccountAddOperationTypeIncoming() {
+    public void testCashAccountAddOperationTypeIncoming() throws Exception {
         CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
@@ -41,15 +41,19 @@ public class CashAccountTest {
         Operation operation = builder.withAccount(cash.getAccountName()).withAmount(100)
                 .withType(OperationType.Outcoming).build();
 
-        cash.addOperation(operation);
+        try {
+            cash.addOperation(operation);
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), "Monto inválido, la cuenta efectivo no puede quedar en negativo!");
+        }
 
-        assertTrue(cash.getOperations().contains(operation));
-        assertEquals(operation.getRealAmount(), -100,0);
+        
+        assertFalse(cash.getOperations().contains(operation));
         assertEquals(cash.getAccountBalance(), 0, 0);
     }
     
     @Test
-    public void testCashAccountRemoveOperationTypeIncoming() {
+    public void testCashAccountRemoveOperationTypeIncoming() throws Exception {
         CashAccount cash = new CashAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
@@ -65,9 +69,9 @@ public class CashAccountTest {
     }
     
     @Test
-    public void testCashAccountRemoveOperationTypeOutcoming() {
+    public void testCashAccountRemoveOperationTypeOutcoming() throws Exception {
         CashAccount cash = new CashAccount();
-
+        cash.setAccountBalance(100);
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
         Operation operation = builder.withAccount(cash.getAccountName()).withAmount(100)
                 .withType(OperationType.Outcoming).build();
@@ -80,7 +84,7 @@ public class CashAccountTest {
     }
     
     @Test
-    public void testCashAccountBalance () {
+    public void testCashAccountBalance () throws Exception {
         CashAccount cash = new CashAccount();
         cash.consolidate();
         
