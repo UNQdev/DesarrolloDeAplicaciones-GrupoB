@@ -4,7 +4,7 @@ public enum InvoiceType {
     A {    
 	    public double getFullTotal(double subtotal, double tax) {
 	    	double total;
-	    	total = subtotal * (1.0 + tax + 3.5);
+	    	total = subtotal * (1.0 + tax + 0.035);
 	    	return total;
 	    }
 	    
