@@ -7,16 +7,16 @@ import org.junit.Test;
 import ar.edu.unq.desapp.grupob.model.CardType;
 
 public class CardTypeTest {
-	
-	@Test
-    public void testCardTypeDebit () {
+
+    @Test
+    public void testCardTypeDEBIT () {
         CardType cardType = CardType.Debit;
         
         assertTrue(cardType.isDebit());
     }
-	
-	@Test
-    public void testCardTypeCredit () {
+    
+    @Test
+    public void testCardTypeCREDIT () {
         CardType cardType = CardType.Credit;
         
         assertFalse(cardType.isDebit());

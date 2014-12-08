@@ -73,21 +73,18 @@ public class OperationTest {
 
     @Test
     public void testOperationCardTypeDEBIT() {
-    	OperationBuilder builder = OperationBuilder.aOperationBuilder();
-    	Operation operation = builder.withCardType(CardType.Debit)
-    			.build();
-
-    	assertEquals(operation.getCardType(), null);
-    	assertNotEquals(operation.getCardType(), CardType.Credit);
-    }
+    	Operation operation = new Operation();
+    	operation.setCardType(CardType.Debit);
+    	
+    	assertEquals(operation.getCardType(), CardType.Debit);
+    };
     
     @Test
     public void testOperationCardTypeCREDIT() {
-    	OperationBuilder builder = OperationBuilder.aOperationBuilder();
-    	Operation operation = builder.withCardType(CardType.Credit)
-    			.build();
+    	Operation operation = new Operation();
+    	operation.setCardType(CardType.Credit);
+    	
+    	assertEquals(operation.getCardType(), CardType.Credit);
+    };
 
-    	assertEquals(operation.getCardType(), null);
-    	assertNotEquals(operation.getCardType(), CardType.Debit);
-    }
 }

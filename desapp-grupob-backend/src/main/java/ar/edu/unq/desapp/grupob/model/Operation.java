@@ -55,6 +55,7 @@ public class Operation extends Entity {
     public String getDateToString() {
         return this.getDate().toString("YYYY-MM-dd");
     }
+
     public boolean isDebit() {
     	if ( cardType != null ){
     	    return this.getCardType().isDebit();
