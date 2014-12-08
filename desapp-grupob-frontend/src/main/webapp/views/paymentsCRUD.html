@@ -51,38 +51,38 @@
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <tr style="font-weight: bold">
-                        <td class="col-md-2"> Vendor</td>
                         <td class="col-md-2"> Date</td>
+                        <td class="col-md-2"> Vendor</td>
                         <td class="col-md-2"> Doc. Number</td>
                         <td class="col-md-4"> Description</td>
                         <td class="col-md-1"> Total</td>
                         <td class="col-md-2"> Actions</td>
                     </tr>
-                    <tr ng-repeat="payment in filteredPayments | orderBy:'id':false">
-                        <td>
-                            <span editable-text="payment.vendorName" 
-                                  e-name="name" e-form="rowform" 
-                                  onbeforesave="checkVendorName($data, payment.id)" e-required> {{ payment.vendorName }} </span>
-                        </td>
+                    <tr ng-repeat="payment in filteredPayments | orderBy:'id':true">
                         <td>
                             <span editable-text="payment.dateToString" 
                                   e-name="name" e-form="rowform" 
                                   onbeforesave="checkDate($data, payment.id)" e-required> {{ payment.dateToString }} </span>
                         </td>
                         <td>
-                            <span editable-text="payment.number" 
+                            <span editable-text="payment.vendorName" 
                                   e-name="name" e-form="rowform" 
-                                  onbeforesave="checkDocNumber($data, payment.id)" e-required> {{ payment.number }} </span>
+                                  onbeforesave="checkVendorName($data, payment.id)" e-required> {{ payment.vendorName }} </span>
                         </td>
                         <td>
-                            <span editable-text="payment.description" 
+                            <span editable-text="payment.invoice.number" 
                                   e-name="name" e-form="rowform" 
-                                  onbeforesave="checkDescription($data, payment.id)" e-required> {{ payment.description }} </span>
+                                  onbeforesave="checkDocNumber($data, payment.id)" e-required> {{ payment.invoice.number }} </span>
                         </td>
                         <td>
-                            <span editable-text="payment.total" 
+                            <span editable-text="payment.invoice.description" 
                                   e-name="name" e-form="rowform" 
-                                  onbeforesave="checkTotal($data, payment.id)" e-required> {{ payment.total }} </span>
+                                  onbeforesave="checkDescription($data, payment.id)" e-required> {{ payment.invoice.description }} </span>
+                        </td>
+                        <td>
+                            <span editable-text="payment.invoice.total" 
+                                  e-name="name" e-form="rowform" 
+                                  onbeforesave="checkTotal($data, payment.id)" e-required> {{ payment.invoice.total }} </span>
                         </td>
                         
                         <td style="white-space: nowrap">

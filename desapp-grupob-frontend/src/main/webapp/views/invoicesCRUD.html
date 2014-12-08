@@ -41,7 +41,7 @@
                 <table class="table table-hover table-striped">
                     <tr style="font-weight: bold">
                         <td class="col-md-2"> Vendor</td>
-                        <td class="col-md-2"> Date</td>
+                        <td class="col-md-2"> Doc. Date</td>
                         <td class="col-md-2"> Doc. Number</td>
                         <td class="col-md-4"> Description</td>
                         <td class="col-md-1"> SubTotal</td>
@@ -52,10 +52,10 @@
                         <td>
                             <span editable-text="invoice.vendor.name" 
                                   e-name="name" e-form="rowform" 
-                                  onbeforesave="checkVendorName($data, invoice.id)" e-required> {{ invoice.vendorName }} </span>
+                                  onbeforesave="checkVendorName($data, invoice.id)" e-required> {{ invoice.vendor.name }} </span>
                         </td>
                         <td>
-                            <span editable-text="invoice.date" 
+                            <span editable-text="invoice.dateToString" 
                                   e-name="name" e-form="rowform" 
                                   onbeforesave="checkDate($data, invoice.id)" e-required> {{ invoice.dateToString }} </span>
                         </td>
