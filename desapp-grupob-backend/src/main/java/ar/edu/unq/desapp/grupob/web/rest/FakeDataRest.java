@@ -56,7 +56,7 @@ public class FakeDataRest {
         		"",
                 compras, limpieza,
                 bank.getAccountName());
-        operation2.setCardType(CardType.Debit);
+        operation2.setCardType(CardType.Credit);
         Operation operation3 = new Operation(
         		OperationType.Incoming, Shift.Afternoon,
         		DateTime.parse("2014-09-10T03:00"), 12.00,

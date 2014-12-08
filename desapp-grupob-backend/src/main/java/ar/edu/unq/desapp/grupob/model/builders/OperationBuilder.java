@@ -28,7 +28,7 @@ public class OperationBuilder {
     private Category category;
     private SubCategory subcategory;
     private AccountType accountType;
-    private CardType cardType = null;
+    private CardType cardType;
 
     // Constructor method
     public Operation build() {
@@ -76,7 +76,15 @@ public class OperationBuilder {
         return this;
     }
     public OperationBuilder withCardType(final CardType cardType) {
-        this.cardType = cardType;
+        this.setCardType(cardType);
         return this;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
     }
 }

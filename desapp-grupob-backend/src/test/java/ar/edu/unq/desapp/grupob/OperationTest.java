@@ -77,7 +77,7 @@ public class OperationTest {
     	Operation operation = builder.withCardType(CardType.Debit)
     			.build();
 
-    	assertEquals(operation.getCardType(), CardType.Debit);
+    	assertEquals(operation.getCardType(), null);
     	assertNotEquals(operation.getCardType(), CardType.Credit);
     }
     
@@ -87,7 +87,7 @@ public class OperationTest {
     	Operation operation = builder.withCardType(CardType.Credit)
     			.build();
 
-    	assertEquals(operation.getCardType(), CardType.Credit);
+    	assertEquals(operation.getCardType(), null);
     	assertNotEquals(operation.getCardType(), CardType.Debit);
     }
 }

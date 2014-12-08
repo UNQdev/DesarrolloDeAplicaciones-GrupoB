@@ -21,7 +21,7 @@ public class Operation extends Entity {
     
     private AccountType accountType;
     
-    private CardType cardType = null;
+    private CardType cardType;
 
     /*
      * CONSTRUCTORS
@@ -43,7 +43,6 @@ public class Operation extends Entity {
         this.setSubcategory(subcategory);
         this.setConcept(concept);
         this.setAccountType(account);
-        this.setCardType(cardType);
     }
     /**
      * Depending the OperationType of this (a.k.a Incomming/Outcomming),
@@ -57,7 +56,10 @@ public class Operation extends Entity {
         return this.getDate().toString("YYYY-MM-dd");
     }
     public boolean isDebit() {
-    	return this.cardType.isDebit();
+    	if ( cardType != null ){
+    	    return this.getCardType().isDebit();
+    	}
+    	else return false;
     }
     
     /*
