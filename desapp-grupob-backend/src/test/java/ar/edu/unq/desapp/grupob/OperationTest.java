@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import ar.edu.unq.desapp.grupob.model.Account;
 import ar.edu.unq.desapp.grupob.model.AccountType;
+import ar.edu.unq.desapp.grupob.model.CardType;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.Invoice;
 import ar.edu.unq.desapp.grupob.model.Operation;
@@ -69,4 +70,20 @@ public class OperationTest {
 
         assertEquals(operation.getRealAmount(), -amount, 0);
     }
+    
+    @Test
+    public void testOperationCardTypeDEBIT() {
+    	Operation operation = new Operation();
+    	operation.setCardType(CardType.Debit);
+    	
+    	assertEquals(operation.getCardType(), CardType.Debit);
+    };
+    
+    @Test
+    public void testOperationCardTypeCREDIT() {
+    	Operation operation = new Operation();
+    	operation.setCardType(CardType.Credit);
+    	
+    	assertEquals(operation.getCardType(), CardType.Credit);
+    };
 }

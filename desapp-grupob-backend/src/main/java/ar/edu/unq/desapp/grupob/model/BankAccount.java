@@ -22,7 +22,12 @@ public class BankAccount extends Account {
      */
 	@Override
     public void addOperation(Operation operation) {
-        this.getDevenger().addOperation(operation);
+		if (operation.isDebit()) {
+        	this.getOperations().add(operation);
+        	this.updateAccountBalance(operation.getRealAmount());
+        } else {
+        	this.getDevenger().addOperation(operation);
+        }
     }
 	/**
 	 *
