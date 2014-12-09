@@ -41,6 +41,16 @@ public class FakeDataRest {
         SubCategory alfajores = new SubCategory("Alfajores");
         ventas.createSubCategory(alfajores);
         
+        Category gastosGenerales = new Category ("GastosGenerales");
+        gastosGenerales.createSubCategory(new SubCategory("Luz"));
+        gastosGenerales.createSubCategory(new SubCategory("Gas"));
+        gastosGenerales.createSubCategory(new SubCategory("Agua"));
+        
+        Category logistica = new Category ("Logistica");
+        logistica.createSubCategory(new SubCategory("Remis"));
+        
+        getCategoryService().save(logistica);
+        getCategoryService().save(gastosGenerales);
         getCategoryService().save(compras);
         getCategoryService().save(ventas);
         
