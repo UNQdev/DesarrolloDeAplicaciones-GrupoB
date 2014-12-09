@@ -11,14 +11,22 @@ function paymentNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, $r
     function setShift () {
         var date = new Date();
         if (date.getHours > 12) {
-            $scope.payment.shift = 'Afternoon';
+            $scope.payment.shift = 'Beforenoon';
         }
         else {
-            $scope.payment.shift = 'Beforenoon';
+            $scope.payment.shift = 'Afternoon';
         }
     };
 
     setShift ();
+    
+    $scope.taxes = [
+        {name:'10.5', value: 0.105},
+        {name:'21', value: 0.21},
+        {name:'27', value: 0.27}
+    ];
+    
+    $scope.selectedTax = [ {name:'10.5', value: 0.105} ];
     
     $scope.facturas = [ 'A', 'B' , 'C' , 'X'];
     
@@ -34,8 +42,6 @@ function paymentNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, $r
 
     $scope.payment.type = 'Outcoming';
     
-    $scope.payment.hasIIBB = false;
-
     $scope.clear = function () {
         $scope.date = null;
     };
@@ -59,14 +65,15 @@ function paymentNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, $r
     $scope.save = function() {
         if ($scope.payment.amount != NaN) {
             angular.extend($scope.payment, {
-                date: $scope.date, category: 1
+                date: $scope.date, category: 1, tax : $scope.selectedTax.value
             });
             var jsonPayment = angular.toJson($scope.payment);
-            console.log(jsonPayment);
-/*            $http.post(restWebService +'paymentService/save', jsonPayment).success(
+        console.log(jsonPayment);
+           $http.post(restWebService +'paymentService/save', jsonPayment).success(
                 function(data, status, headers, config) {
                     if (status == 200) {
                         $modalInstance.close();
+                        console.log ("Payment Saved!");
                     }
                 }).error(function(data, status, headers, config) {
                 console.log("Error al crear payment");
@@ -74,7 +81,7 @@ function paymentNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, $r
                     type: 'danger',
                     msg: data
                 });
-            });*/
+            });
         }
         else {
             $scope.alerts.push({
@@ -131,10 +138,12 @@ function paymentNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, $r
     
     $scope.selectedInvoice = function (invoiceType) {
         if (invoiceType == "A") {
-            $scope.showIIBBOptions = true;
+            $scope.showTaxOptions = true;
+            $scope.payment.hasIIBB = true;
         }
         else {
-            $scope.showIIBBOptions = false;
+            $scope.showTaxOptions = false;
+            $scope.payment.hasIIBB = false;
         }
     };  
 

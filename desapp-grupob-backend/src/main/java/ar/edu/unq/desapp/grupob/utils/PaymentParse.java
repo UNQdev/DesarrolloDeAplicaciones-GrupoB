@@ -25,6 +25,7 @@ public class PaymentParse {
     private String vendorTaxCode;
     private String invoiceNumber;
     private Boolean hasIIBB;
+    private double tax;
     
     public PaymentParse(){};
     
@@ -146,6 +147,14 @@ public class PaymentParse {
 
     public void setHasIIBB(Boolean hasIIBB) {
         this.hasIIBB = hasIIBB;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
     }
 
 }

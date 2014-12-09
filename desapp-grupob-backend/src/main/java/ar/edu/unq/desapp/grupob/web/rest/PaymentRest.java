@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,11 +55,11 @@ public class PaymentRest {
     @POST
     @Path("/save")
     @Consumes("application/json")
-    public Response saveCategory(@Multipart(value = "payment", type = "application/json") final String jsonPayment) {
+    public Response savePayment(@Multipart(value = "payment", type = "application/json") final String jsonPayment) {
         try {
             PaymentParse paymentParsed = parsePayment(jsonPayment);
             Payment paymentToSave = mkPayment(paymentParsed);
-            getPaymentService().update(paymentToSave);
+            getPaymentService().save(paymentToSave);
         } catch (Exception e) {
             return Response.serverError().entity(e.getMessage()).build();
         }
@@ -78,11 +79,13 @@ public class PaymentRest {
     
     private Payment mkPayment(PaymentParse paymentParsed) throws Exception {
         
+        Invoice invoice = mkInvoice (paymentParsed);
+        
         Operation operation = OperationBuilder.aOperationBuilder()
                 .withAccount(paymentParsed.getAccountType())
-                .withAmount(paymentParsed.getAmount()) //deberia ser el monto total, dependiendo del tipo de factura
+                .withAmount(invoice.getTotal())
                 .withConcept(paymentParsed.getConcept())
-                .withDate(paymentParsed.getDate())
+                .withDate(DateTime.now())
                 .withShift(paymentParsed.getShift())
                 .withType(paymentParsed.getType())
                 .withCategory(getCategoryService().getById(paymentParsed.getCategory()))
@@ -92,26 +95,39 @@ public class PaymentRest {
         operation.setId(paymentParsed.getId());
         
         getAccountService().update(addOperationAccordingLinkedAccount(operation));
-        
-        
-        
-        Invoice invoice = InvoiceBuilder.anInvoiceBuilder()
-                 .withDate(paymentParsed.getDate())
-                 .withDescription(paymentParsed.getConcept())
-                 .withInvoiceType(paymentParsed.getInvoiceType())
-                 .withNumber(paymentParsed.getInvoiceNumber())
-                 .withTaxCode(paymentParsed.getVendorTaxCode())
-                 .withVendor(getVendorService().getById(paymentParsed.getVendorId()))
-                 .withSubTotal(paymentParsed.getAmount())
-                 .buildA(); //withTax? withTotal? withHasIIBB? withNoGrabado?
-                 
+
         Payment payment = PaymentBuilder.aPaymentBuilder()
-                .withInputDate(paymentParsed.getDate())
+                .withInputDate(DateTime.now())
                 .withOperation(operation)
                 .withInvoice(invoice)
                 .build();
 
         return payment;
+    }
+
+    private Invoice mkInvoice(PaymentParse paymentParsed) {
+       if (paymentParsed.getHasIIBB()) {
+           Invoice invoiceA = new Invoice(paymentParsed.getInvoiceNumber(),
+                   paymentParsed.getDate(), 
+                   getVendorService().getById(paymentParsed.getVendorId()), 
+                   paymentParsed.getInvoiceType(), 
+                   paymentParsed.getConcept(), 
+                   paymentParsed.getAmount(), 
+                   paymentParsed.getTax(), 
+                   true, 
+                   0);
+           return invoiceA;
+       }
+       else {
+           Invoice invoiceCBX = new Invoice(paymentParsed.getInvoiceNumber(),
+                   paymentParsed.getDate(), 
+                   getVendorService().getById(paymentParsed.getVendorId()), 
+                   paymentParsed.getInvoiceType(), 
+                   paymentParsed.getConcept(), 
+                   paymentParsed.getAmount()); 
+                  
+           return invoiceCBX;
+       }
     }
 
     private Account addOperationAccordingLinkedAccount(Operation operationToSave) throws Exception {

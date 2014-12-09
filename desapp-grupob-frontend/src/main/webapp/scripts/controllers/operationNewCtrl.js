@@ -11,10 +11,10 @@ function operationNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, 
     function setShift () {
         var date = new Date();
         if (date.getHours > 12) {
-            $scope.operation.shift = 'Afternoon';
+            $scope.operation.shift = 'Beforenoon';
         }
         else {
-            $scope.operation.shift = 'Beforenoon';
+            $scope.operation.shift = 'Afternoon';
         }
     }
     

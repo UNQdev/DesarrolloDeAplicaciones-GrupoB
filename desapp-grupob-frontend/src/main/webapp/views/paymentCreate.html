@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group col-md-4">
-                        <legend>Fecha</legend>
+                        <legend>Fecha de factura</legend>
                         <small ng-show="!date" class="error" >requiered (*)</small>
                         <p class="input-group">
                             <input type="text" class="form-control" name="date" datepicker-popup="yyyy/MM/dd" 
@@ -54,7 +54,7 @@
                         <label class="radio controls" ng-repeat="turno in turnos">
                             <input type="radio" ng-model="payment.shift" name="optionsShift" value="{{turno}}" ng-required="true" tabindex="4">                                   {{turno}}
                         </label>
-                    </div>  
+                    </div> 
                     <div class="form-group col-md-4">
                         <legend>SubCategoria de compras</legend>
                         <small ng-show="!payment.subcategory" class="error" >requiered (*)</small>
@@ -100,12 +100,14 @@
             <div class="row">
                 <div class="col-md-12">
                     
-                    <div class="form-group col-md-4" ng-show="showIIBBOptions">
-                        <legend>IIBB</legend>
-                        <input type="checkbox" class="checkbox"
-                               id="payment.hasIIBB" ng-model="payment.hasIIBB"  tabindex="9" >
+                    <div class="form-group col-md-4" ng-show="showTaxOptions">
+                        <legend>Impuesto</legend>
+                        <small ng-show="!selectedTax" class="error" >requiered (*)</small>
+                        <select class="form-control" name="optionsTax" 
+                                ng-options="tax.name for tax in taxes" ng-model="selectedTax" tabindex="9">
+                            <option value="">seleccionar impuesto</option>
+                        </select>
                     </div>
-                    
                     <div class="form-group col-md-4 ">
                         <small ng-show="!payment.invoiceNumber" class="error" >requiered (*)</small>
                         <legend>Numero de factura</legend>
