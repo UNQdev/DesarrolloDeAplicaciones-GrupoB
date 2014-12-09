@@ -3,9 +3,7 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
 
-    console.log(resolvedPayments);
     $scope.payments = resolvedPayments.data;
-    console.log($scope.payments);
     
 
     // Get all categories	  
