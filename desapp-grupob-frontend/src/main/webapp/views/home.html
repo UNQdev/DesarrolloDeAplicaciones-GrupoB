@@ -1,21 +1,21 @@
 <div class="container-fluid" ng-app="feag">
 
-    <!-- Page Heading -->
     <div class="row">
         <div class="col-md-12">
-            <h3 class="page-header">
+            <h1 class="page-header">
             <!-- Flujo de Efectivo y Analisis de Gastos -->
-                <small></small>
-            </h3>
+                Accounts <small> STATUS </small>
+                <button type="button" class="btn btn-primary pull-right" ng-click="consolidateAccounts()">Consolidate Accounts</button>
+            </h1>
             <!-- ACCOUNT DISPLAYS -->
             <!-- chash account display -->
             <div class="row">
                 <div class="col-md-4">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-green">
                         <div class="panel-heading" style="height:130px" vertical-align="middle">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-usd fa-4x"></i>
+                                    <i class="fa fa-money fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">{{ cash_account_amount | currency}}</div>
@@ -62,11 +62,11 @@
 
                 <!-- current account display-->
                 <div class="col-xs-4 col-md-4">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-yellow">
                         <div class="panel-heading" style="height:130px">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-money fa-4x"></i>
+                                    <i class="fa fa-random fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">{{ current_account_amount | currency}}</div>
@@ -87,68 +87,72 @@
             <!-- ./ACCOUNT DISPLAYS -->
 
         
-            <!-- OPERATION TABLE -->
-            <div class="row">
-                <!-- recent operations panel -->
-                <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Recent Operations</h3>
-                            </div>
-                                <!-- recent operations table -->
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped">
-                                        <tr style="font-weight: bold">
-                                            <td class="col-md-3 text-center">Date</td>
-
-                                            <td class="col-md-2 text-center">Category</td>
-                                            <td class="col-md-2 text-center">SubCategory</td>
-                                            <td class="col-md-5 text-center">Concept</td>
-
-                                            <td class="col-md-3 text-center">Shift</td>
-
-                                            <td class="col-md-3 text-center">Amount</td>
-                                            <td class="col-md-3 text-center">Account</td>
-                                        </tr>
-                                        <tr ng-repeat="operation in operations | orderBy:'date':true">
-                                            <td>
-                                                <span type="date"> {{ operation.dateToString | date:'fullDate' }} </span>
-                                            </td>
-                                            <td>
-                                                <span type="text"> {{ operation.category.name }} </span>
-                                            </td>
-                                            <td>
-                                                <span type="text"> {{ operation.subcategory.name }} </span>
-                                            </td>
-                                            <td>
-                                                <span type="text"> {{ operation.concept }} </span>
-                                            </td>
-                                            <td>
-                                                <span type="text"> {{ operation.shift }} </span>
-                                            </td>
-                                            <td ng-class="{ negative: operation.realAmount < 0 }">
-                                                <span type="text" class="money">{{ operation.realAmount | currency}} </span>
-                                            </td>
-                                            <td>
-                                                <span type="text"> {{ operation.accountType }} </span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <!-- ./recent operations table -->
-                        </div>
-                    </div>
-                <!-- ./recent operations panel -->
-            </div>
-            </div>
-            <!-- ./OPERATION TABLE -->
-
         </div>
     </div>
-</div>
-</div>
-</div>
-<!-- /.row -->
+
+
+    <div class="row">
+        <!-- Feedback -->
+        <div class="col-md-12">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"> {{alert.msg}} </alert>
+        </div>
+    </div>
+
+
+    <!-- OPERATION TABLE -->
+    <div class="row">
+        <!-- recent operations panel -->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Recent Operations</h3>
+                </div>
+                <!-- recent operations table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <tr style="font-weight: bold">
+                            <td class="col-md-3 text-center">Date</td>
+
+                            <td class="col-md-2 text-center">Category</td>
+                            <td class="col-md-2 text-center">SubCategory</td>
+                            <td class="col-md-5 text-center">Concept</td>
+
+                            <td class="col-md-3 text-center">Shift</td>
+
+                            <td class="col-md-3 text-center">Amount</td>
+                            <td class="col-md-3 text-center">Account</td>
+                        </tr>
+                        <tr ng-repeat="operation in operations | orderBy:'dateToString':true | filter:{concept:byConcept}">
+                            <td>
+                                <span type="date"> {{ operation.dateToString | date:'fullDate' }} </span>
+                            </td>
+                            <td>
+                                <span type="text"> {{ operation.category.name }} </span>
+                            </td>
+                            <td>
+                                <span type="text"> {{ operation.subcategory.name }} </span>
+                            </td>
+                            <td>
+                                <span type="text"> {{ operation.concept }} </span>
+                            </td>
+                            <td>
+                                <span type="text"> {{ operation.shift }} </span>
+                            </td>
+                            <td ng-class="{ negative: operation.realAmount < 0 }">
+                                <span type="text" class="money">{{ operation.realAmount | currency}} </span>
+                            </td>
+                            <td>
+                                <span type="text"> {{ operation.accountType }} </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- ./recent operations table -->
+            </div>
+        </div>
+        <!-- ./recent operations panel -->
+    </div>
+    <!-- ./OPERATION TABLE -->
 
 </div>
 <!-- /.container-fluid -->

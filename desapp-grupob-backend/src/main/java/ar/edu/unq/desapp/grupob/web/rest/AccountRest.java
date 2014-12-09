@@ -17,11 +17,13 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.cxf.feature.Features;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.hibernate.validator.internal.metadata.aggregated.UnconstrainedEntityMetaDataSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupob.model.Account;
 import ar.edu.unq.desapp.grupob.model.BankAccount;
+import ar.edu.unq.desapp.grupob.model.Operation;
 import ar.edu.unq.desapp.grupob.services.AccountService;
 
 @Service
@@ -50,6 +52,9 @@ public class AccountRest {
     public Response consolidateAccounts() {
     	List<Account> accounts = getAccountService().retriveAll();
 
+    	BankAccount bankAccount = (BankAccount) getAccountService().getById(2);
+    	int unconsolidatedOperations = bankAccount.getDevenger().getUnConsolidatedOperations().size();
+    			
     	for(Account account : accounts) {
     		try {
 				account.consolidate();
@@ -58,17 +63,16 @@ public class AccountRest {
 				return Response.serverError().entity(e.getMessage()).build();
 			}
     	}
-    	BankAccount bankAccount = (BankAccount) getAccountService().getById(2);
-    	Integer uncosolidationOperations = bankAccount.getDevenger().getUnConsolidatedOperations().size();
-    	
-    	return Response.ok().status(HTTP_OK).entity(uncosolidationOperations+" operaciones para devengar").build();
+
+    	int operationsConsolidated = unconsolidatedOperations - bankAccount.getDevenger().getUnConsolidatedOperations().size();
+    	return Response.ok().status(HTTP_OK).entity(operationsConsolidated).build();
     }
 
     @GET
     @Path("/byId/{id}")
     @Produces("application/json")
     public Account getAccountById(@PathParam("id") final int id) {
-        return getAccountService().getById(id) ;
+        return getAccountService().getById(id);
     }
     
     @GET

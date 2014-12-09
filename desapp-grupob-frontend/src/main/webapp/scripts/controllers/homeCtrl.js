@@ -61,4 +61,16 @@ function homeCtrl ($scope, $filter, $http, $location, $route, $q, $log, $rootSco
         });
     }
     
+    $scope.consolidateAccounts = function () {
+        $http.get(restWebService + "accountService/accountsConsolidation")
+        .success(function (response) {
+            $scope.alerts = [];
+            $scope.alerts.push({
+                type: 'success',
+                msg: 'Accounts successfuly consolidated. ' + response + ' operations from Bank Account were consolidated.'
+            })
+        }).error(function () {
+            console.log("Error al consolidar las cuentas");
+        });
+    }
 };
