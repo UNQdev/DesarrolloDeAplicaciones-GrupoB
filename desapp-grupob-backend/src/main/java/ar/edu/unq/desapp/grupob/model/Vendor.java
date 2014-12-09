@@ -24,6 +24,8 @@ public class Vendor extends Entity{
     	this.setName(name);
     }
 
+    public Vendor () {};
+    
 	public String getName() {
 		return name;
 	}

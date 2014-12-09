@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupob.model.*;
+import ar.edu.unq.desapp.grupob.model.builders.VendorBuilder;
 import ar.edu.unq.desapp.grupob.services.*;
 
 @Service
@@ -40,6 +41,16 @@ public class FakeDataRest {
         SubCategory alfajores = new SubCategory("Alfajores");
         ventas.createSubCategory(alfajores);
         
+        Category gastosGenerales = new Category ("GastosGenerales");
+        gastosGenerales.createSubCategory(new SubCategory("Luz"));
+        gastosGenerales.createSubCategory(new SubCategory("Gas"));
+        gastosGenerales.createSubCategory(new SubCategory("Agua"));
+        
+        Category logistica = new Category ("Logistica");
+        logistica.createSubCategory(new SubCategory("Remis"));
+        
+        getCategoryService().save(logistica);
+        getCategoryService().save(gastosGenerales);
         getCategoryService().save(compras);
         getCategoryService().save(ventas);
         
@@ -71,11 +82,13 @@ public class FakeDataRest {
         getAccountService().save(bank);
         getAccountService().save(current);
 
+        Vendor pepito = VendorBuilder.aVendorBuilder().withName("Pepito").withTaxCode("20-32830432-6").build();
+        Vendor arnaldo = VendorBuilder.aVendorBuilder().withName("Arnaldo").withTaxCode("20-35401778-6").build();
         // Payments
         Invoice invoice1 = new Invoice(
         		"0000001", 									// numero de factura
         		DateTime.now().minusDays(5),				// fecha factura 
-        		new Vendor("20-32830432-6", "Pepito"), 		// proveedor
+        		pepito, 		                            // proveedor
         		InvoiceType.A,								// tipo factura
                 "Insumos de libreria SEPTIEMBRE 2014", 		// descripcion
                 100.00); 									// monto neto
@@ -85,7 +98,7 @@ public class FakeDataRest {
         Invoice invoice2 = new Invoice(
         		"0000002", 									// numero de factura
         		DateTime.now().minusDays(4),				// fecha factura 
-        		new Vendor("20-35401778-6", "Arnaldo"), 	// proveedor
+        		arnaldo, 	                                // proveedor
         		InvoiceType.A,								// tipo factura
         		"Articulos de limpieza SEPTIEMBRE 2014", 	// descripcion
                 544.29); 									// monto neto

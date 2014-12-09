@@ -38,6 +38,11 @@
 	<bean id="services.payments" class="ar.edu.unq.desapp.grupob.services.PaymentService">
 		<property name="dao" ref="persistence.payments" />
 	</bean>
+	
+    <!-- Vendor Services -->
+	<bean id="services.vendors" class="ar.edu.unq.desapp.grupob.services.VendorService">
+		<property name="dao" ref="persistence.vendors" />
+	</bean>
 
 	<!-- Analysis Services -->
 	<bean id="services.categoriesAnalysis" class="ar.edu.unq.desapp.grupob.services.CategoryAnalysisService">

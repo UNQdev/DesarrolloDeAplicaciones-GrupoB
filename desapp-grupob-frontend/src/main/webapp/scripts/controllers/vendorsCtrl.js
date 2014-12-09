@@ -1,11 +1,11 @@
-function vendorsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs, resolvedVendors) {
+function vendorsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs, resolvedVendors, $modal) {
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
 
     console.log(resolvedVendors);
     $scope.vendors = resolvedVendors.data;
-    console.log($scope.invoices);
+    console.log($scope.vendors);
 
 
 
@@ -16,7 +16,7 @@ function vendorsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $
         var d = $q.defer();
         $http.get(restWebService + "vendorService/vendors")
         .success(function (response) {
-            $scope.invoices = response;
+            $scope.vendors = response;
             d.resolve();
         }).error(function () {
             console.log("Error al listar proveedores");
@@ -141,38 +141,6 @@ function vendorsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $
         });
     };
 
-
-
-    /*
-     *  VENDOR TABLE
-     */    
-    $scope.vendorsTable = new ngTableParams({
-        page: 1,            // show first page
-        count: 10,          // count per page
-        filter: {
-
-        },
-        sorting: {
-            name: 'asc'        // initial sorting
-        }
-    }, {
-        total: function () {
-            return $scope.vendors.length;
-        },
-        getData: function($defer, params) {
-            getAll();
-            var filteredData = params.filter() ?
-                $filter('filter')($scope.vendors, params.filter()) : $scope.vendors;
-            var orderedData = params.sorting() ?
-                $filter('orderBy')(filteredData, params.orderBy()) : $scope.vendors;
-
-            params.total(orderedData.length); // set total for recalc pagination
-            $defer.resolve(orderedData.slice((params.page() - 1)
-                                             * params.count(), params.page() * params.count()));
-        }
-    });
-
-
     /*
      *  PAGINACION
      */
@@ -191,7 +159,7 @@ function vendorsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $
     $scope.$watch('currentPage + itemsOnPage', function() {
         var begin = (($scope.currentPage - 1) * $scope.itemsOnPage);
         var end = begin + $scope.itemsOnPage; 
-        $scope.filteredVendors = $scope.invoices.slice(begin, end);
+        $scope.filteredVendors = $scope.vendors.slice(begin, end);
     });
 
 

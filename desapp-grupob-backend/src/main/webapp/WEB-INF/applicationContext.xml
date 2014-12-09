@@ -33,6 +33,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 			<ref bean="operationRest" />
 			<ref bean="invoiceRest" />
 			<ref bean="paymentRest" />
+			<ref bean="vendorRest" />
 			<ref bean="dbInitializationRest" />
 			<ref bean="analysisRest" />
 		</jaxrs:serviceBeans>
@@ -53,6 +54,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	<!-- define rest services -->
 	<bean id="accountRest" class="ar.edu.unq.desapp.grupob.web.rest.AccountRest">
 		<property name="accountService" ref="services.accounts" />
+	</bean>
+	
+	<bean id="vendorRest" class="ar.edu.unq.desapp.grupob.web.rest.VendorRest">
+		<property name="vendorService" ref="services.vendors" />
 	</bean>
 	
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupob.web.rest.CategoryRest">
@@ -90,6 +95,12 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	
 	<bean id="paymentRest" class="ar.edu.unq.desapp.grupob.web.rest.PaymentRest">
 		<property name="paymentService" ref="services.payments" />
+		<property name="subCategoryService" ref="services.subcategories" />
+		<property name="categoryService" ref="services.categories" />
+		<property name="invoiceService" ref="services.invoices" />
+		<property name="operationService" ref="services.operations" />
+		<property name="vendorService" ref="services.vendors" />
+		<property name="accountService" ref="services.accounts" />
 	</bean>
 	
 	<bean id="analysisRest" class="ar.edu.unq.desapp.grupob.web.rest.AnalysisRest">

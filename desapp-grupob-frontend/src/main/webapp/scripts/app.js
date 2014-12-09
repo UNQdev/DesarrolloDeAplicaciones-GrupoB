@@ -148,6 +148,13 @@ feag.service('resolverService', ['$http', function($http) {
           });
           return promise;
       },
+      getVendors: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'vendorService/vendors' })
+          .success(function(data, status, headers, config) {
+              return data;
+          });
+          return promise;
+      },
       getInvoices: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'invoiceService/invoices' })
           .success(function(data, status, headers, config) {

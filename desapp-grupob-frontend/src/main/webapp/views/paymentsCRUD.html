@@ -26,19 +26,16 @@
     <div class="row">
         <!-- Page Activity -->
         <!-- new payment button -->
-        <div class="col-md-4">       
-            <!-- button to show form -->
-            <button type="button" class="btn btn-success" 
-                    ng-click="editableForm.$show() ; resetNewCategoryName()" popover="Process new payment..." 
-                    popover-trigger="mouseenter" popover-placement="right" 
-                    ng-show="!editableForm.$visible"> <i class="fa fa-plus"></i>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-success" ng-click="loadModalCreate()" popover="Add a new payment..." 
+                    popover-trigger="mouseenter" popover-placement="right"><i class="fa fa-plus"></i>
             </button>
         </div>
         
         <!-- SEARCH BOX -->
         <div class="col-md-4 pull-right">
             <div class="input-group">
-                <input class="form-control" type="search" placeholder="Search by name" ng-model="byName">
+                <input class="form-control" type="search" placeholder="Search by vendor name" ng-model="byVendorName">
                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
             </div>
         </div>
@@ -49,101 +46,35 @@
             <br/>
 
             <div class="table-responsive">
-                <table class="table table-hover table-striped">
+                <table class="table table-bordered table-hover table-striped">
                     <tr style="font-weight: bold">
                         <td class="col-md-2"> Date</td>
                         <td class="col-md-2"> Vendor</td>
-                        <td class="col-md-2"> Doc. Number</td>
+                        <td class="col-md-2"> Invoice Number</td>
                         <td class="col-md-4"> Description</td>
                         <td class="col-md-1"> Total</td>
-                        <td class="col-md-2"> Actions</td>
                     </tr>
-                    <tr ng-repeat="payment in filteredPayments | orderBy:'id':true">
+                    <tr ng-repeat="payment in filteredPayments | orderBy:'id':true  | filter:{vendorName:byVendorName} ">
                         <td>
-                            <span editable-text="payment.dateToString" 
-                                  e-name="name" e-form="rowform" 
-                                  onbeforesave="checkDate($data, payment.id)" e-required> {{ payment.dateToString }} </span>
+                            <span> {{ payment.dateToString }} </span>
                         </td>
                         <td>
-                            <span editable-text="payment.vendorName" 
-                                  e-name="name" e-form="rowform" 
-                                  onbeforesave="checkVendorName($data, payment.id)" e-required> {{ payment.vendorName }} </span>
+                            <span> {{ payment.vendorName }} </span>
                         </td>
                         <td>
-                            <span editable-text="payment.invoice.number" 
-                                  e-name="name" e-form="rowform" 
-                                  onbeforesave="checkDocNumber($data, payment.id)" e-required> {{ payment.invoice.number }} </span>
+                            <span> {{ payment.invoice.number }} </span>
                         </td>
                         <td>
-                            <span editable-text="payment.invoice.description" 
-                                  e-name="name" e-form="rowform" 
-                                  onbeforesave="checkDescription($data, payment.id)" e-required> {{ payment.invoice.description }} </span>
+                            <span> {{ payment.invoice.description }} </span>
                         </td>
                         <td>
-                            <span editable-text="payment.invoice.total" 
-                                  e-name="name" e-form="rowform" 
-                                  onbeforesave="checkTotal($data, payment.id)" e-required> {{ payment.invoice.total }} </span>
+                            <span> {{ payment.invoice.total }} </span>
                         </td>
                         
-                        <td style="white-space: nowrap">
-                            <!-- form -->
-                            <form editable-form name="rowform" onbeforesave="updatePayment($data, payment.id)" 
-                                  ng-show="rowform.$visible" class="form-buttons form-inline">
-                                <button type="submit" ng-disabled="rowform.$waiting" 
-                                        class="btn btn-primary"> save </button>
-                                <button type="button" ng-disabled="rowform.$waiting" 
-                                        ng-click="rowform.$cancel()" class="btn btn-default"> cancel </button>
-                            </form>
-                            <div class="buttons" ng-show="!rowform.$visible">
-                                <button class="btn btn-primary" ng-click="rowform.$show()">
-                                    <i class="fa fa-pencil-square-o"></i>
-                                </button>
-                                <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(payment.id)">
-                                    <i class="fa fa-trash-o"></i>
-                                </button>
-                            </div>
-                        </td>
                     </tr>
                 </table>
-            
-            
-            
-            <!--<button ng-click="paymentsTable.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
-            <button ng-click="paymentsTable.filter({})" class="btn btn-default pull-right">Clear filter</button>
-            <p><strong>Sorting:</strong> {{paymentsTable.sorting()|json}}
-            <p><strong>Filter:</strong> {{paymentsTable.filter()|json}}
-
-            <table ng-table="paymentsTable" show-filter="true" class="table table-condensed" >
-                <tr ng-repeat="payment in payments">
-                    <td data-title="'Date'" sortable="'dateToString'" filter="{ 'dateToString': 'text' }" 
-                        class="col-md-2 text-center"> {{payment.dateToString}}
-                    </td>
-                    <td data-title="'Vendor'" sortable="'vendorName'" filter="{ 'vendorName': 'text' }" 
-                        class="col-md-2 text-center"> {{payment.vendorName}}
-                    </td>
-                    <td data-title="'payment N°'" sortable="'paymentNumber'" filter="{ 'paymentNumber': 'text' }"
-                        class="col-md-2 text-right"> {{payment.paymentNumber}}
-                    </td>
-                    <td data-title="'Concept'" sortable="'paymentDescription'" filter="{ 'paymentDescription': 'text' }" 
-                        class="col-md-4 text-center"> {{payment.paymentDescription}}
-                    </td>
-                    <td data-title="'Total'" sortable="'total'" filter="{ 'total': 'text' }" 
-                        class="col-md- text-right"> {{payment.total | currency}}
-                    </td>
-                    <td data-title="'Actions'" class="col-md-2">
-                        <div class="buttons" ng-show="!rowform.$visible">
-                            <button class="btn btn-primary" ng-click="rowform.$show()">
-                                <i class="fa fa-pencil-square-o"></i>
-                            </button>
-                            <button class="btn btn-danger" ng-click="launchConfirmDeleteDialog(payment.id)">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </table>-->
-            
-            <ul class="pager ng-cloak">
+                            
+           <ul class="pager ng-cloak">
                 <li> 
                     <div class="btn-group">
                         <button type="button" ng-class="{'active': itemsOnPage == 2}" 
