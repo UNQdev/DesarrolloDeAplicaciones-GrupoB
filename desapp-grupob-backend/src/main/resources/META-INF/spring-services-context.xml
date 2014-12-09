@@ -6,9 +6,9 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-<!-- 	============================================ -->
-<!-- 	============== SERVICES BEANS ============== -->
-<!-- 	============================================ -->
+	<!-- ============================================ -->
+	<!-- ============== SERVICES BEANS ============== -->
+	<!-- ============================================ -->
 
 	<!-- Accounts Services -->
 	<bean id="services.accounts" class="ar.edu.unq.desapp.grupob.services.AccountService">
@@ -19,7 +19,7 @@
 	<bean id="services.categories" class="ar.edu.unq.desapp.grupob.services.CategoryService">
 		<property name="dao" ref="persistence.categories" />
 	</bean>
-	
+
 	<bean id="services.subcategories" class="ar.edu.unq.desapp.grupob.services.SubCategoryService">
 		<property name="dao" ref="persistence.subcategories" />
 	</bean>
@@ -33,7 +33,7 @@
 	<bean id="services.invoices" class="ar.edu.unq.desapp.grupob.services.InvoiceService">
 		<property name="dao" ref="persistence.invoices" />
 	</bean>
-	
+
 	<!-- Payment Services -->
 	<bean id="services.payments" class="ar.edu.unq.desapp.grupob.services.PaymentService">
 		<property name="dao" ref="persistence.payments" />
@@ -42,6 +42,22 @@
     <!-- Vendor Services -->
 	<bean id="services.vendors" class="ar.edu.unq.desapp.grupob.services.VendorService">
 		<property name="dao" ref="persistence.vendors" />
+	</bean>
+
+	<!-- Analysis Services -->
+	<bean id="services.categoriesAnalysis" class="ar.edu.unq.desapp.grupob.services.CategoryAnalysisService">
+		<property name="operationService" ref="services.operations" />
+		<property name="categoryService" ref="services.categories" />
+		<property name="subCategoryService" ref="services.subcategories" />		
+	</bean>
+
+	<bean id="services.operationsAnalysis" class="ar.edu.unq.desapp.grupob.services.OperationAnalysisService">
+		<property name="operationService" ref="services.operations" />
+	</bean>
+	
+	<bean id="services.vendorsAnalysis" class="ar.edu.unq.desapp.grupob.services.VendorAnalysisService">
+		<property name="operationService" ref="services.operations" />
+		<property name="invoiceService" ref="services.invoices" />
 	</bean>
 
 </beans>

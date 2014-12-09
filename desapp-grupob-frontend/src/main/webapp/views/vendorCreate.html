@@ -1,0 +1,47 @@
+<div class="container-fluid" ng-app="feag">
+
+    <div class="row">
+        <!-- Page Heading -->
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Vendor <small>create</small>
+            </h1>
+        </div>
+    </div>
+
+    <form id="vendorForm" name="vendorForm" class="form" novalidate>
+        <fieldset>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group col-md-6">
+                        <legend>Name</legend>
+                        <small ng-show="!vendor.name" class="error" >requiered (*)</small>
+                            <input type="text" class="form-control" placeholder="Vendor name here..." name="vendor.name"
+                                   ng-model="vendor.name" required close-text="Close" tabindex="1" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group col-md-6">
+                        <legend>Tax Code</legend>
+                        <small ng-show="!vendor.taxCode" class="error" >requiered (*)</small>
+                        <input type="text" class="form-control" placeholder="(2 digits) - (8 digits) - (1 digit)" name="vendor.taxCode"
+                               ng-model="vendor.taxCode" required close-text="Close" tabindex="2" />
+                    </div>
+                    
+                    <!-- BOTONES -->
+                    <div class="col-md-6 col-md-offset-3" >
+                        <button ng-disabled="vendorForm.$invalid || (vendor.name == null)" ng-click="save()" type="submit" 
+                                class="btn btn-primary" tabindex="3">Guardar</button>
+                        <button type="button" class="btn" ng-click="closeModal()" tabindex="4" >Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    </br>
+    </br>
+
+</div>
