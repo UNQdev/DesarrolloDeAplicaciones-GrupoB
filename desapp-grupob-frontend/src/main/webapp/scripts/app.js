@@ -11,7 +11,8 @@ var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies',
                                     'ngResource', 'pascalprecht.translate',
                                     'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid',
                                     'xeditable', 'ui.bootstrap', 'ngTable',
-                                   'dialogs.main','dialogs.default-translations','ng-currency', 'ngCsv' ]);
+                                    'dialogs.main','dialogs.default-translations',
+                                    'ng-currency', 'ngCsv', 'tc.chartjs' ]);
 
 
 feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
@@ -26,6 +27,36 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
                 ]}
             })
             
+            .when('/payments', {
+                templateUrl : 'views/paymentsCRUD.html',
+                controller : 'paymentsCtrl',
+                resolve : {
+                    resolvedPayments : ['resolverService', function(resolverService) {
+                        return resolverService.getPayments();
+                    }
+               ]}
+            })
+            
+            .when('/analysis', {
+                templateUrl : 'views/analysis.html',
+                controller : 'analysisCtrl',
+                resolve : {
+                    resolvedCategoriesTotals : ['resolverService', function(resolverService) {
+                        return resolverService.getCategoriesTotals();
+                    }]
+                    /*,
+                    resolvedSubCategoriesTotals : ['resolverService', function(resolverService) {
+                    return resolverService.getSubCategoriesTotals();
+                    }],
+                    resolvedMonthAccrual : ['resolverService', function(resolverService) {
+                        return resolverService.getMonthAccrual();
+                    }],
+                    resolvedVendorsTotals : ['resolverService', function(resolverService) {
+                        return resolverService.getVendorsTotals();
+                    }]*/
+                }
+            })
+
 			.when('/categories', {
 				templateUrl : 'views/categoriesCRUD.html',
 				controller : 'categoriesCtrl',
@@ -48,15 +79,6 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
                 ]}
 			})
 			
-            .when('/payments', {
-                templateUrl : 'views/paymentsCRUD.html',
-                controller : 'paymentsCtrl',
-                resolve : {
-                    resolvedPayments : ['resolverService', function(resolverService) {
-                        return resolverService.getPayments();
-                    }
-                ]}
-            })
 
 			.when('/invoices', {
 				templateUrl : 'views/invoicesCRUD.html',
@@ -64,6 +86,16 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
                 resolve : {
                     resolvedInvoices : ['resolverService', function(resolverService) {
                         return resolverService.getInvoices();
+                    }
+                ]}
+            })
+
+            .when('/vendors', {
+                templateUrl : 'views/vendorsCRUD.html',
+                controller : 'vendorsCtrl',
+                resolve : {
+                    resolvedVendors : ['resolverService', function(resolverService) {
+                        return resolverService.getVendors();
                     }
                 ]}
             })
@@ -114,7 +146,35 @@ feag.service('resolverService', ['$http', function($http) {
               return data;
           });
           return promise;
-      }
+      },
+      getCategoriesTotals: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'analysisService/categoriesTotals' })
+          .success(function(data, status, headers, config) {
+              return data;
+          });
+          return promise;
+      },
+      getSubCategoriesTotals: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'analysisService/subCategoriesTotals' })
+          .success(function(data, status, headers, config) {
+              return data;
+          });
+          return promise;
+      },
+      getMonthAccrual: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'analysisService/monthAccrual' })
+          .success(function(data, status, headers, config) {
+              return data;
+          });
+          return promise;
+      },
+      getVendorsTotals: function() {
+          var promise = $http({ method: 'GET', url: restWebService + 'analysisService/vendorsTotals' })
+          .success(function(data, status, headers, config) {
+              return data;
+          });
+          return promise;
+      },
   }
   return result;
 }]);
