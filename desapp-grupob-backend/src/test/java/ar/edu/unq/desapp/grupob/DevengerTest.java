@@ -83,7 +83,7 @@ public class DevengerTest {
 	 */
 	@Test
 	public void testConsolidationDateReached() {
-		DateTime operationDate = DateTime.now().minusDays(5);
+		DateTime operationDate = DateTime.now().minusDays(6);
 
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
@@ -93,7 +93,7 @@ public class DevengerTest {
 				.build();
 
 		assertTrue(devenger.reachedConsolidationDate(operation));
-		verify(operation, times(1)).getDate();
+		verify(operation, times(2)).getDate();
 	}
 	/**
 	 *

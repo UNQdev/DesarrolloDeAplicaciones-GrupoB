@@ -53,12 +53,15 @@ public class AccountRest {
     	for(Account account : accounts) {
     		try {
 				account.consolidate();
+				getAccountService().update(account);
 			} catch (Exception e) {
 				return Response.serverError().entity(e.getMessage()).build();
 			}
     	}
-
-    	return Response.ok().status(HTTP_OK).build();
+    	BankAccount bankAccount = (BankAccount) getAccountService().getById(2);
+    	Integer uncosolidationOperations = bankAccount.getDevenger().getUnConsolidatedOperations().size();
+    	
+    	return Response.ok().status(HTTP_OK).entity(uncosolidationOperations+" operaciones para devengar").build();
     }
 
     @GET

@@ -23,8 +23,7 @@ public class BankAccount extends Account {
      */
 	@Override
     public void addOperation(Operation operation) throws Exception {
-        if (operation.isDebit()) {
-      //      this.updateAccountBalance(operation.getRealAmount());
+        if (operation.isDebit()) {       
             this.updateAvailableAmount(operation.getRealAmount());
         	super.addOperation(operation);
         } else {
