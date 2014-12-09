@@ -26,12 +26,9 @@
     <div class="row">
         <!-- Page Activity -->
         <!-- new payment button -->
-        <div class="col-md-4">       
-            <!-- button to show form -->
-            <button type="button" class="btn btn-success" 
-                    ng-click="editableForm.$show() ; resetNewCategoryName()" popover="Process new payment..." 
-                    popover-trigger="mouseenter" popover-placement="right" 
-                    ng-show="!editableForm.$visible"> <i class="fa fa-plus"></i>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-success" ng-click="loadModalCreate()" popover="Add a new payment..." 
+                    popover-trigger="mouseenter" popover-placement="right"><i class="fa fa-plus"></i>
             </button>
         </div>
         

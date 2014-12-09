@@ -1,4 +1,4 @@
-function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs, resolvedPayments) {
+function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, $q, $log, $rootScope, $timeout, $translate, dialogs, resolvedPayments, $modal) {
 
     // Variables
     var restWebService = "http://localhost:8081/backend_api/rest/";
@@ -7,10 +7,7 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
     $scope.payments = resolvedPayments.data;
     console.log($scope.payments);
     
-    $scope.closeAlert = function (index) {
-        $scope.alerts.splice(index, 1);
-    };
-    
+
     // Get all categories	  
     function refreshElements() {
         var d = $q.defer();
@@ -23,7 +20,7 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
             d.reject();
         });
     }
-
+    //revisar
     $scope.checkPaymentByNumber = function (data) {
         var d = $q.defer();
         if (data == undefined) {
@@ -48,7 +45,7 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
         }
         return d.promise;
     };
-
+    //revisar
     $scope.checkPaymentByVendor = function (data) {
         var d = $q.defer();
         if (data == undefined) {
@@ -74,32 +71,28 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
         return d.promise;
     };
 
-    $scope.launchConfirmDeleteDialog = function (id) {
-        var dlg = dialogs.confirm();
-        dlg.result.then(function (btn) {
-            $scope.removePayment(id);
-        }, function (btn) {
-            console.log("Delete cancelled");
+
+    $scope.successfull = function () {
+        console.log("OK saved!");
+        $scope.alerts = [];
+        $scope.alerts.push({
+            type: 'success',
+            msg: 'Saved!'
         });
+        refreshElements();
     };
 
-    $scope.savePayment = function (data) {
-        $http.post(restWebService + 'paymentService/save', data)
-        .success( function (data, status, headers, config) {
-                if (status == 201) {
-                    $scope.alerts = [];
-                    $scope.alerts.push({
-                        type: 'success',
-                        msg: 'Saved!'
-                    });
-                    console.log("Save Payment OK");
-                    refreshElements(); //refresh table with new state
-                }
-            }).error(function (data, status, headers, config) {
-            console.log("An Error occurred while trying to store a payment");
+    $scope.loadModalCreate = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'views/paymentCreate.html',
+            controller: 'paymentNewCtrl',
+            backdrop: false,
+            size: 'lg',
+            scope: $scope
         });
-    };
-
+        modalInstance.result.then($scope.successfull);
+    };  
+    
     $scope.updatePayment = function (data, id) {
         angular.extend(data, {
             id: id
@@ -121,30 +114,6 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
             console.log("An Error occurred while trying to update a payment: " + id);
         });
     };
-
-    $scope.removePayment = function (id) {
-        $http.delete(restWebService + 'paymentService/' + id).success(
-            function (data, status, headers, config) {
-                if (status == 204) {
-                    $scope.alerts = [];
-                    $scope.alerts.push({
-                        type: 'danger',
-                        msg: 'Deleted!'
-                    });
-                    console.log("Delete Payment OK");
-                    refreshElements(); //refresh table with new state
-                }
-            }).error(function (data, status, headers, config) {
-            $scope.alerts = [];
-            $scope.alerts.push({
-                type: 'danger',
-                msg: data
-            });
-            console.log("An Error occurred while trying to delete a payment: " + id);
-        });
-    };
-    
-    
 
     /*
      *  PAYMENTS TABLE
@@ -196,32 +165,6 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
         var end = begin + $scope.itemsOnPage; 
         $scope.filteredPayments = $scope.payments.slice(begin, end);
     });
-
-
-
-    /*
-     *  INTERNACIONALIZACION
-     */
-    $scope.lang = 'en-US';
-    $scope.language = 'English';
-
-    $scope.$watch('lang', function (val, old) {
-        switch (val) {
-            case 'en-US':
-                $scope.language = 'English';
-                break;
-            case 'es':
-                $scope.language = 'Spanish';
-                break;
-        }
-    });
-
-    $scope.setLanguage = function (lang) {
-        $scope.lang = lang;
-        $translate.use(lang);
-        console.log(lang);
-    };
-
 
 
     /*

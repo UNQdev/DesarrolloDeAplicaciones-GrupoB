@@ -14,7 +14,7 @@
 
 		<property name="number"></property>
 
-		<property name="vendor"></property>
+		<many-to-one  name="vendor" cascade="all" ></many-to-one>
 		
 		<property name="invoiceType">
   		  	<type name="org.hibernate.type.EnumType">

@@ -124,5 +124,10 @@
 	<bean id="persistence.payments" class="ar.edu.unq.desapp.grupob.dao.PaymentDAO">
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
+	
+	<!-- Payments DAO -->
+	<bean id="persistence.vendors" class="ar.edu.unq.desapp.grupob.dao.VendorDAO">
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
 
 </beans>
