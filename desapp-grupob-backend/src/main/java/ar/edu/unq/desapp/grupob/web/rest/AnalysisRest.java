@@ -21,24 +21,42 @@ public class AnalysisRest {
 	private OperationAnalysisService operationAnalysisService;
 
 	@GET
-	@Path("/categoriesTotals")
+	@Path("/categoriesIncomingTotals")
 	@Produces("application/json")
-	public HashMap<String, Double> getCategoriesTotals() {
-		return getCategoryAnalysisService().calculateCategoriesTotals();
+	public HashMap<String, Double> getCategoriesIncomingTotals() {
+		return getCategoryAnalysisService().calculateCategoriesIncomingTotals();
+	};
+	@GET
+	@Path("/categoriesOutcomingTotals")
+	@Produces("application/json")
+	public HashMap<String, Double> getCategoriesOutcomingTotals() {
+		return getCategoryAnalysisService().calculateCategoriesOutcomingTotals();
 	};
 	
 	@GET
-	@Path("/subCategoriesTotals")
+	@Path("/subCategoriesIncomingTotals")
 	@Produces("application/json")
 	public HashMap<String, Double> getSubCategoriesTotals() {
-		return getCategoryAnalysisService().calculateSubCategoriesTotals();
+		return getCategoryAnalysisService().calculateSubCategoriesIncomingTotals();
+	};
+	@GET
+	@Path("/subCategoriesOutcomingTotals")
+	@Produces("application/json")
+	public HashMap<String, Double> getSubCategoriesOutcomingTotals() {
+		return getCategoryAnalysisService().calculateSubCategoriesIncomingTotals();
 	};
 	
 	@GET
-	@Path("/monthAccrual")
+	@Path("/monthIncomingAccrual")
 	@Produces("application/json")
-	public HashMap<String, Double> getMonthAccrual() {
-		return getOperationAnalysisService().calculateMonthAccrual();
+	public HashMap<String, Double> getMonthIncomingAccrual() {
+		return getOperationAnalysisService().calculateMonthIncoming();
+	};
+	@GET
+	@Path("/monthOutcomingAccrual")
+	@Produces("application/json")
+	public HashMap<String, Double> getMonthOutcomingAccrual() {
+		return getOperationAnalysisService().calculateMonthOutcoming();
 	};
 	
 	@GET

@@ -34,6 +34,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 			<ref bean="invoiceRest" />
 			<ref bean="paymentRest" />
 			<ref bean="dbInitializationRest" />
+			<ref bean="analysisRest" />
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -91,6 +92,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="paymentService" ref="services.payments" />
 	</bean>
 	
-	
+	<bean id="analysisRest" class="ar.edu.unq.desapp.grupob.web.rest.AnalysisRest">
+		<property name="operationAnalysisService" ref="services.operationsAnalysis" />
+		<property name="categoryAnalysisService" ref="services.categoriesAnalysis" />
+		<property name="vendorAnalysisService" ref="services.vendorsAnalysis" />
+	</bean>
 
 </beans>

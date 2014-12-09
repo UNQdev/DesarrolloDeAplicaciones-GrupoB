@@ -46,20 +46,20 @@ public class FakeDataRest {
         // Operations
         Operation operation1 = new Operation(
         		OperationType.Outcoming, Shift.Afternoon,
-        		DateTime.parse("2014-09-01T01:00"), 120.00,
+        		DateTime.now().minusDays(3), 120.00,
                 "",
                 compras, insumos,
                 current.getAccountName());
         Operation operation2 = new Operation(
         		OperationType.Outcoming, Shift.Beforenoon, 
-        		DateTime.parse("2014-09-05T02:00"), 658.59,
+        		DateTime.now().minusDays(2), 658.59,
         		"",
                 compras, limpieza,
                 bank.getAccountName());
         operation2.setCardType(CardType.Credit);
         Operation operation3 = new Operation(
         		OperationType.Incoming, Shift.Afternoon,
-        		DateTime.parse("2014-09-10T03:00"), 12.00,
+        		DateTime.now().minusDays(1), 12.00,
         		"Capitan Triple x1",
         		ventas, alfajores,
         		cash.getAccountName());

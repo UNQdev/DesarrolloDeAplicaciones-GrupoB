@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.Operation;
+import ar.edu.unq.desapp.grupob.model.SubCategory;
 
 /**
  * 
@@ -22,46 +23,98 @@ public class CategoryAnalysisService extends GenericService<Category> {
 	private static CategoryService categoryService;
 	private static SubCategoryService subCategoryService;
 
-	public HashMap<String, Double> calculateCategoriesTotals() {
+	public HashMap<String, Double> calculateCategoriesIncomingTotals() {
 		List<Operation> monthOperations = new ArrayList<Operation>();
-		HashMap<String, Double> categoriesTotals = new HashMap<String, Double>();
-		
-		//Get MONTH OPERATIONS
 		monthOperations = getOperationService().getMonthOperations(DateTime.now());
 		
-		//Iterate OPERATIONS and inject the real amount to the CATEGORY
+		List<Category> categoriesDomain = new ArrayList<Category>();
+		categoriesDomain = this.getCategoryService().retriveAll();
+
+		HashMap<String, Double> categoriesIncomingTotals = new HashMap<String, Double>();
+
+		for(Category category : categoriesDomain) {
+			categoriesIncomingTotals.put(category.getName(), 0.0);
+		}
+
 		for(Operation operation : monthOperations) {
 			String operationCategory = operation.getCategory().getName();
-			if (categoriesTotals.containsKey(operationCategory)) {
-				categoriesTotals.put(operationCategory, categoriesTotals.get(operationCategory)
-						+ operation.getRealAmount());
-			} else {
-				categoriesTotals.put(operationCategory, operation.getRealAmount());
+			if (operation.getRealAmount() > 0) {
+				categoriesIncomingTotals.put(operationCategory, categoriesIncomingTotals.get(operationCategory)
+						+ operation.getAmount());
 			}
 		}
-		
-		return categoriesTotals;
+		return categoriesIncomingTotals;
 	}
-
-	public HashMap<String, Double> calculateSubCategoriesTotals() {
+	
+	public HashMap<String, Double> calculateCategoriesOutcomingTotals() {
 		List<Operation> monthOperations = new ArrayList<Operation>();
-		HashMap<String, Double> subCategoriesTotals = new HashMap<String, Double>();
-		
-		//Get MONTH OPERATIONS
 		monthOperations = getOperationService().getMonthOperations(DateTime.now());
 		
-		//Iterate OPERATIONS and inject the real amount to the CATEGORY
+		List<Category> categoriesDomain = new ArrayList<Category>();
+		categoriesDomain = this.getCategoryService().retriveAll();
+
+		HashMap<String, Double> categoriesOutcomingTotals = new HashMap<String, Double>();
+
+		for(Category category : categoriesDomain) {
+			categoriesOutcomingTotals.put(category.getName(), 0.0);
+		}
+		
+		for(Operation operation : monthOperations) {
+			String operationCategory = operation.getCategory().getName();
+			if (operation.getRealAmount() < 0) {
+				categoriesOutcomingTotals.put(operationCategory, categoriesOutcomingTotals.get(operationCategory)
+						+ operation.getAmount());
+			}
+		}
+		return categoriesOutcomingTotals;
+	}
+
+	public HashMap<String, Double> calculateSubCategoriesIncomingTotals() {
+		List<Operation> monthOperations = new ArrayList<Operation>();
+		monthOperations = getOperationService().getMonthOperations(DateTime.now());
+		
+		List<SubCategory> subCategoriesDomain = new ArrayList<SubCategory>();
+		subCategoriesDomain = this.getSubCategoryService().retriveAll();
+
+		HashMap<String, Double> subCategoriesIncomingTotals = new HashMap<String, Double>();
+
+		for(SubCategory subcategory : subCategoriesDomain) {
+			subCategoriesIncomingTotals.put(subcategory.getName(), 0.0);
+		}
+		
 		for(Operation operation : monthOperations) {
 			String operationSubCategory = operation.getSubcategory().getName();
-			if (subCategoriesTotals.containsKey(operationSubCategory)) {
-				subCategoriesTotals.put(operationSubCategory, subCategoriesTotals.get(operationSubCategory)
-						+ operation.getRealAmount());
-			} else {
-				subCategoriesTotals.put(operationSubCategory, operation.getRealAmount());
+			if (operation.getRealAmount() > 0) {
+				subCategoriesIncomingTotals.put(operationSubCategory, subCategoriesIncomingTotals.get(operationSubCategory)
+						+ operation.getAmount());
 			}
 		}
 		
-		return subCategoriesTotals;
+		return subCategoriesIncomingTotals;
+	}
+	
+	public HashMap<String, Double> calculateSubCategoriesOutcomingTotals() {
+		List<Operation> monthOperations = new ArrayList<Operation>();
+		monthOperations = getOperationService().getMonthOperations(DateTime.now());
+		
+		List<SubCategory> subCategoriesDomain = new ArrayList<SubCategory>();
+		subCategoriesDomain = this.getSubCategoryService().retriveAll();
+
+		HashMap<String, Double> subCategoriesOutcomingTotals = new HashMap<String, Double>();
+
+		for(SubCategory subcategory : subCategoriesDomain) {
+			subCategoriesOutcomingTotals.put(subcategory.getName(), 0.0);
+		}
+		
+		for(Operation operation : monthOperations) {
+			String operationSubCategory = operation.getSubcategory().getName();
+			if (operation.getRealAmount() > 0) {
+				subCategoriesOutcomingTotals.put(operationSubCategory, subCategoriesOutcomingTotals.get(operationSubCategory)
+						+ operation.getAmount());
+			}
+		}
+		
+		return subCategoriesOutcomingTotals;
 	}
 
 	public OperationService getOperationService() {
