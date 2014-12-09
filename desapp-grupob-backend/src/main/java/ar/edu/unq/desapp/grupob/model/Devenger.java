@@ -22,7 +22,6 @@ public class Devenger extends Entity {
 	 */
 	private int consolidationPeriod;
     private List<Operation> unConsolidatedOperations;
-    private DateTime systemDate;
     private double unConsolidatedAmount;
 
     public Devenger () {};
@@ -67,8 +66,8 @@ public class Devenger extends Entity {
      * @return
      */
     public boolean reachedConsolidationDate(Operation operation) {
-    	return (this.getAccrualDate(operation).isEqual(this.getSystemDate()) 
-    			|| this.getAccrualDate(operation).isBefore(this.getSystemDate()));
+    	return (this.getAccrualDate(operation).isEqual(DateTime.now()) 
+    			|| this.getAccrualDate(operation).isBefore(DateTime.now()));
     }
 
     /**
@@ -135,20 +134,6 @@ public class Devenger extends Entity {
             List<Operation> operations) {
         this.unConsolidatedOperations = operations;
     }
-    /**
-     *
-     * @return
-     */
-    public DateTime getSystemDate() {
-		return systemDate;
-	}
-    /**
-     *
-     * @param systemDate
-     */
-	public void setSystemDate(DateTime date) {
-		this.systemDate = date;
-	}
 	/**
 	 *
 	 * @return
@@ -170,9 +155,8 @@ public class Devenger extends Entity {
 	 * @param date
 	 */
 	public Devenger(double amount, List<Operation> operations,
-			int days, DateTime date) {
+			int days) {
 		this.setConsolidationPeriod(days);
-		this.setSystemDate(date);
 		this.setUnConsolidatedOperations(operations);
 		this.setUnConsolidatedAmount(amount);
 	}

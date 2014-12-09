@@ -30,9 +30,11 @@ public class AccountRest {
 	
     private static final int HTTP_OK_CREATED = 201;
 
-    private static final int HTTP_OK = 200;
+    private static final int HTTP_OK = 200;    
 
     private static final int HTTP_DELETE = 204;
+    
+    private static final int HTTP_CONSOLIDATED = 207;
 
     
     @Autowired
@@ -43,6 +45,19 @@ public class AccountRest {
     @Produces("application/json")
     public List<Account> getAccounts() {
         return getAccountService().retriveAll();
+    }
+
+    @GET
+    @Path("/accountsConsolidation")
+    @Produces("application/json")
+    public Response consolidateAccounts() {
+    	List<Account> accounts = getAccountService().retriveAll();
+
+    	for(Account account : accounts) {
+    		account.consolidate();
+    	}
+
+    	return Response.ok().status(HTTP_OK).build();
     }
 
     @GET

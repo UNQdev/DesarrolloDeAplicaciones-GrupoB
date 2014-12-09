@@ -6,8 +6,8 @@ function operationsCtrl ($scope, $filter, $http, $location, $route, $q, $log, $r
     
    $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
-   };    
-	
+   };
+    
    function loadOperations () {
         $http.get(restWebService + "operationService/operations")
         .success(function (response) {

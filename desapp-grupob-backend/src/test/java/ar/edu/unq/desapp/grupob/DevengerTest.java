@@ -65,7 +65,7 @@ public class DevengerTest {
 	 */
 	@Test
 	public void testAccrualDateCalculation() {
-		DateTime operationDate = DateTime.parse("2014-09-01T01:00");
+		DateTime operationDate = DateTime.now().minusDays(5);
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
 
@@ -83,34 +83,30 @@ public class DevengerTest {
 	 */
 	@Test
 	public void testConsolidationDateReached() {
-		DateTime operationDate = DateTime.parse("2014-09-08T01:00");
-		DateTime systemDate = DateTime.parse("2014-09-15T01:01");
+		DateTime operationDate = DateTime.now().minusDays(5);
 
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
 
 		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
 		Devenger devenger = builder.withConsolidationPeriod(5)
-				.withSystemDate(systemDate)
 				.build();
 
 		assertTrue(devenger.reachedConsolidationDate(operation));
-		verify(operation, times(2)).getDate();
+		verify(operation, times(1)).getDate();
 	}
 	/**
 	 *
 	 */
 	@Test
 	public void testConsolidationDateNOTReached() {
-		DateTime operationDate = DateTime.parse("2014-09-08T01:00");
-		DateTime systemDate = DateTime.parse("2014-09-12T01:00");
+		DateTime operationDate = DateTime.now().minus(4);
 
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
 
 		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
 		Devenger devenger = builder.withConsolidationPeriod(5)
-				.withSystemDate(systemDate)
 				.build();
 
 		assertFalse(devenger.reachedConsolidationDate(operation));		
@@ -121,8 +117,7 @@ public class DevengerTest {
 	 */
 	@Test
 	public void testOperationConsolidated() {
-		DateTime systemDate = DateTime.parse("2014-09-12T01:00");
-		DateTime operationDate = DateTime.parse("2014-09-01T01:00");
+		DateTime operationDate = DateTime.now().minusDays(6);
 		double operationAmount = 100;
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
@@ -130,7 +125,6 @@ public class DevengerTest {
 
 		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
 		Devenger devenger = builder.withConsolidationPeriod(5)
-				.withSystemDate(systemDate)
 				.withSpecificOperation(operation)
 				.withUnConsolidatedAmount(operationAmount)
 				.build();
@@ -146,8 +140,7 @@ public class DevengerTest {
 	 */
 	@Test
 	public void testOperationNOTConsolidated() {
-		DateTime systemDate = DateTime.parse("2014-09-12T01:00");
-		DateTime operationDate = DateTime.parse("2014-09-08T01:00");
+		DateTime operationDate = DateTime.now().minusDays(4);
 		double operationAmount = 100;
 		Operation operation = mock(Operation.class);
 		when(operation.getDate()).thenReturn(operationDate);
@@ -155,7 +148,6 @@ public class DevengerTest {
 
 		DevengerBuilder builder = DevengerBuilder.aDevengerBuilder();
 		Devenger devenger = builder.withConsolidationPeriod(5)
-				.withSystemDate(systemDate)
 				.withSpecificOperation(operation)
 				.withUnConsolidatedAmount(operationAmount)
 				.build();

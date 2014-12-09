@@ -8,16 +8,14 @@
         <id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
-		
+
 		<property name="consolidationPeriod" type="int"></property>
-		
+
 		<bag name="unConsolidatedOperations" lazy="false" cascade="all">
 			<key column="operationID" />
 			<one-to-many class="ar.edu.unq.desapp.grupob.model.Operation" />
 		</bag>
-		
-		<property name="systemDate" type="org.joda.time.DateTime"></property>
-		
+
 		<property name="unConsolidatedAmount"></property>
 
 	</class>
