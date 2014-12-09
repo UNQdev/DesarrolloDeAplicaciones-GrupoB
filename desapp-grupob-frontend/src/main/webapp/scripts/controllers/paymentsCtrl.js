@@ -181,7 +181,7 @@ function paymentsCtrl($scope, $filter, ngTableParams, $http, $location, $route, 
      */
     $scope.filteredPayments = [];
     $scope.currentPage = 1;
-    $scope.itemsOnPage = 1;
+    $scope.itemsOnPage = 5;
     $scope.setItemsOnPage = function(value){
         $scope.itemsOnPage = value;
     }

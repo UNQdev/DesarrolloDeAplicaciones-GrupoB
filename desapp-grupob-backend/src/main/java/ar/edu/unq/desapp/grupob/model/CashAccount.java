@@ -10,10 +10,13 @@ public class CashAccount extends Account {
     }
 
     @Override
-    public void updateAccountBalance(double amount) {
+    public void updateAccountBalance(double amount) throws Exception {
         double updatedBalance = super.getAccountBalance() + amount;
         if (updatedBalance >= 0) {
             super.setAccountBalance(super.getAccountBalance() + amount);
+        }
+        else {
+            throw new Exception ("Monto inválido, la cuenta efectivo no puede quedar en negativo!");
         }
     }
 }

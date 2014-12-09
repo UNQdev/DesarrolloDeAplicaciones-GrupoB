@@ -45,6 +45,15 @@ public class CategoryRest {
     }
 
     @GET
+    @Path("/categoriesForNewOperation")
+    @Produces("application/json")
+    public List<Category> getCategoriesForNewOperation() {
+        List<Category> categoryListWithoutCompras = getCategoryService().retriveAll();
+        categoryListWithoutCompras.remove(0);
+        return categoryListWithoutCompras;
+    }
+    
+    @GET
     @Path("/byId/{id}")
     @Produces("application/json")
     public Category getCategoryById(@PathParam("id") final int id) {

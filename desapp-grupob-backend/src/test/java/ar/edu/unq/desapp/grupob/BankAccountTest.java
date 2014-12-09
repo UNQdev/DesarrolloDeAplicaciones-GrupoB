@@ -38,10 +38,11 @@ public class BankAccountTest {
         assertEquals(bank.getOperations().size(), 0);
     }
     /**
+     * @throws Exception 
      *
      */
     @Test
-    public void testAddOperation() {
+    public void testAddOperation() throws Exception {
     	Operation operation = mock(Operation.class);
         when(operation.getAmount()).thenReturn((double) 100);
 

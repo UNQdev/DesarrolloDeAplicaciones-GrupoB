@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 
 import ar.edu.unq.desapp.grupob.model.Account;
 import ar.edu.unq.desapp.grupob.model.AccountType;
+import ar.edu.unq.desapp.grupob.model.CardType;
 import ar.edu.unq.desapp.grupob.model.Category;
 import ar.edu.unq.desapp.grupob.model.Invoice;
 import ar.edu.unq.desapp.grupob.model.Operation;
@@ -27,6 +28,7 @@ public class OperationBuilder {
     private Category category;
     private SubCategory subcategory;
     private AccountType accountType;
+    private CardType cardType;
 
     // Constructor method
     public Operation build() {
@@ -72,5 +74,17 @@ public class OperationBuilder {
     public OperationBuilder withAccount(final AccountType accountType) {
         this.accountType = accountType;
         return this;
+    }
+    public OperationBuilder withCardType(final CardType cardType) {
+        this.setCardType(cardType);
+        return this;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
     }
 }

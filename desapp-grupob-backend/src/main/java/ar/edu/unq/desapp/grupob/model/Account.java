@@ -14,31 +14,35 @@ public abstract class Account extends Entity{
     /**
      * 
      * @param operation
+     * @throws Exception 
      */
-    public void addOperation(Operation operation) {
-        this.getOperations().add(operation);
-        operation.setAccountType(getAccountName());
+    public void addOperation(Operation operation) throws Exception {
         this.updateAccountBalance(operation.getRealAmount());
+        this.getOperations().add(operation);
+        operation.setAccountType(getAccountName()); //necesario para que sea consistente y evitar un switch en el rest service
     }
     /**
      * 
      * @param operation
+     * @throws Exception 
      */
-    public void removeOperation(Operation operation)  {
+    public void removeOperation(Operation operation) throws Exception  {
         this.getOperations().remove(operation);
         this.updateAccountBalance(operation.getRealAmount());
     }
     /**
      * 
      * @param amount
+     * @throws Exception 
      */
-    public void updateAccountBalance(double amount){
+    public void updateAccountBalance(double amount) throws Exception{
         this.setAccountBalance(this.getAccountBalance() + amount);
     }
     /**
+     * @throws Exception 
      * 
      */
-    public void consolidate() {
+    public void consolidate() throws Exception {
         this.updateAccountBalance(0);
     }
 

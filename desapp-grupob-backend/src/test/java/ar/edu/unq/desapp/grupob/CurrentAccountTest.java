@@ -20,7 +20,7 @@ public class CurrentAccountTest {
     }
 
     @Test
-    public void testCurrentAccountAddOperationTypeIncoming() {
+    public void testCurrentAccountAddOperationTypeIncoming() throws Exception {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
@@ -35,7 +35,7 @@ public class CurrentAccountTest {
     }
 
     @Test
-    public void testCurrentAccountAddOperationTypeOutcoming() {
+    public void testCurrentAccountAddOperationTypeOutcoming() throws Exception {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
@@ -50,7 +50,7 @@ public class CurrentAccountTest {
     }
     
     @Test
-    public void testCurrentAccountRemoveOperationTypeIncoming() {
+    public void testCurrentAccountRemoveOperationTypeIncoming() throws Exception {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
@@ -66,7 +66,7 @@ public class CurrentAccountTest {
     }
     
     @Test
-    public void testCurrentAccountRemoveOperationTypeOutcoming() {
+    public void testCurrentAccountRemoveOperationTypeOutcoming() throws Exception {
         CurrentAccount cc = new CurrentAccount();
 
         OperationBuilder builder = OperationBuilder.aOperationBuilder();
@@ -81,7 +81,7 @@ public class CurrentAccountTest {
     }
     
     @Test
-    public void testCurrentAccountBalance () {
+    public void testCurrentAccountBalance () throws Exception {
         CurrentAccount cc = new CurrentAccount();
         cc.consolidate();
         

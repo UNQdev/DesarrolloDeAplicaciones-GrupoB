@@ -228,7 +228,29 @@ ul.alert-dropdown {
     color: #df8a13;
 }
 
-
 .error {
     color: red;
+}
+
+.money {
+    text-align: right !important;
+}
+
+.negative {
+    color: red;
+    font-style: italic;
+}
+
+.incoming {
+    color: green;
+    font-family: fantasy;
+    font-size: 20px;
+}
+
+.outcoming {
+    color: red;
+    font-family: fantasy;
+    font-size: 20px;
+}
+
 }

@@ -11,7 +11,7 @@ var feag = angular.module('feag', [ 'ngAnimate', 'ngCookies',
                                     'ngResource', 'pascalprecht.translate',
                                     'ngRoute', 'ngSanitize', 'ngTouch', 'ngGrid',
                                     'xeditable', 'ui.bootstrap', 'ngTable',
-                                    'dialogs.main','dialogs.default-translations','ng-currency' ]);
+                                   'dialogs.main','dialogs.default-translations','ng-currency', 'ngCsv' ]);
 
 
 feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
@@ -43,7 +43,6 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
                     resolvedSubCategories : ['resolverService', '$route', function(resolverService, $route) {
                         console.log($route);
                         var id = $route.current.params.categoryId;
-                        console.log('me traje esta id ' + id);
                         return resolverService.getSubCategories(id);
                     }
                 ]}
@@ -84,7 +83,6 @@ feag.service('resolverService', ['$http', function($http) {
       getOperations: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'operationService/operations' })
           .success(function(data, status, headers, config) {
-              console.log('get operation resolverService ' + data);
               return data;
           });
           return promise;
@@ -92,7 +90,6 @@ feag.service('resolverService', ['$http', function($http) {
       getCategories: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'categoryService/categories' })
           .success(function(data, status, headers, config) {
-              console.log('get category resolverService ' + data);
               return data;
           });
           return promise;
@@ -100,7 +97,6 @@ feag.service('resolverService', ['$http', function($http) {
       getSubCategories: function(id) {
           var promise = $http({ method: 'GET', url: restWebService + 'subcategoryService/byCategoryId/' + id })
           .success(function(data, status, headers, config) {
-              console.log('get subcategory resolverService ' + data);
               return data;
           });
           return promise;
@@ -108,7 +104,6 @@ feag.service('resolverService', ['$http', function($http) {
       getPayments: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'paymentService/payments' })
           .success(function(data, status, headers, config) {
-              console.log('get payment resolverService ' + data);
               return data;
           });
           return promise;
@@ -116,7 +111,6 @@ feag.service('resolverService', ['$http', function($http) {
       getInvoices: function() {
           var promise = $http({ method: 'GET', url: restWebService + 'invoiceService/invoices' })
           .success(function(data, status, headers, config) {
-              console.log('get invoice resolverService ' + data);
               return data;
           });
           return promise;

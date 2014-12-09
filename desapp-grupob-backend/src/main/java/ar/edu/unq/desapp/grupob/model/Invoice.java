@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 public class Invoice extends Entity{
 
     private static final long serialVersionUID = 8526907700926481970L;
-    
+
     private String number;
     private DateTime date;
     private Vendor vendor;
@@ -28,7 +28,7 @@ public class Invoice extends Entity{
         this.setSubtotal(subtotal);
         this.setTotal(invoiceType.getTotal(subtotal, 0.0));
     }
-    
+
     public Invoice(String number, DateTime date, Vendor entity, InvoiceType invoiceType, 
             String description, double subtotal, double tax, boolean hasIIBB, double noGrabado) {
         this.setNumber(number);

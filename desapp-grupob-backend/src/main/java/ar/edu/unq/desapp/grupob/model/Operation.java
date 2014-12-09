@@ -52,8 +52,15 @@ public class Operation extends Entity {
         return this.getType().getValue(this.getAmount());
     }
     
-    public String getDateToString(){
+    public String getDateToString() {
         return this.getDate().toString("YYYY-MM-dd");
+    }
+
+    public boolean isDebit() {
+    	if ( cardType != null ){
+    	    return this.getCardType().isDebit();
+    	}
+    	else return false;
     }
     
     /*

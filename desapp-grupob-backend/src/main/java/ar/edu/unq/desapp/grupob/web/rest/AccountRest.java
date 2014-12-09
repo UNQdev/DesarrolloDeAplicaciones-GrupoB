@@ -33,10 +33,7 @@ public class AccountRest {
     private static final int HTTP_OK = 200;    
 
     private static final int HTTP_DELETE = 204;
-    
-    private static final int HTTP_CONSOLIDATED = 207;
 
-    
     @Autowired
     private AccountService accountService;
     
@@ -54,7 +51,11 @@ public class AccountRest {
     	List<Account> accounts = getAccountService().retriveAll();
 
     	for(Account account : accounts) {
-    		account.consolidate();
+    		try {
+				account.consolidate();
+			} catch (Exception e) {
+				return Response.serverError().entity(e.getMessage()).build();
+			}
     	}
 
     	return Response.ok().status(HTTP_OK).build();

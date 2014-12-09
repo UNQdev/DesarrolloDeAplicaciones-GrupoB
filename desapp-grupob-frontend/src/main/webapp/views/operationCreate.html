@@ -37,15 +37,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group col-md-6">
-                    <legend>Category</legend>
-                    <small ng-show="!categoryId" class="error" >requiered (*)</small>
-                    <select required class="form-control" name="categoryName" ng-change="loadSubcategories(categoryId)" 
-                            ng-model="categoryId" ng-options="cat.id as cat.name for cat in categories" tabindex="3">
+                    <legend>Categoria</legend> 
+                    <small ng-show="!operation.category" class="error" >requiered (*)</small>
+                    <select required class="form-control" name="categoryName" ng-change="loadSubcategories(operation.category)" 
+                            ng-model="operation.category" ng-options="cat.id as cat.name for cat in categories" tabindex="3">
                         <option value="">seleccionar categoria</option>
-                    </select>    
+                    </select> 
+                    <small>for 'Compras' go to Payments</small>
                 </div>
                 <div class="form-group col-md-6">
-                    <legend for="subcategoryName">SubCategory</legend>
+                    <legend for="subcategoryName">SubCategoria</legend>
                     <small ng-show="!operation.subcategory" class="error" >requiered (*)</small>
                     <select required class="form-control" name="optionsSubcategories" 
                             ng-options="subcat.id as subcat.name for subcat in subcategories" ng-model="operation.subcategory" tabindex="4">
@@ -58,7 +59,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group col-md-6">
-                    <legend>Concept</legend>
+                    <legend>Concepto</legend>
                     <small ng-show="!operation.concept" class="error" >requiered (*)</small>
                     <textarea rows="3" type="text" class="form-control" placeholder="Ingresar concepto" 
                               ng-model="operation.concept" tabindex="5" required name="description"></textarea>    
@@ -74,16 +75,18 @@
                 </div>
                 <div class="form-group col-md-3" ng-show="showBankOptions">
                     <legend>Tarjeta</legend>
-                    <small ng-show="!operation.bankType" class="error" >requiered (*)</small>
+                    <small ng-show="!operation.cardType" class="error" >requiered (*)</small>
                     <label class="radio controls" ng-repeat="tarjeta in tarjetas">
                         <label>
-                           <input type="radio" name="optionsBank" id="{{tarjeta}" ng-model="operation.bankType" 
+                           <input type="radio" name="optionsBank" id="{{tarjeta}" ng-model="operation.cardType" 
                                    value="{{tarjeta}}" tabindex="7">{{tarjeta}}
                         </label>
                 </div>
             </div>
         </div> 
-        
+        <div class="row">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"> {{alert.msg}} </alert>        
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group col-md-6">
@@ -99,17 +102,17 @@
                     <legend>Monto</legend>
                     <small ng-show="!operation.amount" class="error" >requiered (*)</small>
                     <input name="monto" type="text" placeholder="Ingrese monto" ng-model="operation.amount"
-                           ng-requiered="true" ng-currency min="0.01" tabindex="9">
-                    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"> {{alert.msg}} </alert>
+                           ng-requiered="true" ng-currency min="0.01" tabindex="9" 
+                           ng-class="{ incoming: operation.type == 'Incoming' , outcoming: operation.type == 'Outcoming' }">
                 </br>
                 </br> 
                 </div>
-
+                
                 <!-- BOTONES -->
                 <div class="col-md-3 col-md-offset-3" >
                     <button ng-disabled="operationForm.$invalid || (operation.amount == null)" ng-click="save()" type="submit" 
-                            class="btn btn-primary">Guardar</button>
-                    <button type="button" class="btn" ng-click="closeModal()" >Cancel</button>
+                            class="btn btn-primary" tabindex="10">Guardar</button>
+                    <button type="button" class="btn" ng-click="closeModal()" tabindex="11" >Cancel</button>
                 </div>
                
             </div>
@@ -117,5 +120,6 @@
         </fieldset>
     </form>
     </br>
-    </br>          
+    </br>
+
 </div>
