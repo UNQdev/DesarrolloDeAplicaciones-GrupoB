@@ -49,10 +49,11 @@ public class FakeDataRest {
         Category logistica = new Category ("Logistica");
         logistica.createSubCategory(new SubCategory("Remis"));
         
-        getCategoryService().save(logistica);
-        getCategoryService().save(gastosGenerales);
+     
         getCategoryService().save(compras);
         getCategoryService().save(ventas);
+        getCategoryService().save(logistica);
+        getCategoryService().save(gastosGenerales);
         
         // Operations
         Operation operation1 = new Operation(

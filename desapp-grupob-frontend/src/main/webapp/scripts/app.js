@@ -98,7 +98,7 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
                 ]}
             })
 
-            /*.when('/vendors', {
+            .when('/vendors', {
                 templateUrl : 'views/vendorsCRUD.html',
                 controller : 'vendorsCtrl',
                 resolve : {
@@ -106,7 +106,7 @@ feag.config([ '$routeProvider', function($routeProvider) { $routeProvider
                         return resolverService.getVendors();
                     }
                 ]}
-            })*/
+            })
 			
             /** Home **/
 			.otherwise({

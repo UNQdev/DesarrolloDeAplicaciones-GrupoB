@@ -68,7 +68,6 @@ function paymentNewCtrl ($scope, $filter, $http, $location, $route, $q, $log, $r
                 date: $scope.date, category: 1, tax : $scope.selectedTax.value
             });
             var jsonPayment = angular.toJson($scope.payment);
-        console.log(jsonPayment);
            $http.post(restWebService +'paymentService/save', jsonPayment).success(
                 function(data, status, headers, config) {
                     if (status == 200) {

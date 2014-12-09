@@ -50,7 +50,7 @@
                     <tr style="font-weight: bold">
                         <td class="col-md-6"> Name</td>
                         <td class="col-md-4"> Tax Code</td>
-                        <td class="col-md-2"> Actions</td>
+                        <!--<td class="col-md-2"> Actions</td>-->
                     </tr>
                     <tr ng-repeat="vendor in filteredVendors | orderBy:'id':true | filter:byName">
                         <td>
@@ -65,8 +65,8 @@
                         </td>
                         
                         
-                        <td style="white-space: nowrap">
-                            <!-- form -->
+<!--                        <td style="white-space: nowrap">
+                             form 
                             <form editable-form name="rowform" onbeforesave="updateVendor($data, vendor.id)" 
                                   ng-show="rowform.$visible" class="form-buttons form-inline">
                                 <button type="submit" ng-disabled="rowform.$waiting" 
@@ -82,7 +82,7 @@
                                     <i class="fa fa-trash-o"></i>
                                 </button>
                             </div>
-                        </td>
+                        </td>-->
                     </tr>
                 </table>
                 <br>
